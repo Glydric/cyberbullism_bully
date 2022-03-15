@@ -1,8 +1,8 @@
 # cyberbullism_bully
 
-A new Flutter project.
+An Italian Flutter project against cyberbullism
 
-## Getting Started
+## Help - Getting Started
 
 This project is a starting point for a Flutter application.
 
