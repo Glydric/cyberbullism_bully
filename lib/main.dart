@@ -11,21 +11,18 @@ import 'package:flutter/material.dart';
 // is not restarted.
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Demo app',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      home: HomePage(),
     );
   }
 }
@@ -38,9 +35,8 @@ class MyApp extends StatelessWidget {
 // the State. Fields in a Widget subclass are always marked "final".
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  final String title = 'Flutter Demo Home Page';
+  final int x = 10;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -52,9 +48,7 @@ class _HomePageState extends State<HomePage> {
   void _incrementCounter() {
     // setState() rerun the build method below so that the display can reflect
     // the updated values. If we change _counter without calling setState(), nothing would happen
-    setState(() {
-      counter++;
-    });
+    setState(() => counter++);
   }
 
   @override
@@ -81,16 +75,15 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             const Text('You have pushed the button this many times:'),
             Text(
-              '$counter',
-              style: Theme.of(context).textTheme.headline4,
+              counter.toString(),
+              style: Theme.of(context).textTheme.headline1,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.ads_click_outlined),
       ), // This comma makes auto-formatting nicer for build methods.
     );
   }
