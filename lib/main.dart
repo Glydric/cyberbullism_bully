@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../psyco.dart';
 
 // This is the theme of your application.
 //
@@ -11,14 +12,21 @@ import 'package:flutter/material.dart';
 // is not restarted.
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/UserInfo', //'/main',
+      routes: {
+        //'/main': (context) => HomePage(),
+        '/UserInfo': (context) => const UserInfo(),
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -33,6 +41,46 @@ class MyApp extends StatelessWidget {
 // This class . It holds the values provided
 // by the parent (in this case the App widget) and used by the build method of
 // the State. Fields in a Widget subclass are always marked "final".
+
+class UserInfo extends StatefulWidget {
+  const UserInfo({Key? key}) : super(key: key);
+
+  @override
+  State<UserInfo> createState() => _UserInfoState('', 'api', '');
+}
+
+class _UserInfoState extends State<UserInfo> {
+  Psyco? psy;
+
+  _UserInfoState(String nome, String cognome, String ordine) {
+    psy = Psyco.fromAlbo(
+      nome,
+      cognome,
+      ordine,
+    );
+  }
+
+  // _initPsy(String nome, String cognome, String ordine) async {
+  //   psy = await getPsyco(nome, cognome, ordine);
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("User info")),
+      body: ListView(
+        children: [
+          Text(psy!.getNome()),
+          Text(psy!.getCognome()),
+          Text(psy!.getOrdine()),
+          Text(psy!.getSezione()),
+          Text(psy!.isValid()),
+          Text(psy!.getPec()),
+        ],
+      ),
+    );
+  }
+}
 
 class HomePage extends StatefulWidget {
   final String title = 'Flutter Demo Home Page';
@@ -55,7 +103,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
         // Here we take the value from the HomePage object that was created by
         // the App.build method, and use it to set our appbar title.
