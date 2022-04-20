@@ -55,6 +55,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         // Here we take the value from the HomePage object that was created by
         // the App.build method, and use it to set our appbar title.
