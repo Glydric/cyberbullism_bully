@@ -57,6 +57,7 @@ class _UserInfoState extends State<UserInfo> {
       nome,
       cognome,
       ordine,
+      0,
     );
   }
 
