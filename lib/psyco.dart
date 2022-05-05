@@ -24,6 +24,7 @@ class Psyco {
       ).then(
         (http.Response res) {
           if (res.statusCode < 200 || 400 < res.statusCode) {
+
             throw Exception("Error while fetching data");
           }
           urlParser(i, res.body);
