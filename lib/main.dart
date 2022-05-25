@@ -59,7 +59,6 @@ class _UserInfoState extends State<UserInfo> {
 
   @override
   Widget build(BuildContext context) {
-    //return _body;
     return Scaffold(
       appBar: AppBar(title: const Text("User info")),
       body: Center(
@@ -68,14 +67,17 @@ class _UserInfoState extends State<UserInfo> {
               psy.getFuturePsyco(widget.nome, widget.cognome, widget.ordine, 0),
           builder: (BuildContext context, AsyncSnapshot<Psyco> snapshot) {
             if (!snapshot.hasData) return const CircularProgressIndicator();
-            return ListView(padding: const EdgeInsets.all(20), children: [
-              Text(psy.getNome()),
-              Text(psy.getCognome()),
-              Text(psy.getOrdine()),
-              Text(psy.getSezione()),
-              Text(psy.isValid()),
-              Text(psy.getPec()),
-            ]);
+            return ListView(
+              padding: const EdgeInsets.all(20),
+              children: [
+                Text(psy.getNome()),
+                Text(psy.getCognome()),
+                Text(psy.getOrdine()),
+                Text(psy.getSezione()),
+                Text(psy.isValid()),
+                Text(psy.getPec()),
+              ],
+            );
           },
         ),
       ),
