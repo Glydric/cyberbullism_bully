@@ -11,7 +11,7 @@ class Psyco {
     getPsyco(nome, cognome, ordine, i);
   }
 
-  getPsyco(String nome, String cognome, String ordine, int i) async =>
+  getPsyco(String nome, String cognome, String ordine, int i) async => // è anche possibile usare un http.get
       http.post(
         Uri.parse(
             "https://areariservata.psy.it/cgi-bin/areariservata/albo_nazionale.cgi"),
@@ -24,7 +24,6 @@ class Psyco {
       ).then(
         (http.Response res) {
           if (res.statusCode < 200 || 400 < res.statusCode) {
-
             throw Exception("Error while fetching data");
           }
           urlParser(i, res.body);
