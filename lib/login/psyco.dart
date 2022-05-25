@@ -7,11 +7,10 @@ import 'package:http/http.dart' as http;
 class Psyco {
   Map map = HashMap<dynamic, dynamic>();
 
-  Psyco.fromAlbo(String nome, String cognome, String ordine, int i) {
-    getPsyco(nome, cognome, ordine, i);
-  }
+  Psyco();
 
-  getPsyco(String nome, String cognome, String ordine, int i) async => // è anche possibile usare un http.get
+  Future<Psyco> getFuturePsyco(String nome, String cognome, String ordine,
+          int i) async => // è anche possibile usare un http.get
       http.post(
         Uri.parse(
             "https://areariservata.psy.it/cgi-bin/areariservata/albo_nazionale.cgi"),
@@ -27,10 +26,11 @@ class Psyco {
             throw Exception("Error while fetching data");
           }
           urlParser(i, res.body);
+          return this;
         },
       );
 
-  urlParser(int i, String body) {
+  void urlParser(int i, String body) {
     var a = parse(body)
         .getElementsByClassName("testo_small")[0]
         .getElementsByTagName("td");
