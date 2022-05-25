@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../psyco.dart';
+import '/login/psyco.dart';
 
 // This is the theme of your application.
 //
@@ -70,6 +70,7 @@ class _UserInfoState extends State<UserInfo> {
     return Scaffold(
       appBar: AppBar(title: const Text("User info")),
       body: ListView(
+        padding: const EdgeInsets.all(20),
         children: [
           Text(psy!.getNome()),
           Text(psy!.getCognome()),
@@ -109,10 +110,7 @@ class _HomePageState extends State<HomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
+      body: Column(
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
           // children horizontally, and tries to be as tall as its parent.
@@ -122,17 +120,19 @@ class _HomePageState extends State<HomePage> {
           // to see the wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
+            const Text(
+              'You have pushed the button this many times:',
+              textAlign: TextAlign.right
+              ),
             Text(
               counter.toString(),
               style: Theme.of(context).textTheme.headline1,
             ),
           ],
         ),
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        child: const Icon(Icons.ads_click_outlined),
+        child: const Icon(Icons.add),
       ), // This comma makes auto-formatting nicer for build methods.
     );
   }
