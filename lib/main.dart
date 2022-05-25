@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/UserInfo', //'/main',
       routes: {
         //'/main': (context) => HomePage(),
-        '/UserInfo': (context) => const UserInfo(),
+        '/UserInfo': (context) => UserInfo('', 'api', ''),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -43,42 +43,41 @@ class MyApp extends StatelessWidget {
 // the State. Fields in a Widget subclass are always marked "final".
 
 class UserInfo extends StatefulWidget {
-  const UserInfo({Key? key}) : super(key: key);
+  final nome;
+  final cognome;
+  final ordine;
+
+  const UserInfo(this.nome, this.cognome, this.ordine, {Key? key})
+      : super(key: key);
 
   @override
-  State<UserInfo> createState() => _UserInfoState('', 'api', '');
+  State<UserInfo> createState() => _UserInfoState();
 }
 
 class _UserInfoState extends State<UserInfo> {
-  Psyco? psy;
-
-  _UserInfoState(String nome, String cognome, String ordine) {
-    psy = Psyco.fromAlbo(
-      nome,
-      cognome,
-      ordine,
-      0,
-    );
-  }
-
-  // _initPsy(String nome, String cognome, String ordine) async {
-  //   psy = await getPsyco(nome, cognome, ordine);
-  // }
+  Psyco psy = new Psyco();
 
   @override
   Widget build(BuildContext context) {
+    //return _body;
     return Scaffold(
       appBar: AppBar(title: const Text("User info")),
-      body: ListView(
-        padding: const EdgeInsets.all(20),
-        children: [
-          Text(psy!.getNome()),
-          Text(psy!.getCognome()),
-          Text(psy!.getOrdine()),
-          Text(psy!.getSezione()),
-          Text(psy!.isValid()),
-          Text(psy!.getPec()),
-        ],
+      body: Center(
+        child: FutureBuilder<Psyco>(
+          future:
+              psy.getFuturePsyco(widget.nome, widget.cognome, widget.ordine, 0),
+          builder: (BuildContext context, AsyncSnapshot<Psyco> snapshot) {
+            if (!snapshot.hasData) return const CircularProgressIndicator();
+            return ListView(padding: const EdgeInsets.all(20), children: [
+              Text(psy.getNome()),
+              Text(psy.getCognome()),
+              Text(psy.getOrdine()),
+              Text(psy.getSezione()),
+              Text(psy.isValid()),
+              Text(psy.getPec()),
+            ]);
+          },
+        ),
       ),
     );
   }
@@ -111,25 +110,23 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
       ),
       body: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console or the
-          // "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-              textAlign: TextAlign.right
-              ),
-            Text(
-              counter.toString(),
-              style: Theme.of(context).textTheme.headline1,
-            ),
-          ],
-        ),
+        // Column is also a layout widget. It takes a list of children and
+        // arranges them vertically. By default, it sizes itself to fit its
+        // children horizontally, and tries to be as tall as its parent.
+        //
+        // Invoke "debug painting" (press "p" in the console or the
+        // "Toggle Debug Paint" command in Visual Studio Code)
+        // to see the wireframe for each widget.
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text('You have pushed the button this many times:',
+              textAlign: TextAlign.right),
+          Text(
+            counter.toString(),
+            style: Theme.of(context).textTheme.headline1,
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         child: const Icon(Icons.add),
