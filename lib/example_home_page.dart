@@ -7,17 +7,17 @@ import 'package:flutter/material.dart';
 // by the parent (in this case the App widget) and used by the build method of
 // the State. Fields in a Widget subclass are always marked "final".
 
-class HomePage extends StatefulWidget {
+class ExampleHomePage extends StatefulWidget {
   final String title = 'Flutter Demo Home Page';
   final int x = 10;
 
-  const HomePage({Key? key}) : super(key: key);
+  const ExampleHomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ExampleHomePage> createState() => _ExampleHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ExampleHomePageState extends State<ExampleHomePage> {
   int counter = 0;
 
   void _incrementCounter() {
