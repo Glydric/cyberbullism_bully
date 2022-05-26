@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'psyco.dart';
 
 class UserInfo extends StatefulWidget {
-  final nome;
-  final cognome;
-  final ordine;
+  final String nome;
+  final String cognome;
+  final String ordine;
 
   const UserInfo(this.nome, this.cognome, this.ordine, {Key? key})
       : super(key: key);

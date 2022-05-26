@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // importo pagine flutter
 import 'example_home_page.dart';
-import 'login/login.dart';
+import 'login/login_screen.dart';
 
 /// Questa classe è la classe principale che avvia tutta l'app flutter
 void main() => runApp(const MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const ExampleHomePage(),
     );
   }
 }
