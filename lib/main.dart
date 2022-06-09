@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //initialRoute: '/UserInfo', //'/main',
+      //initialRoute: '/UserInfo', //'/main', 
       // routes: {
       //   //'/main': (context) => HomePage(),
       //   '/UserInfo': (context) => const UserInfo('', 'api', ''),
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ScreenSwitcher(),
+      home: ScreenSwitcher(),
     );
   }
 }
