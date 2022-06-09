@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-// importo pagine flutter
-import 'example_home_page.dart';
-import 'login/login_screen.dart';
+import 'screen_switcher.dart';
 
 /// Questa classe è la classe principale che avvia tutta l'app flutter
 void main() => runApp(const MyApp());
@@ -13,17 +10,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/UserInfo', //'/main',
-      routes: {
-        //'/main': (context) => HomePage(),
-
-        '/UserInfo': (context) => const UserInfo('', 'api', ''),
-      },
+      //initialRoute: '/UserInfo', //'/main',
+      // routes: {
+      //   //'/main': (context) => HomePage(),
+      //   '/UserInfo': (context) => const UserInfo('', 'api', ''),
+      // },
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-
-      home: const ExampleHomePage(),
+      home: const ScreenSwitcher(),
     );
   }
 }
