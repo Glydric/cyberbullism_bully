@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         //'/main': (context) => HomePage(),
 
-        '/UserInfo': (context) => const UserInfo('', 'api', ''),]
+        '/UserInfo': (context) => const UserInfo('', 'api', ''),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
