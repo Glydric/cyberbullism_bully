@@ -5,6 +5,7 @@ import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 
 class Psyco {
+
   Map map = HashMap<String, dynamic>();
 
   Psyco();
@@ -24,6 +25,7 @@ class Psyco {
       ).then(
         (http.Response res) {
           if (res.statusCode < 200 || 400 < res.statusCode) {
+
             throw Exception(
                 "Error while fetching data, code" + res.statusCode.toString());
           }
@@ -33,6 +35,7 @@ class Psyco {
       );
 
   void urlParser(int i, String body) {
+
     var table = parse(body)
         .getElementsByClassName("testo_small")[0]
         .getElementsByTagName("td");
