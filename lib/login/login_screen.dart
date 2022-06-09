@@ -19,7 +19,7 @@ class _UserInfoState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("User info")),
+      appBar: AppBar(title: const Text("User info")), // use actions + button for searching
       body: Center(
         child: FutureBuilder<Psyco>(
           future:
