@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // importo pagine flutter
 import 'example_home_page.dart';
-import 'login/login_screen.dart';
+import 'login/psyco_view.dart';
 
 class ScreenSwitcher extends StatefulWidget {
   const ScreenSwitcher({Key? key}) : super(key: key);
@@ -28,20 +28,21 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
     return Scaffold(
       body: _screen[_index],
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 1,
         type: BottomNavigationBarType.fixed,
         currentIndex: _index,
         onTap: _updateIndex,
         items: const [
           BottomNavigationBarItem(
-            label: "Learning (In work)",
+            label: "Learning (Later)",
             icon: Icon(Icons.description),
           ),
           BottomNavigationBarItem(
-            label: "Home (In work)",
+            label: "Home (Later)",
             icon: Icon(Icons.dangerous),
           ),
           BottomNavigationBarItem(
-            label: "User (half in work)",
+            label: "User (in work)",
             icon: Icon(Icons.account_circle_outlined),
           ),
         ],
