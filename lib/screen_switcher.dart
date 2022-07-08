@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // importo pagine flutter
 import 'example_home_page.dart';
-import 'login/psyco_view.dart';
+import 'psyco/psyco_view.dart';
 
 class ScreenSwitcher extends StatefulWidget {
   const ScreenSwitcher({Key? key}) : super(key: key);
