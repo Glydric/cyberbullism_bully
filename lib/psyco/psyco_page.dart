@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'psyco.dart';
+import 'psyco_url_getter.dart';
 
 class UserInfo extends StatefulWidget {
   final String nome;
@@ -14,27 +15,28 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  Psyco psy = Psyco();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("User info")), // use actions + button for searching
+      appBar: AppBar(
+          title: const Text("User info")), // use actions + button for searching
       body: Center(
         child: FutureBuilder<Psyco>(
-          future:
-              psy.getFuturePsyco(widget.nome, widget.cognome, widget.ordine, 0),
+          future: PsycoUrlGetter.getFuturePsyco(
+              widget.nome, widget.cognome, widget.ordine, 0),
           builder: (BuildContext context, AsyncSnapshot<Psyco> snapshot) {
             if (!snapshot.hasData) return const CircularProgressIndicator();
+            Psyco psy = snapshot.requireData;
             return ListView(
               padding: const EdgeInsets.all(20),
               children: [
-                Text(psy.getNome()),
-                Text(psy.getCognome()),
-                Text(psy.getOrdine()),
-                Text(psy.getSezione()),
-                Text(psy.isValid()),
-                Text(psy.getPec()),
+                Text(psy.nome),
+                Text(psy.cognome),
+                Text(psy.ordine),
+                Text(psy.sezione),
+                Text(psy.isValid.toString()),
+                Text(psy.email),
+                Text(psy.pageUrl),
               ],
             );
           },

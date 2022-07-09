@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // importo pagine flutter
 import 'example_home_page.dart';
-import 'psyco/psyco_view.dart';
+import 'psyco/psyco_page.dart';
 
 class ScreenSwitcher extends StatefulWidget {
   const ScreenSwitcher({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   final List _screen = const [
     ExampleHomePage(),
     ExampleHomePage(),
-    UserInfo('', 'api', '')
+    UserInfo('', 'api', 'valeria')
   ];
 
   void _updateIndex(int value) {
