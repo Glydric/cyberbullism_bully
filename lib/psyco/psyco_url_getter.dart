@@ -8,27 +8,24 @@ import 'psyco.dart';
 const String alboUrl = "https://areariservata.psy.it";
 
 class PsycoUrlGetter {
-  static Future<Psyco> getFuturePsyco(
-          String nome, String cognome, String ordine, int i) async =>
-      post(
-        Uri.parse(alboUrl + "/cgi-bin/areariservata/albo_nazionale.cgi"),
-        body: {
-          'name': nome,
-          'cognome': cognome,
-          'ordine': ordine,
-          'azione': 'cerca'
-        },
-      ).then(
-        (Response res) {
-          if (res.statusCode < 200 || 400 < res.statusCode) {
-            throw Exception(
-                "Error while fetching data, code ${res.statusCode}");
-          }
-          return Psyco(psycoUrlParser(i, res.body));
-        },
-      );
+  static getFuturePsyco(String nome, String cognome, String ordine, int i) =>
+      getFutureMap(nome, cognome, ordine, i)
+          .then((map) => addPec(map))
+          .then((map) => Psyco(map));
 
-  static Map<String, dynamic> psycoUrlParser(int i, String body) {
+  static Future<Map<String, dynamic>> getFutureMap(
+          String nome, String cognome, String ordine, int i) async =>
+      get(
+        Uri.parse(alboUrl +
+            "/cgi-bin/areariservata/albo_nazionale.cgi" +
+            "?azione=cerca&name=$nome&cognome=$cognome&ordine=$ordine"),
+      ).then((response) => response.statusCode < 200 ||
+              400 < response.statusCode
+          ? throw Exception("Error ${response.statusCode} while fetching data")
+          : psycoBodyParser(response.body, i));
+
+  /// Tasforma il body in una map
+  static Map<String, dynamic> psycoBodyParser(String body, int i) {
     Map<String, dynamic> map = HashMap();
     int _index = 8 * i;
 
@@ -40,13 +37,27 @@ class PsycoUrlGetter {
     map["nome"] = table[_index + 1].innerHtml;
     map["ordine"] = extractFromTag(table[_index + 2], 'a').innerHtml;
     map["sezione"] = extractFromTag(table[_index + 3], 'b').innerHtml;
-    map["isValid"] = extractFromTag(table[_index + 5], 'font').innerHtml.isEmpty;
-    map["pageUrl"] =
-        alboUrl + extractFromTag(table[_index + 6], 'a').attributes['href'].toString();
-    map["pec"] = "pec da reperire";
+    map["isValid"] =
+        extractFromTag(table[_index + 5], 'font').innerHtml.isEmpty.toString();
+    map["pageUrl"] = alboUrl +
+        extractFromTag(table[_index + 6], 'a').attributes['href'].toString();
     return map;
   }
 
   static Element extractFromTag(Element e, String tagName) =>
       e.getElementsByTagName(tagName)[0];
+
+  static Future<Map<String, dynamic>> addPec(Map<String, dynamic> map) async =>
+      get(Uri.parse(map["pageUrl"])).then((response) {
+        if (response.statusCode < 200 || 400 < response.statusCode) {
+          throw Exception("Error ${response.statusCode} while fetching data");
+        }
+        map["pec"] = extractPec(response.body);
+        return map;
+      });
+
+  static String extractPec(String body) => parse(body)
+      .getElementsByClassName("main-container")[0]
+      .getElementsByTagName("a")[0] // prendiamo il primo link
+      .innerHtml;
 }

@@ -16,7 +16,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   final List _screen = const [
     ExampleHomePage(),
     ExampleHomePage(),
-    UserInfo('', 'api', 'valeria')
+    PsyInfo('valeria', 'api', '')
   ];
 
   void _updateIndex(int value) {
