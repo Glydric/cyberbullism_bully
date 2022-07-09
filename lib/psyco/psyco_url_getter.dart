@@ -19,10 +19,10 @@ class PsycoUrlGetter {
         Uri.parse(alboUrl +
             "/cgi-bin/areariservata/albo_nazionale.cgi" +
             "?azione=cerca&name=$nome&cognome=$cognome&ordine=$ordine"),
-      ).then((response) => response.statusCode < 200 ||
-              400 < response.statusCode
-          ? throw Exception("Error ${response.statusCode} while fetching data")
-          : psycoBodyParser(response.body, i));
+      ).then((response) {
+        statusCodeCheck(response.statusCode);
+        return psycoBodyParser(response.body, i);
+      });
 
   /// Tasforma il body in una map
   static Map<String, dynamic> psycoBodyParser(String body, int i) {
@@ -47,17 +47,24 @@ class PsycoUrlGetter {
   static Element extractFromTag(Element e, String tagName) =>
       e.getElementsByTagName(tagName)[0];
 
+  /// Prende in input la map
+  /// si connette alla pagina personale dello psicologo
+  /// estrae la pec e la aggiunge alla map
   static Future<Map<String, dynamic>> addPec(Map<String, dynamic> map) async =>
       get(Uri.parse(map["pageUrl"])).then((response) {
-        if (response.statusCode < 200 || 400 < response.statusCode) {
-          throw Exception("Error ${response.statusCode} while fetching data");
-        }
-        map["pec"] = extractPec(response.body);
+        statusCodeCheck(response.statusCode);
+        map["pec"] = extractPecFromPersonalPage(response.body);
         return map;
       });
 
-  static String extractPec(String body) => parse(body)
+  static String extractPecFromPersonalPage(String body) => parse(body)
       .getElementsByClassName("main-container")[0]
       .getElementsByTagName("a")[0] // prendiamo il primo link
       .innerHtml;
+
+  static statusCodeCheck(int statusCode) {
+    if (statusCode < 200 || 400 < statusCode) {
+      throw Exception("Error $statusCode while fetching data");
+    }
+  }
 }
