@@ -20,6 +20,8 @@ class RegisterPageState extends State<RegisterPage> {
   String _errorName = "";
   bool _isPsy = false;
 
+  String _emailTextField = "Email";
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
@@ -45,8 +47,8 @@ class RegisterPageState extends State<RegisterPage> {
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: false,
-                    decoration: const InputDecoration(
-                      label: Text("Email"),
+                    decoration: InputDecoration(
+                      label: Text(_emailTextField),
                     ),
                   ),
                   TextFormField(
@@ -83,7 +85,15 @@ class RegisterPageState extends State<RegisterPage> {
                   Row(children: [
                     const Text("Registrazione da psicologo"),
                     Switch(
-                      onChanged: (value) => setState(() => _isPsy = value)
+                      onChanged: (value) => setState(() {
+                        _isPsy = value;
+                        if (_isPsy) {
+                          _emailTextField = "Pec";
+                        } else {
+                          _emailTextField = "Email";
+                        }
+                      })
+
                       // if (_isPsy) _emailController.clear();
                       ,
                       value: _isPsy,
@@ -110,16 +120,28 @@ class RegisterPageState extends State<RegisterPage> {
 
   void registrazione() => _isPsy ? psySignUp() : userSignUp();
 
-  psySignUp() => PsycoUrlGetter.getFuturePsyco(
+  psySignUp() async {
+    try {
+      await PsycoUrlGetter.getFuturePsyco(
               _nomeController.text, _cognomeController.text, "")
           .then(
         (Psyco psy) {
-          if (psy.isValid == "true" &&
+          if (_emailController.text != psy.email) {
+            setState(() => _errorName = "Pec psicologo non valida");
+          } else if (psy.isValid == "true" &&
               _nomeController.text == psy.nome.toLowerCase() &&
-              _cognomeController.text == psy.cognome.toLowerCase() &&
-              _emailController.text == psy.email) userSignUp();
+              _cognomeController.text == psy.cognome.toLowerCase()) {
+            userSignUp();
+            _errorName = "";
+          } else {
+            setState(() => _errorName = "Psicologo non valido");
+          }
         },
       );
+    } on RangeError catch (e) {
+      setState(() => _errorName = "Psicologo non esistente");
+    }
+  }
 
   ///create a new user
   void userSignUp() async {
@@ -135,10 +157,13 @@ class RegisterPageState extends State<RegisterPage> {
       _errorName = "";
     } on FirebaseAuthException catch (e) {
       if (e.code == "weak-password") {
-        setState(() => _errorName = "The password provided is too weak.");
+        setState(() => _errorName = "La password non è sicura");
       } else if (e.code == "email-already-in-use") {
         setState(
             () => _errorName = "The account already exists for that email.");
+      }
+      if (e.code == "invalid-email") {
+        setState(() => _errorName = "Inserire un'email corretta");
       }
     } on Exception catch (e) {
       debugPrint(e.toString());

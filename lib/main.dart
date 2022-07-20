@@ -24,9 +24,6 @@ class MyApp extends StatelessWidget {
       }, */
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        inputDecorationTheme: const InputDecorationTheme(
-          border: UnderlineInputBorder(),
-        ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             primary: Colors.grey,
