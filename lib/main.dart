@@ -17,13 +17,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //initialRoute: '/UserInfo', //'/main',
-      // routes: {
-      //   //'/main': (context) => HomePage(),
-      //   '/UserInfo': (context) => const UserInfo('', 'api', ''),
-      // },
+      /* initialRoute: '/UserInfo', //'/main',
+      routes: {
+        //'/main': (context) => HomePage(),
+        '/UserInfo': (context) => const UserInfo('', 'api', ''),
+      }, */
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        inputDecorationTheme: const InputDecorationTheme(
+          border: UnderlineInputBorder(),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: Colors.grey,
+          ),
+        ),
       ),
       home: const ScreenSwitcher(),
     );
