@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cyberbullism_bully">
+    package="com.unicam.studenti.cyberbullism_bully">
    <application
         android:label="cyberbullism_bully"
         android:name="${applicationName}"

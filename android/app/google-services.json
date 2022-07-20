@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "621265599421",
+    "project_id": "cyberbullism-bully",
+    "storage_bucket": "cyberbullism-bully.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621265599421:android:3bedeec2b72629cd8b70d4",
+        "android_client_info": {
+          "package_name": "com.unicam.studenti.cyberbullism_bully"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621265599421-p7j2drdskqmf3ieu5arfsl2o8b27bqag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaF_k0oj-LPCpd1L6bjdQLvK_iIXUOgCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "621265599421-p7j2drdskqmf3ieu5arfsl2o8b27bqag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

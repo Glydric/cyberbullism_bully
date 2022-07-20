@@ -8,8 +8,8 @@ import 'psyco.dart';
 const String alboUrl = "https://areariservata.psy.it";
 
 class PsycoUrlGetter {
-  static getFuturePsyco(String nome, String cognome, String ordine, int i) =>
-      getFutureMap(nome, cognome, ordine, i)
+  static getFuturePsyco(String nome, String cognome, String ordine) =>
+      getFutureMap(nome, cognome, ordine, 0)
           .then((map) => addPec(map))
           .then((map) => Psyco(map));
 
@@ -18,7 +18,7 @@ class PsycoUrlGetter {
       get(
         Uri.parse(alboUrl +
             "/cgi-bin/areariservata/albo_nazionale.cgi" +
-            "?azione=cerca&name=$nome&cognome=$cognome&ordine=$ordine"),
+            "?azione=cerca&nome=$nome&cognome=$cognome&ordine=$ordine"),
       ).then((response) {
         statusCodeCheck(response.statusCode);
         return psycoBodyParser(response.body, i);
