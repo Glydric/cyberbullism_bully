@@ -129,8 +129,8 @@ class RegisterPageState extends State<RegisterPage> {
           }
         },
       );
-    } on RangeError catch (e) {
-      setState(() => _errorName = "Psicologo non esistente");
+    } on RangeError {
+      setState(() => _errorName = "Psicologo non iscritto all'albo");
     }
   }
 
