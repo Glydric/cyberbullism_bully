@@ -20,8 +20,6 @@ class RegisterPageState extends State<RegisterPage> {
   String _errorName = "";
   bool _isPsy = false;
 
-  String _emailTextField = "Email";
-
   @override
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
@@ -48,7 +46,7 @@ class RegisterPageState extends State<RegisterPage> {
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: false,
                     decoration: InputDecoration(
-                      label: Text(_emailTextField),
+                      label: Text(_isPsy ? "Pec" : "Email"),
                     ),
                   ),
                   TextFormField(
@@ -85,14 +83,7 @@ class RegisterPageState extends State<RegisterPage> {
                   Row(children: [
                     const Text("Registrazione da psicologo"),
                     Switch(
-                      onChanged: (value) => setState(() {
-                        _isPsy = value;
-                        if (_isPsy) {
-                          _emailTextField = "Pec";
-                        } else {
-                          _emailTextField = "Email";
-                        }
-                      })
+                      onChanged: (value) => setState(() => _isPsy = value)
 
                       // if (_isPsy) _emailController.clear();
                       ,

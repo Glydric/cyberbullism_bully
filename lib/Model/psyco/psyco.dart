@@ -1,4 +1,4 @@
-import '/user/user.dart';
+import '../user/user.dart';
 
 class Psyco extends User {
   late final String ordine;

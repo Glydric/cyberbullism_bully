@@ -37,6 +37,7 @@ dependencies:
   http: ^0.13.4
   html: ^0.15.0
   firebase_auth: ^3.4.2
+  cloud_firestore: ^3.3.0
 
 dev_dependencies:
   flutter_test:
