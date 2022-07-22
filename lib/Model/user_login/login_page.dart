@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
         setState(() => _errorName = "Inserire un'email corretta");
       }
       if (e.code == "user-not-found") {
-        setState(() => _errorName = "L'utente non è stato trovato");
+        setState(() => _errorName = "Utente non registrato");
       }
       if (e.code == "wrong-password") {
         setState(() => _errorName = "Password Errata");
