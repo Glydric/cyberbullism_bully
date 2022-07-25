@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // This class is the home page of the application, it is the configuration for
 // the state. It is stateful, meaning that it has a State object (defined below)
 // that contains fields that affect how it looks.
-// This class . It holds the values provided
+// This class. It holds the values provided
 // by the parent (in this case the App widget) and used by the build method of
 // the State. Fields in a Widget subclass are always marked "final".
 
