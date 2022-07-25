@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../psyco/psyco.dart';
-import '../psyco/psyco_url_getter.dart';
+import '/Model/psyco/psyco.dart';
+import '/Model/psyco/psyco_url_getter.dart';
 import 'user_info_page.dart';
 
 class RegisterPage extends StatefulWidget {
