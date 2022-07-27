@@ -7,12 +7,4 @@ class Psyco extends User {
       : super(map["nome"], map["cognome"], "Password", map["pec"]) {
     isValid = map["isValid"];
   }
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'email': email,
-        'nome': nome,
-        'cognome': cognome,
-        'password': password,
-      };
 }
