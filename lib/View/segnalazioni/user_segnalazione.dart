@@ -1,1 +1,1 @@
-import '/Model/DbConnectors/psy_connector.dart';
+import '/Model/connect_db/psy_connector.dart';

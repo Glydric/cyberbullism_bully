@@ -1,1 +1,1 @@
-import '/Model/DbConnectors/user_connector.dart';
+import '/Model/connect_db/user_connector.dart';

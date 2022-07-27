@@ -29,6 +29,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    //compile to android 9
     compileSdkVersion 28//flutter.compileSdkVersion
 
     compileOptions {
