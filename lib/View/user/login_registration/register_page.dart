@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '/Model/psyco/psyco.dart';
 import '/Model/psyco/psyco_url_getter.dart';
-import 'user_info_page.dart';
+import '/View/user/user_info_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
