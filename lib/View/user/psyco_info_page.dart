@@ -32,7 +32,7 @@ class _PsyInfoState extends State<PsyInfo> {
         body: Center(
           child: FutureBuilder<Psyco>(
               future: PsycoUrlGetter.getFuturePsyco(
-                  widget.nome, widget.cognome, widget.ordine),
+                  widget.nome, widget.cognome, widget.ordine, "password"),
               builder: (BuildContext context, AsyncSnapshot<Psyco> snapshot) =>
                   snapshot.hasData
                       ? _getPsyInfo(snapshot.requireData)

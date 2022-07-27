@@ -8,10 +8,11 @@ import 'psyco.dart';
 const String alboUrl = "https://areariservata.psy.it";
 
 class PsycoUrlGetter {
-  static getFuturePsyco(String nome, String cognome, String ordine) =>
+  static getFuturePsyco(
+          String nome, String cognome, String ordine, String password) =>
       getFutureMap(nome, cognome, ordine, 0)
           .then((map) => addPec(map))
-          .then((map) => Psyco(map));
+          .then((map) => Psyco(map, password));
 
   static Future<Map<String, dynamic>> getFutureMap(
           String nome, String cognome, String ordine, int i) async =>
@@ -53,7 +54,7 @@ class PsycoUrlGetter {
   static Future<Map<String, dynamic>> addPec(Map<String, dynamic> map) async =>
       get(Uri.parse(map["pageUrl"])).then((response) {
         statusCodeCheck(response.statusCode);
-        map["pec"] = extractPecFromPersonalPage(response.body);
+        map["email"] = extractPecFromPersonalPage(response.body);
         return map;
       });
 

@@ -6,6 +6,20 @@ class User {
 
   User(this.nome, this.cognome, this.password, this.email);
 
+  User.fromJson(Map<String, dynamic> json)
+      : email = json["email"],
+        nome = json["nome"],
+        cognome = json["cognome"],
+        password = json["password"];
+
+  Map<String, String> toJson() => {
+        'type': runtimeType.toString(),
+        'email': email,
+        'nome': nome,
+        'cognome': cognome,
+        'password': password,
+      };
+      
   @override
   String toString() =>
       "nome: " +
@@ -16,12 +30,4 @@ class User {
       password +
       "\nemail: " +
       email;
-
-  Map<String, String> toJson() => {
-        'type': runtimeType.toString(),
-        'email': email,
-        'nome': nome,
-        'cognome': cognome,
-        'password': password,
-      };
 }

@@ -114,7 +114,7 @@ class RegisterPageState extends State<RegisterPage> {
   psySignUp() async {
     try {
       await PsycoUrlGetter.getFuturePsyco(
-              _nomeController.text, _cognomeController.text, "")
+              _nomeController.text, _cognomeController.text, "", _passowordController.text)
           .then(
         (Psyco psy) {
           if (_emailController.text != psy.email) {
