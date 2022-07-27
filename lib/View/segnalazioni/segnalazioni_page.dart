@@ -12,7 +12,7 @@ class SegnalazionePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: user.runtimeType.toString() == "Psyco"
-            ? PsycoSegnalazione()
-            : UserSegnalazione());
+            ? const PsycoSegnalazione()
+            : const UserSegnalazione());
   }
 }
