@@ -26,5 +26,8 @@ class DbUserConnector {
         gravita.toString());
   }
 
-  static newSegnalazione(int userId, String testo) {}
+  static newSegnalazione(String userId, String testo) {}
+  
+  static newSegnalazioneFromUser(User userId, String testo) =>
+      newSegnalazione(userId.email, testo);
 }
