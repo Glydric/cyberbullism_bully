@@ -1,8 +1,8 @@
-import '/Model/connect_db/user_connector.dart';
+import '/Model/connect_db/psy_connector.dart';
 import 'package:flutter/material.dart';
 
 class PsycoSegnalazione extends StatefulWidget {
-  PsycoSegnalazione({Key? key}) : super(key: key);
+  const PsycoSegnalazione({Key? key}) : super(key: key);
 
   @override
   State<PsycoSegnalazione> createState() => _PsycoSegnalazioneState();
