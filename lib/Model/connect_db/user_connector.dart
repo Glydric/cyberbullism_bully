@@ -27,7 +27,7 @@ class DbUserConnector {
   }
 
   static newSegnalazione(String userId, String testo) {}
-  
-  static newSegnalazioneFromUser(User userId, String testo) =>
-      newSegnalazione(userId.email, testo);
+
+  static newSegnalazioneFromUser(User user, String testo) =>
+      newSegnalazione(user.email, testo);
 }
