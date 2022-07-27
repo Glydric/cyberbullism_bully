@@ -17,7 +17,8 @@ class User {
       "\nemail: " +
       email;
 
-  Map<String, dynamic> toJson() => {
+  Map<String, String> toJson() => {
+        'type': runtimeType.toString(),
         'email': email,
         'nome': nome,
         'cognome': cognome,
