@@ -14,4 +14,8 @@ class DbPsyConnector {
         "\n nuova password: " +
         newPassword);
   }
+
+  static String getSegnalazioni() {
+    return '';
+  }
 }
