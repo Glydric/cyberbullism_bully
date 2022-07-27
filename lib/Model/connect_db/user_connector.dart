@@ -1,5 +1,7 @@
 import '/Model/user.dart';
 
+const url = "miglio.tech";
+
 class DbUserConnector {
   static addUser(User user, int firebaseID) {
     throw Exception("Metodo non definito\nuser: " +

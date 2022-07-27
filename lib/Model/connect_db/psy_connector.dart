@@ -1,5 +1,7 @@
 import '/Model/psyco/psyco.dart';
 
+const url = "miglio.tech";
+
 class DbPsyConnector {
   static addPsy(Psyco psi, int firebaseID) {
     throw Exception("Metodo non definito\npsicologo: " +
