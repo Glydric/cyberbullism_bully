@@ -4,7 +4,7 @@ class User {
   final String cognome;
   final String password;
 
-  User(this.nome, this.cognome, this.password, this.email);
+  User(this.nome, this.cognome, this.email, this.password);
 
   User.fromJson(Map<String, dynamic> json)
       : email = json["email"],
@@ -19,7 +19,7 @@ class User {
         'cognome': cognome,
         'password': password,
       };
-      
+
   @override
   String toString() =>
       "nome: " +

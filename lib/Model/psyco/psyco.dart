@@ -3,11 +3,17 @@ import '../user.dart';
 class Psyco extends User {
   final String isValid;
 
-  Psyco(Map<String, dynamic> map, String password)
+  /// costruttore per lo psicologo, utilizzato per la costruzione dall'albo
+  Psyco.fromAlbo(Map<String, dynamic> map, String password)
       : isValid = map["isValid"],
-        super(map["nome"], map["cognome"], password, map["email"]);
+        super(
+          map["nome"],
+          map["cognome"],
+          map["email"],
+          password,
+        );
 
   Psyco.fromJson(Map<String, dynamic> json)
       : isValid = json["isValid"],
-        super(json["nome"], json["cognome"], json["Password"], json["email"]);
+        super.fromJson(json);
 }

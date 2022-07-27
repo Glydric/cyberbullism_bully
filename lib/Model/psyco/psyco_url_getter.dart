@@ -12,7 +12,7 @@ class PsycoUrlGetter {
           String nome, String cognome, String ordine, String password) =>
       getFutureMap(nome, cognome, ordine, 0)
           .then((map) => addPec(map))
-          .then((map) => Psyco(map, password));
+          .then((map) => Psyco.fromAlbo(map, password));
 
   static Future<Map<String, dynamic>> getFutureMap(
           String nome, String cognome, String ordine, int i) async =>
