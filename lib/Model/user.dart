@@ -1,8 +1,8 @@
 class User {
+  final String email;
   final String nome;
   final String cognome;
   final String password;
-  final String email;
 
   User(this.nome, this.cognome, this.password, this.email);
 
@@ -16,4 +16,11 @@ class User {
       password +
       "\nemail: " +
       email;
+
+  Map<String, dynamic> toJson() => {
+        'email': email,
+        'nome': nome,
+        'cognome': cognome,
+        'password': password,
+      };
 }

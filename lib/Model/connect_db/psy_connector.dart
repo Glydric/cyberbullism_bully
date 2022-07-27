@@ -18,6 +18,7 @@ class DbPsyConnector {
   }
 
   static String getSegnalazioni() {
+    
     return '';
   }
 }

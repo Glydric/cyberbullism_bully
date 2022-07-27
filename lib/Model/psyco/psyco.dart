@@ -1,19 +1,18 @@
 import '../user.dart';
 
 class Psyco extends User {
-  late final String ordine;
-  late final String sezione;
   late final String isValid;
-  late final String pageUrl;
 
   Psyco(Map<String, dynamic> map)
-      : super(map["nome"], 
-      map["cognome"],
-      "Password",
-      map["pec"]) {
-    ordine = map["ordine"];
-    sezione = map["sezione"];
+      : super(map["nome"], map["cognome"], "Password", map["pec"]) {
     isValid = map["isValid"];
-    pageUrl = map["pageUrl"];
   }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'email': email,
+        'nome': nome,
+        'cognome': cognome,
+        'password': password,
+      };
 }
