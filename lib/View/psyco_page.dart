@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'psyco.dart';
-import 'psyco_url_getter.dart';
+import '../Model/psyco/psyco.dart';
+import '../Model/psyco/psyco_url_getter.dart';
 
 class PsyInfo extends StatefulWidget {
   final String nome;
