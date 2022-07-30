@@ -3,10 +3,10 @@ import '/Model/user.dart';
 import '/View/segnalazioni/psy_segnalazione.dart';
 import '/View/segnalazioni/user_segnalazione.dart';
 
-class SegnalazionePage extends StatelessWidget {
+class SegnalazioniPage extends StatelessWidget {
   final User user;
 
-  const SegnalazionePage(this.user, {Key? key}) : super(key: key);
+  const SegnalazioniPage(this.user, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

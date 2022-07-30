@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // importo pagine flutter
+import 'View/segnalazioni/segnalazioni_page.dart';
 import 'example_home_page.dart';
 import '/View/user/login_registration/login_page.dart';
 
@@ -16,8 +17,8 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   final List _screen = const [
     ExampleHomePage(),
     ExampleHomePage(),
-    LoginPage()
-    // PsyInfo('valeria', 'api', '')
+    // SegnalazioniPage(),
+    LogInPage()
   ];
 
   void _updateIndex(int value) {
