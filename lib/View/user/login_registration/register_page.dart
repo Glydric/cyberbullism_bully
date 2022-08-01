@@ -1,8 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Model/connect_db/user_connector.dart';
 import '/Model/psyco/psyco.dart';
 import '/Model/psyco/psyco_url_getter.dart';
+
 import '/View/user/user_info_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -113,8 +115,8 @@ class RegisterPageState extends State<RegisterPage> {
 
   psySignUp() async {
     try {
-      await PsycoUrlGetter.getFuturePsyco(
-              _nomeController.text, _cognomeController.text, "", _passowordController.text)
+      await PsycoUrlGetter.getFuturePsyco(_nomeController.text,
+              _cognomeController.text, "", _passowordController.text)
           .then(
         (Psyco psy) {
           if (_emailController.text != psy.email) {
@@ -137,26 +139,23 @@ class RegisterPageState extends State<RegisterPage> {
   ///create a new user
   void userSignUp() async {
     try {
+      final user = User(_nomeController.text, _cognomeController.text,
+          _emailController.text, _passowordController.text);
+      DbUserConnector.addUser(user);
       toPage(
-        UserInfoPage(
-          credential: await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(
-                  email: _emailController.text,
-                  password: _passowordController.text),
-        ),
+        UserInfoPage(user),
       );
       _errorName = "";
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "weak-password") {
+    } on Exception catch (e) {
+      if (e.toString() == "weak-password") {
         setState(() => _errorName = "La password non è sicura");
-      } else if (e.code == "email-already-in-use") {
+      } else if (e.toString() == "email-already-in-use") {
         setState(
             () => _errorName = "The account already exists for that email.");
       }
-      if (e.code == "invalid-email") {
+      if (e.toString() == "invalid-email") {
         setState(() => _errorName = "Inserire un'email corretta");
       }
-    } on Exception catch (e) {
       debugPrint(e.toString());
     }
   }

@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import '../../Model/psyco/psyco.dart';
 import '../../Model/psyco/psyco_url_getter.dart';
 
-class PsyInfo extends StatefulWidget {
+class PsycoInfoPage extends StatefulWidget {
   final String nome;
   final String cognome;
   final String ordine;
 
-  const PsyInfo(this.nome, this.cognome, this.ordine, {Key? key})
+  const PsycoInfoPage(this.nome, this.cognome, this.ordine, {Key? key})
       : super(key: key);
 
   @override
-  State<PsyInfo> createState() => _PsyInfoState();
+  State<PsycoInfoPage> createState() => _PsycoInfoPageState();
 }
 
-class _PsyInfoState extends State<PsyInfo> {
+class _PsycoInfoPageState extends State<PsycoInfoPage> {
   _getPsyInfo(Psyco psy) => ListView(
         padding: const EdgeInsets.all(20),
         children: [

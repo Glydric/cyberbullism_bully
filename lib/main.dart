@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'firebase_options.dart';
 import 'screen_switcher.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 /// Questa classe è la classe principale che avvia tutta l'app flutter
 void main() async {
   runApp(const MyApp());
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 }
 
 class MyApp extends StatelessWidget {
