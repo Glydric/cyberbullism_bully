@@ -1,28 +1,41 @@
+import 'dart:convert';
+
 import 'package:http/http.dart';
 
 import '/Model/user.dart';
+import '/Model/connect_db/login_exception.dart';
 
 const url = "http://leonardomigliorelli.altervista.org/";
 
 class DbUserConnector {
-  static addUser(User user) => post(
-        Uri.parse(
-          url +
-              "createUser.php?" +
-              "nome=" +
-              user.nome +
-              "&cognome=" +
-              user.cognome +
-              "&email=" +
-              user.email +
-              "&password=" +
-              user.password,
-        ),
-      );
+  static addUser(User user) async {
+    Response response = await post(
+      Uri.parse(
+        url +
+            "createUser.php" +
+            "?nome=" +
+            user.nome +
+            "&cognome=" +
+            user.cognome +
+            "&email=" +
+            user.email +
+            "&password=" +
+            user.password,
+      ),
+    );
+    if (response.body.isNotEmpty) {
+      throw Exception(response);
+    }
+  }
 
   static Future<User> getUser(String email, String password) async {
-    throw Exception(
-        "Metodo non definito\nuser: " + email + " password" + password);
+    Response response = await post(
+      Uri.parse(
+        url + "getUser.php" + "?email=" + email + "&password=" + password,
+      ),
+    );
+    LoginException.thrower(response.body);
+    return User.fromJson(jsonDecode(response.body));
   }
 
   static modifyUserPassword(User user, String newPassword) {

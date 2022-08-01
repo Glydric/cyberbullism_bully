@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../Model/connect_db/user_connector.dart';
+import '/Model/connect_db/user_connector.dart';
+import '/Model/connect_db/login_exception.dart';
 import '/Model/user.dart';
 import '/Model/psyco/psyco.dart';
-import '/Model/user_saving_manager.dart';
+import '/Model/user_save_manager.dart';
 
 import '/View/user/user_info_page.dart';
 
@@ -40,27 +41,20 @@ class _LogInPageState extends State<LogInPage> {
   void signIn() async {
     try {
       User user = await DbUserConnector.getUser(
-          _emailController.text,
-          _passowordController.text);
+          _emailController.text, _passowordController.text);
 
-      toPage(
-        UserInfoPage(user),
-      );
+      toPage(UserInfoPage(user));
       _errorName = "";
-    } on Exception catch (e) {
+    } on LoginException catch (e) {
       if (e.toString() == "invalid-email") {
         setState(() => _errorName = "Inserire un'email corretta");
       }
-      if (e.toString() == "user-not-found") {
-        setState(() => _errorName = "Utente non registrato");
-      }
-      if (e.toString() == "wrong-password") {
-        setState(() => _errorName = "Password Errata");
+      if (e.message == "user-not-found") {
+        setState(() => _errorName = "Utente o password errata");
       }
       if (e.toString() == "too-many-requests") {
         setState(() => _errorName = "Troppi tentativi, provare più tardi");
       }
-      debugPrint(e.toString());
     }
   }
 
