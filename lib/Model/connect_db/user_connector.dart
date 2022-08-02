@@ -23,9 +23,7 @@ class DbUserConnector {
             user.password,
       ),
     );
-    if (response.body.isNotEmpty) {
-      throw Exception(response);
-    }
+    LoginException.thrower(response.body);
   }
 
   static Future<User> getUser(String email, String password) async {
@@ -38,7 +36,7 @@ class DbUserConnector {
     return User.fromJson(jsonDecode(response.body));
   }
 
-  static modifyUserPassword(User user, String newPassword) {
+  static modifyPassword(User user, String newPassword) {
     throw Exception("Metodo non definito, user" +
         user.toString() +
         "\n nuova password: " +

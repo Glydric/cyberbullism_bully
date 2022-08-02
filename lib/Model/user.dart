@@ -1,10 +1,17 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+
 class User {
   final String email;
   final String nome;
   final String cognome;
   final String password;
 
-  User(this.nome, this.cognome, this.email, this.password);
+  static crypt(String password) =>
+      sha256.convert(utf8.encode(password)).toString();
+
+  User(this.nome, this.cognome, this.email, password)
+      : password = crypt(password);
 
   User.fromJson(Map<String, dynamic> json)
       : email = json["email"],
