@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../Model/user_save_manager.dart';
 import '/Model/user.dart';
 import '/View/segnalazioni/psy_segnalazione.dart';
-import '/View/segnalazioni/user_segnalazione.dart';
+import '/View/segnalazioni/user/lista_segnalazione.dart';
 
 class SegnalazioniPage extends StatelessWidget {
   User? user;
@@ -15,7 +15,7 @@ class SegnalazioniPage extends StatelessWidget {
     return Scaffold(
         body: user.runtimeType.toString() == "Psyco"
             ? const PsycoSegnalazione()
-            : const UserSegnalazione());
+            : const ListaSegnalazione());
   }
 
   void initUser() async {
