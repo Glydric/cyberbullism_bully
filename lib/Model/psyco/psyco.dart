@@ -13,7 +13,7 @@ class Psyco extends User {
           password,
         );
 
-  Psyco.fromJson(Map<String, dynamic> json)
+  Psyco.fromJson(Map<String, dynamic> json) //? todo serve davvero?
       : isValid = json["isValid"],
         super.fromJson(json);
 }
