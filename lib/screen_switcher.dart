@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // importo pagine flutter
-import 'View/segnalazioni/segnalazioni_page.dart';
+import 'View/segnalazioni/switcher_segnalazioni.dart';
 import 'View/user/login_page_switcher.dart';
 import 'example_home_page.dart';
 
