@@ -28,14 +28,12 @@ class DbUserConnector {
 
   static Future<User> getUser(String email, String password) async {
     Response response = await post(
-      Uri.parse(
-        url +
-            "getUser.php" +
-            "?email=" +
-            email +
-            "&password=" +
-            User.crypt(password),
-      ),
+      Uri.parse(url +
+          "getUser.php" +
+          "?email=" +
+          email +
+          "&password=" +
+          User.crypt(password)),
     );
     LoginException.thrower(response.body);
     return User.fromJson(jsonDecode(response.body));

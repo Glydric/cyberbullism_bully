@@ -7,7 +7,7 @@ class User {
   final String cognome;
   final String password;
 
-  static crypt(String password) =>
+  static String crypt(String password) =>
       sha256.convert(utf8.encode(password)).toString();
 
   User(this.nome, this.cognome, this.email, password)

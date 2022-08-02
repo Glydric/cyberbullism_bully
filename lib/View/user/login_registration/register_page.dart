@@ -142,7 +142,7 @@ class RegisterPageState extends State<RegisterPage> {
       final user = User(_nomeController.text, _cognomeController.text,
           _emailController.text, _passowordController.text);
       await DbUserConnector.addUser(user);
-      toPage(UserInfoPage(user));
+      toPage(const UserInfoPage());
       _errorName = "";
     } on Exception catch (e) {
       if (e.toString() == "weak-password") {

@@ -20,7 +20,7 @@ class UserSavingManager {
     Map<String, dynamic> userMap =
         jsonDecode(userString) as Map<String, dynamic>;
 
-    if (userMap["type"] == User) {
+    if (userMap["type"] == "User") {
       return User.fromJson(userMap);
     } else {
       return Psyco.fromJson(userMap);

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '/Model/connect_db/user_connector.dart';
 import '/Model/connect_db/login_exception.dart';
 import '/Model/user.dart';
-import '/Model/psyco/psyco.dart';
 import '/Model/user_save_manager.dart';
 
 import '/View/user/user_info_page.dart';
@@ -22,28 +21,14 @@ class _LogInPageState extends State<LogInPage> {
   final TextEditingController _passowordController = TextEditingController();
   String _errorName = "";
 
-  // @override
-  // initState() async {
-  //   try {
-  //     User user = await UserSavingManager.getUser();
-  //     if (user.runtimeType == User) {
-  //       toPage(UserInfoPage(user));
-  //     } else if (user.runtimeType == Psyco) {
-  //       toPage(UserInfoPage(user));
-  //     }
-  //   } catch (e) {
-  //     debugPrint("Utente non trovato, login");
-  //   }
-  //   super.initState();
-  // }
-
   ///Sign In user
   void signIn() async {
     try {
       User user = await DbUserConnector.getUser(
           _emailController.text, _passowordController.text);
 
-      toPage(UserInfoPage(user));
+      UserSavingManager.saveUser(user);
+      toPage(const UserInfoPage());
       _errorName = "";
     } on LoginException catch (e) {
       if (e.toString() == "invalid-email") {
