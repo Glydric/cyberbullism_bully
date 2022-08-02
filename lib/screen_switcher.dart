@@ -26,29 +26,27 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screen[_index],
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 1,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _index,
-        onTap: _updateIndex,
-        items: const [
-          BottomNavigationBarItem(
-            label: "Learning (Later)",
-            icon: Icon(Icons.description),
-          ),
-          BottomNavigationBarItem(
-            label: "Home (Later)",
-            icon: Icon(Icons.dangerous),
-          ),
-          BottomNavigationBarItem(
-            label: "User (in work)",
-            icon: Icon(Icons.account_circle_outlined),
-          ),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        body: _screen[_index],
+        bottomNavigationBar: BottomNavigationBar(
+          elevation: 1,
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _index,
+          onTap: _updateIndex,
+          items: const [
+            BottomNavigationBarItem(
+              label: "Learning (Later)",
+              icon: Icon(Icons.description),
+            ),
+            BottomNavigationBarItem(
+              label: "Home (Later)",
+              icon: Icon(Icons.dangerous),
+            ),
+            BottomNavigationBarItem(
+              label: "User (in work)",
+              icon: Icon(Icons.account_circle_outlined),
+            ),
+          ],
+        ),
+      );
 }
