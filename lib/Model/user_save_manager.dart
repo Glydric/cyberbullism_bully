@@ -26,4 +26,6 @@ class UserSavingManager {
       return Psyco.fromJson(userMap);
     }
   }
+  static void deleteUser() async {
+  }
 }
