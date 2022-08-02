@@ -32,7 +32,7 @@ class RegisterPageState extends State<RegisterPage> {
                 children: [
                   const Spacer(),
                   const Text(
-                    "", //todo inserire il titolo
+                    "", //TODO inserire il titolo
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 36,
