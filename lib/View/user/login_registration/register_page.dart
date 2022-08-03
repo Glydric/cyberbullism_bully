@@ -82,16 +82,13 @@ class RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-                  Row(children: [
-                    const Text("Registrazione da psicologo"),
-                    Switch(
-                      onChanged: (value) => setState(() => _isPsy = value)
-
-                      // if (_isPsy) _emailController.clear();
-                      ,
-                      value: _isPsy,
-                    ),
-                  ]),
+                  
+                  SwitchListTile.adaptive(
+                    //il metodo adaptive fa cambiare lo switch in base alla piattaforma
+                    title: const Text("Registrazione da psicologo"),
+                    onChanged: (value) => setState(() => _isPsy = value),
+                    value: _isPsy,
+                  ),
 
                   const Spacer(),
                   ElevatedButton(
