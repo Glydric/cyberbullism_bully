@@ -4,10 +4,15 @@ import '/Model/user.dart';
 import '/View/segnalazioni/psy_segnalazione.dart';
 import '/View/segnalazioni/user/lista_segnalazione.dart';
 
-class SegnalazioniPage extends StatelessWidget {
-  User? user;
+class SegnalazioniPage extends StatefulWidget {
+  const SegnalazioniPage({Key? key}) : super(key: key);
 
-  SegnalazioniPage({Key? key}) : super(key: key);
+  @override
+  State<SegnalazioniPage> createState() => _SegnalazioniPageState();
+}
+
+class _SegnalazioniPageState extends State<SegnalazioniPage> {
+  User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,7 @@ class SegnalazioniPage extends StatelessWidget {
   void initUser() async {
     try {
       user = await UserSavingManager.getUser();
+      setState(() => user);
     } catch (e) {}
   }
 }
