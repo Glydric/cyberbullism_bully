@@ -11,7 +11,7 @@ class PsycoUrlGetter {
   static getFuturePsyco(
           String nome, String cognome, String ordine, String password) =>
       getFutureMap(nome, cognome, ordine, 0)
-          .then((map) => addPec(map))
+          .then(addPec)
           .then((map) => Psyco.fromAlbo(map, password));
 
   static Future<Map<String, dynamic>> getFutureMap(
@@ -52,11 +52,13 @@ class PsycoUrlGetter {
   /// si connette alla pagina personale dello psicologo
   /// estrae la pec e la aggiunge alla map
   static Future<Map<String, dynamic>> addPec(Map<String, dynamic> map) async =>
-      get(Uri.parse(map["pageUrl"])).then((response) {
-        statusCodeCheck(response.statusCode);
-        map["email"] = extractPecFromPersonalPage(response.body);
-        return map;
-      });
+      get(Uri.parse(map["pageUrl"])).then(
+        (response) {
+          statusCodeCheck(response.statusCode);
+          map["email"] = extractPecFromPersonalPage(response.body);
+          return map;
+        },
+      );
 
   static String extractPecFromPersonalPage(String body) => parse(body)
       .getElementsByClassName("main-container")[0]
