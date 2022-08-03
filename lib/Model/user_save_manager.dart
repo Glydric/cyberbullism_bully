@@ -29,7 +29,7 @@ class UserSavingManager {
     }
   }
 
-  static void deleteUser() async {
+  static void removeUser() async {
     final prefs = await SharedPreferences.getInstance();
 
     prefs.remove(key);
