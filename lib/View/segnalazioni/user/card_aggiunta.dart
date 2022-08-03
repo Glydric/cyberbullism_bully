@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+
+class CardAggiunta extends StatefulWidget {
+  const CardAggiunta({Key? key}) : super(key: key);
+
+  @override
+  State<CardAggiunta> createState() => _CardAggiuntaState();
+}
+
+class _CardAggiuntaState extends State<CardAggiunta> {
+  @override
+  Widget build(BuildContext context) => Container(
+        alignment: Alignment.center,
+        child: const SizedBox(
+          height: 200,
+          width: 300,
+          child: Card(
+              elevation: 2,
+              color: Colors.orange,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("Qui va la segnalazione"),
+              ) //TODO completare la segnalazione
+              ),
+        ),
+      );
+}

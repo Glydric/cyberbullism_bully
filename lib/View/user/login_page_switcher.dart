@@ -14,9 +14,9 @@ class LoginPageSwitcher extends StatefulWidget {
 class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
   final _screens = const [
     // PsycoInfoPage(),
-    UserInfoPage(),
-    UserInfoPage(),
     LogInPage(),
+    UserInfoPage(),
+    UserInfoPage(),
   ];
 
   int _index = 0;
@@ -26,13 +26,13 @@ class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
       final user = await UserSavingManager.getUser();
       switch (user.runtimeType.toString()) {
         case "Psyco":
-          _index = 0;
-          break;
-        case "User":
           _index = 1;
           break;
-        default:
+        case "User":
           _index = 2;
+          break;
+        default:
+          _index = 0;
       }
     } catch (e) {
       debugPrint("Utente non trovato, login");

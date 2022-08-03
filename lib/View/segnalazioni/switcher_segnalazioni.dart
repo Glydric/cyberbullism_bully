@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../Model/user_save_manager.dart';
 import '/Model/user.dart';
 import '/View/segnalazioni/psy_segnalazione.dart';
-import '/View/segnalazioni/user/lista_segnalazione.dart';
+import 'user/home.dart';
 
 class SegnalazioniPage extends StatefulWidget {
   const SegnalazioniPage({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _SegnalazioniPageState extends State<SegnalazioniPage> {
     return Scaffold(
         body: user.runtimeType.toString() == "Psyco"
             ? const PsycoSegnalazione()
-            : const ListaSegnalazione());
+            : const HomeSegnalazioni());
   }
 
   void initUser() async {
