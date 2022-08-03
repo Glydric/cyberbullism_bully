@@ -14,8 +14,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
   User? user;
 
   void initUser() async {
-    user = await UserSavingManager.getUser();
-    setState(() => user);
+    try {
+      user = await UserSavingManager.getUser();
+      setState(() => user);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   @override
@@ -28,7 +32,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
             const Text("UserName:"),
             Text(user.toString()),
             const ElevatedButton(
-              onPressed: UserSavingManager.deleteUser,
+              onPressed: UserSavingManager.removeUser,
               child: Text("Logout"),
             ),
           ],
