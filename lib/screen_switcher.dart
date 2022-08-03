@@ -16,8 +16,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   int _index = 0;
   final List _screen = const [
     ExampleHomePage(),
-    ExampleHomePage(),
-    // SegnalazioniPage(),
+    SegnalazioniPage(),
     LoginPageSwitcher()
   ];
 
