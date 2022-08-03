@@ -5,8 +5,6 @@ import '/Model/connect_db/user_connector.dart';
 import '/Model/psyco/psyco.dart';
 import '/Model/psyco/psyco_url_getter.dart';
 
-import '../user_info_page.dart';
-
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -26,7 +24,10 @@ class RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text("Registrati", style: TextStyle(fontSize: 20)),
+          title: const Text(
+            "Registrati",
+            style: TextStyle(fontSize: 20),
+          ),
         ),
         body: SafeArea(
           child: Center(
@@ -148,7 +149,8 @@ class RegisterPageState extends State<RegisterPage> {
           _passowordController.text,
         ),
       );
-      toPage(const UserInfoPage());
+      // toPage(const UserInfoPage());
+      backToLoginPage();
       _errorName = "";
     } on Exception catch (e) {
       switch (e.toString()) {
@@ -162,15 +164,10 @@ class RegisterPageState extends State<RegisterPage> {
           setState(() => _errorName = "Inserire un'email valida");
           break;
         default:
+          debugPrint(e.toString());
       }
-      debugPrint(e.toString());
     }
   }
-
-  toPage(Widget page) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => page),
-      );
 
   void backToLoginPage() => Navigator.pop(context);
 }
