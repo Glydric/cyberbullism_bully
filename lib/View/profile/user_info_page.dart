@@ -27,6 +27,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
           children: [
             const Text("UserName:"),
             Text(user.toString()),
+            const ElevatedButton(
+              onPressed: UserSavingManager.deleteUser,
+              child: Text("Logout"),
+            ),
           ],
         ),
       ),

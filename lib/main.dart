@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screen_switcher.dart';
+import 'main_switcher.dart';
 
 /// Questa classe è la classe principale che avvia tutta l'app flutter
 void main() async {

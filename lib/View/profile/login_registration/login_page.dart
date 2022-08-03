@@ -5,8 +5,6 @@ import '/Model/connect_db/login_exception.dart';
 import '/Model/user.dart';
 import '/Model/user_save_manager.dart';
 
-import '/View/user/user_info_page.dart';
-
 import 'register_page.dart';
 
 class LogInPage extends StatefulWidget {
@@ -25,21 +23,31 @@ class _LogInPageState extends State<LogInPage> {
   void signIn() async {
     try {
       User user = await DbUserConnector.getUser(
-          _emailController.text, _passowordController.text);
+        _emailController.text,
+        _passowordController.text,
+      );
 
       UserSavingManager.saveUser(user);
-      toPage(const UserInfoPage());
+
+      Navigator.pop(context);
+
       _errorName = "";
     } on LoginException catch (e) {
-      if (e.toString() == "invalid-email") {
-        setState(() => _errorName = "Inserire un'email corretta");
+      switch (e.toString()) {
+        case "invalid-email":
+          _errorName = "Inserire un'email corretta";
+          break;
+        case "user-not-found":
+          _errorName = "Utente o password errata";
+          break;
+        case "too-many-requests":
+          _errorName = "Troppi tentativi, provare più tardi";
+          break;
+        default:
+          debugPrint(e.toString());
       }
-      if (e.message == "user-not-found") {
-        setState(() => _errorName = "Utente o password errata");
-      }
-      if (e.toString() == "too-many-requests") {
-        setState(() => _errorName = "Troppi tentativi, provare più tardi");
-      }
+    } finally {
+      setState(() => _errorName);
     }
   }
 
@@ -52,6 +60,10 @@ class _LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text("Bentornato", style: TextStyle(fontSize: 20)),
+          automaticallyImplyLeading: false,
+        ),
         body: SafeArea(
           child: Center(
             child: Padding(
@@ -59,15 +71,6 @@ class _LogInPageState extends State<LogInPage> {
               child: Column(
                 children: [
                   const Spacer(),
-                  const Text(
-                    "", //TODO inserire il titolo
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 36,
-                    ),
-                  ),
-                  const Spacer(),
-                  const Text("Bentornato", style: TextStyle(fontSize: 20)),
                   const Spacer(),
                   const Spacer(),
 
@@ -101,7 +104,6 @@ class _LogInPageState extends State<LogInPage> {
                     ),
                   ]),
                   const Spacer(),
-
                   const Spacer(),
                   ElevatedButton(
                     onPressed: signIn,

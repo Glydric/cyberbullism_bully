@@ -16,9 +16,9 @@ class HomeSegnalazioni extends StatefulWidget {
 
 class _HomeSegnalazioniState extends State<HomeSegnalazioni> {
   bool _isWriting = false;
+
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text("Le tue segnalazioni")),
         body: Center(
           child: Stack(
             children: <Widget>[

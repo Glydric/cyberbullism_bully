@@ -5,15 +5,17 @@ import 'psyco/psyco.dart';
 import 'user.dart';
 
 class UserSavingManager {
+  static final key = "user";
+
   static void saveUser(User user) async {
     final prefs = await SharedPreferences.getInstance();
 
-    prefs.setString("user", jsonEncode(user.toJson()));
+    prefs.setString(key, jsonEncode(user.toJson()));
   }
 
   static Future<User> getUser() async {
     final prefs = await SharedPreferences.getInstance();
-    final String? userString = prefs.getString("user");
+    final String? userString = prefs.getString(key);
 
     if (userString == null) throw Exception("User not found");
 
@@ -26,6 +28,10 @@ class UserSavingManager {
       return Psyco.fromJson(userMap);
     }
   }
+
   static void deleteUser() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.remove(key);
   }
 }

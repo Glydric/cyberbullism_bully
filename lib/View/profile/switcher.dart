@@ -12,36 +12,34 @@ class LoginPageSwitcher extends StatefulWidget {
 }
 
 class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
-  final _screens = const [
-    // PsycoInfoPage(),
-    LogInPage(),
-    UserInfoPage(),
-    UserInfoPage(),
-  ];
-
-  int _index = 0;
+  Widget _screen = Container();
 
   void initUser() async {
     try {
       final user = await UserSavingManager.getUser();
       switch (user.runtimeType.toString()) {
         case "Psyco":
-          _index = 1;
-          break;
+        // _screen = const UserInfoPage();
+        // // PsycoInfoPage(),
+        // break;
         case "User":
-          _index = 2;
-          break;
-        default:
-          _index = 0;
+          _screen = const UserInfoPage();
       }
+      setState(() => _screen);
     } catch (e) {
       debugPrint("Utente non trovato, login");
+      toPage(const LogInPage());
     }
   }
+
+  toPage(Widget page) => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => page),
+      ).whenComplete(() => setState(() => _screen));
 
   @override
   Widget build(BuildContext context) {
     initUser();
-    return Scaffold(body: _screens[_index]);
+    return Scaffold(body: _screen);
   }
 }

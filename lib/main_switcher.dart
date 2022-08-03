@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 // importo pagine flutter
-import 'View/segnalazioni/switcher_segnalazioni.dart';
-import 'View/user/login_page_switcher.dart';
+import 'View/segnalazioni/switcher.dart';
+import 'View/profile/switcher.dart';
 import 'example_home_page.dart';
 
 class ScreenSwitcher extends StatefulWidget {
@@ -38,13 +38,13 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
               icon: Icon(Icons.description),
             ),
             BottomNavigationBarItem(
-              label: "Home (Later)",
+              label: "Home (in work)",
               icon: Icon(Icons.dangerous),
             ),
             BottomNavigationBarItem(
               label: "User (in work)",
               icon: Icon(Icons.account_circle_outlined),
-            ),
+            )
           ],
         ),
       );

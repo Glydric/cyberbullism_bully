@@ -1,11 +1,11 @@
 import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Model/connect_db/user_connector.dart';
+import '/Model/connect_db/user_connector.dart';
 import '/Model/psyco/psyco.dart';
 import '/Model/psyco/psyco_url_getter.dart';
 
-import '/View/user/user_info_page.dart';
+import '../user_info_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -19,11 +19,15 @@ class RegisterPageState extends State<RegisterPage> {
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _cognomeController = TextEditingController();
   final TextEditingController _passowordController = TextEditingController();
+
   String _errorName = "";
   bool _isPsy = false;
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text("Registrati", style: TextStyle(fontSize: 20)),
+        ),
         body: SafeArea(
           child: Center(
             child: Padding(
@@ -39,7 +43,6 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   const Spacer(),
-                  const Text("Registrati", style: TextStyle(fontSize: 20)),
                   const Spacer(),
                   const Spacer(),
 
@@ -82,7 +85,7 @@ class RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-                  
+
                   SwitchListTile.adaptive(
                     //il metodo adaptive fa cambiare lo switch in base alla piattaforma
                     title: const Text("Registrazione da psicologo"),
@@ -112,22 +115,23 @@ class RegisterPageState extends State<RegisterPage> {
 
   psySignUp() async {
     try {
-      await PsycoUrlGetter.getFuturePsyco(_nomeController.text,
-              _cognomeController.text, "", _passowordController.text)
-          .then(
-        (Psyco psy) {
-          if (_emailController.text != psy.email) {
-            setState(() => _errorName = "Pec psicologo non valida");
-          } else if (psy.isValid == "true" &&
-              _nomeController.text == psy.nome.toLowerCase() &&
-              _cognomeController.text == psy.cognome.toLowerCase()) {
-            userSignUp();
-            _errorName = "";
-          } else {
-            setState(() => _errorName = "Psicologo non valido");
-          }
-        },
+      Psyco psy = await PsycoUrlGetter.getFuturePsyco(
+        _nomeController.text,
+        _cognomeController.text,
+        "",
+        _passowordController.text,
       );
+      if (_emailController.text != psy.email) {
+        setState(() => _errorName = "Pec psicologo non valida");
+      }
+      if (psy.isValid == "true" &&
+          _nomeController.text == psy.nome.toLowerCase() &&
+          _cognomeController.text == psy.cognome.toLowerCase()) {
+        userSignUp(); //TODO migliora la leggibilità
+        _errorName = "";
+      } else {
+        setState(() => _errorName = "Psicologo sospeso dalla carica");
+      }
     } on RangeError {
       setState(() => _errorName = "Psicologo non iscritto all'albo");
     }
@@ -136,20 +140,28 @@ class RegisterPageState extends State<RegisterPage> {
   ///create a new user
   void userSignUp() async {
     try {
-      final user = User(_nomeController.text, _cognomeController.text,
-          _emailController.text, _passowordController.text);
-      await DbUserConnector.addUser(user);
+      await DbUserConnector.addUser(
+        User(
+          _nomeController.text,
+          _cognomeController.text,
+          _emailController.text,
+          _passowordController.text,
+        ),
+      );
       toPage(const UserInfoPage());
       _errorName = "";
     } on Exception catch (e) {
-      if (e.toString() == "weak-password") {
-        setState(() => _errorName = "La password non è sicura");
-      } else if (e.toString() == "email-already-in-use") {
-        setState(
-            () => _errorName = "The account already exists for that email.");
-      }
-      if (e.toString() == "invalid-email") {
-        setState(() => _errorName = "Inserire un'email corretta");
+      switch (e.toString()) {
+        case "weak-password":
+          setState(() => _errorName = "La password non è sicura");
+          break;
+        case "email-already-in-use":
+          setState(() => _errorName = "L'account è già esistente");
+          break;
+        case "invalid-email":
+          setState(() => _errorName = "Inserire un'email valida");
+          break;
+        default:
       }
       debugPrint(e.toString());
     }
