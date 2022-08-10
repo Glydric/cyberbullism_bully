@@ -63,13 +63,18 @@ class DbUserConnector {
   }
 
   static addSegnalazione(User user, String testo, int gravita) async {
-    throw Exception("Metodo non definito, user" +
-        user.toString() +
-        "\n nuova segnalazione: " +
-        testo +
-        "\n gravita: " +
-        gravita.toString());
-
+    Response response = await post(
+      Uri.parse(
+        url +
+            "createUser.php" +
+            "?email=" +
+            user.email +
+            "&testo=" +
+            testo +
+            "&gravita=" +
+            gravita.toString(),
+      ),
+    );
   }
 
   static newSegnalazione(String userEmail, String testo) {
