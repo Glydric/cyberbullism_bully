@@ -62,11 +62,11 @@ class DbUserConnector {
     //TODO completare
   }
 
-  static addSegnalazioneFromUser(User user, String testo, int gravita) async {
-    addSegnalazione(user.email, testo, gravita);
+  static addSegnalazioneFromUser(User user, String testo) async {
+    addSegnalazione(user.email, testo);
   }
 
-  static addSegnalazione(String userEmail, String testo, int gravita) async {
+  static addSegnalazione(String userEmail, String testo) async {
     Response response = await post(
       Uri.parse(
         url +
@@ -76,7 +76,7 @@ class DbUserConnector {
             "&testo=" +
             testo +
             "&gravita=" +
-            gravita.toString(),
+            getGravitaFrom(testo).toString(),
       ),
     );
   }
