@@ -48,7 +48,7 @@ class DbUserConnector {
     throw Exception("Metodo non definito, user" +
         user.toString() +
         "\n nuova password: " +
-        newPassword);
+        newPassword);/* 
     Response response = await post(
       Uri.parse(
         url +
@@ -61,8 +61,8 @@ class DbUserConnector {
             newPassword,
       ),
     );
-    LoginException.thrower(response.body);
-    //TODO completare
+    LoginException.thrower(response.body); */
+    //TODO aggiungere la modifica della password
   }
 
   /// Consente di aggiungere una segnalazione al database passando un utente
