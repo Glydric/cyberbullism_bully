@@ -81,9 +81,6 @@ class DbUserConnector {
     );
   }
 
-  static newSegnalazioneFromUser(User user, String testo) =>
-      addSegnalazione(user.email, testo);
-
   static int getGravitaFrom(String testo) {
     //TODO Implementa gravita
     return 0;
