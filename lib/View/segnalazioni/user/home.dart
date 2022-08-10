@@ -29,10 +29,7 @@ class _HomeSegnalazioniState extends State<HomeSegnalazioni> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: (() => setState(
-                  () => _isWriting ? _isWriting = false : _isWriting = true)
-              // debugPrint(
-              //     'Inserire qui la segnalazione "CARD"'); //TODO sostituire con la card
-              ),
+              () => _isWriting ? _isWriting = false : _isWriting = true)),
           child: const Icon(Icons.add),
         ),
       );

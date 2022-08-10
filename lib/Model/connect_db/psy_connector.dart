@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:http/http.dart';
+
+import '../segnalazione.dart';
 import '/Model/psyco/psyco.dart';
 
 const url = "miglio.tech";
@@ -17,8 +22,15 @@ class DbPsyConnector {
         newPassword);
   }
 
-  static String getSegnalazioni() {
-    
-    return '';
+  static Future<List<Segnalazione>> getSegnalazioni() async {
+    Response response = await post(Uri.parse(url + "getSegnalazioni.php"));
+    final List<dynamic> jsonList = jsonDecode(response.body);
+    final List<Segnalazione> result = <Segnalazione>[];
+
+    for (var json in jsonList) {
+      result.add(Segnalazione.fromJson(jsonEncode(json)));
+    }
+
+    return result;
   }
 }

@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
+import '/Model/psyco/psyco.dart';
 import '/Model/user.dart';
 import '/Model/connect_db/login_exception.dart';
 
 const url = "http://leonardomigliorelli.altervista.org/";
 
 class DbUserConnector {
+  /// consente di creare l'utente sul database
   static addUser(User user) async {
     Response response = await post(
       Uri.parse(
@@ -26,6 +28,7 @@ class DbUserConnector {
     LoginException.thrower(response.body);
   }
 
+  /// consente di ottenere l'utente da email e password
   static Future<User> getUser(String email, String password) async {
     Response response = await post(
       Uri.parse(url +
@@ -36,31 +39,57 @@ class DbUserConnector {
           User.crypt(password)),
     );
     LoginException.thrower(response.body);
-    return User.fromJson(jsonDecode(response.body));
+    final json = jsonDecode(response.body);
+    return json["isPsy"] == 0 ? User.fromJson(json) : Psyco.fromJson(json);
   }
 
-  static modifyPassword(User user, String newPassword) {
+  /// consente di modificare la password del'utente passando la nuova
+  static modifyPassword(User user, String newPassword) async {
     throw Exception("Metodo non definito, user" +
         user.toString() +
         "\n nuova password: " +
         newPassword);
+    Response response = await post(
+      Uri.parse(
+        url +
+            "getUser.php" +
+            "?email=" +
+            user.email +
+            "&password=" +
+            user.password +
+            "&newPassword=" +
+            newPassword,
+      ),
+    );
+    LoginException.thrower(response.body);
+    //TODO completare
   }
 
-  static addSegnalazione(User user, String testo, int gravita) {
-    throw Exception("Metodo non definito, user" +
-        user.toString() +
-        "\n nuova segnalazione: " +
-        testo +
-        "\n gravita: " +
-        gravita.toString());
+  /// Consente di aggiungere una segnalazione al database passando un utente
+  /// Richiama addSegnalazione prendendo l'email dall'utente passato
+  static addSegnalazioneFromUser(User user, String testo) async {
+    addSegnalazione(user.email, testo);
   }
 
-  static newSegnalazione(String userEmail, String testo) {}
+  /// Consente di aggiungere una segnalazione al database passando direttamente l'email
+  static addSegnalazione(String userEmail, String testo) async {
+    Response response = await post(
+      Uri.parse(
+        url +
+            "createUser.php" +
+            "?email=" +
+            userEmail +
+            "&testo=" +
+            testo +
+            "&gravita=" +
+            getGravitaFrom(testo).toString(),
+      ),
+    );
+  }
 
-  static newSegnalazioneFromUser(User user, String testo) =>
-      newSegnalazione(user.email, testo);
-
+  /// consente di ottenere la gravità passando un testo
   static int getGravitaFrom(String testo) {
+    //TODO Implementare l'algoritmo per derivare la gravita
     return 0;
   }
 }

@@ -29,7 +29,7 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
             flex: 1,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [Text((widget.segnalazione.date).toString())],
+              children: [Text((widget.segnalazione.orario).toString())],
             ))
       ],
     );
@@ -63,7 +63,6 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
 
       default:
         {
-          //CASO MENO GRAVE == 0
           throw new Exception("Gravità non corretta");
         }
     }
