@@ -13,11 +13,9 @@ class SegnalazioneCard extends StatefulWidget {
 
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Text(widget.segnalazione.testo),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => Row(
+        children: <Widget>[
+          Text(widget.segnalazione.testo),
+        ],
+      );
 }
