@@ -1,14 +1,14 @@
+import '/Model/segnalazione.dart';
 import '/Model/connect_db/user_connector.dart';
 import 'package:flutter/material.dart';
 import '/Model/user.dart';
 
 class ListaSegnalazioni extends StatelessWidget {
   //Ancora non inizializzata
-  final _list = <Widget>[
-    Text('Segnalazione 1'),
-    Text('Segnalazione 2'),
-    Text('Segnalazione 3'),
+  final _list = <Segnalazione>[
   ];
+  //TODO lista di segnalazioni
+
   ListaSegnalazioni({Key? key}) : super(key: key);
 
   @override
