@@ -9,6 +9,7 @@ import '/Model/connect_db/login_exception.dart';
 const url = "http://leonardomigliorelli.altervista.org/";
 
 class DbUserConnector {
+  /// consente di creare l'utente sul database
   static addUser(User user) async {
     Response response = await post(
       Uri.parse(
@@ -27,6 +28,7 @@ class DbUserConnector {
     LoginException.thrower(response.body);
   }
 
+  /// consente di ottenere l'utente da email e password
   static Future<User> getUser(String email, String password) async {
     Response response = await post(
       Uri.parse(url +
@@ -41,6 +43,7 @@ class DbUserConnector {
     return json["isPsy"] == 0 ? User.fromJson(json) : Psyco.fromJson(json);
   }
 
+  /// consente di modificare la password del'utente passando la nuova
   static modifyPassword(User user, String newPassword) async {
     throw Exception("Metodo non definito, user" +
         user.toString() +
@@ -62,10 +65,13 @@ class DbUserConnector {
     //TODO completare
   }
 
+  /// Consente di aggiungere una segnalazione al database passando un utente
+  /// Richiama addSegnalazione prendendo l'email dall'utente passato
   static addSegnalazioneFromUser(User user, String testo) async {
     addSegnalazione(user.email, testo);
   }
 
+  /// Consente di aggiungere una segnalazione al database passando direttamente l'email
   static addSegnalazione(String userEmail, String testo) async {
     Response response = await post(
       Uri.parse(
@@ -81,6 +87,7 @@ class DbUserConnector {
     );
   }
 
+  /// consente di ottenere la gravità passando un testo
   static int getGravitaFrom(String testo) {
     //TODO Implementare l'algoritmo per derivare la gravita
     return 0;
