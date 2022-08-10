@@ -6,7 +6,7 @@ class CardAggiunta extends StatefulWidget {
   @override
   State<CardAggiunta> createState() => _CardAggiuntaState();
 }
-
+///Classe che definisce l'interfaccia per l'aggiunta di una segnalazione
 class _CardAggiuntaState extends State<CardAggiunta> {
   @override
   Widget build(BuildContext context) => Container(
