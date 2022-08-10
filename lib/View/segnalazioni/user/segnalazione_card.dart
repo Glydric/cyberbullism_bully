@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 
 import '/Model/segnalazione.dart';
 
-class SegnalazioneCard extends StatelessWidget {
+class SegnalazioneCard extends StatefulWidget {
   Segnalazione segnalazione;
+
   SegnalazioneCard(this.segnalazione, {Key? key}) : super(key: key);
 
   @override
+  State<SegnalazioneCard> createState() => _SegnalazioneCardState();
+}
+
+class _SegnalazioneCardState extends State<SegnalazioneCard> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(segnalazione.testo),
+    return Row(
+      children: <Widget>[
+        Text(widget.segnalazione.testo),
+      ],
     );
-  } //TODO implementare il costruttore che prende una segnalazione e crea una card
+  }
 }
