@@ -62,13 +62,17 @@ class DbUserConnector {
     //TODO completare
   }
 
-  static addSegnalazione(User user, String testo, int gravita) async {
+  static addSegnalazioneFromUser(User user, String testo, int gravita) async {
+    addSegnalazione(user.email, testo, gravita);
+  }
+
+  static addSegnalazione(String userEmail, String testo, int gravita) async {
     Response response = await post(
       Uri.parse(
         url +
             "createUser.php" +
             "?email=" +
-            user.email +
+            userEmail +
             "&testo=" +
             testo +
             "&gravita=" +
@@ -77,12 +81,8 @@ class DbUserConnector {
     );
   }
 
-  static newSegnalazione(String userEmail, String testo) {
-    //TODO
-  }
-
   static newSegnalazioneFromUser(User user, String testo) =>
-      newSegnalazione(user.email, testo);
+      addSegnalazione(user.email, testo);
 
   static int getGravitaFrom(String testo) {
     //TODO Implementa gravita
