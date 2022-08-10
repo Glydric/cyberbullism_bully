@@ -70,9 +70,7 @@ class _LogInPageState extends State<LogInPage> {
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Column(
                 children: [
-                  const Spacer(),
-                  const Spacer(),
-                  const Spacer(),
+                  const Spacer(flex: 3),
 
                   TextFormField(
                     controller: _emailController,
@@ -103,8 +101,7 @@ class _LogInPageState extends State<LogInPage> {
                       ),
                     ),
                   ]),
-                  const Spacer(),
-                  const Spacer(),
+
                   ElevatedButton(
                     onPressed: signIn,
                     child: const Text("Login"),
@@ -113,8 +110,8 @@ class _LogInPageState extends State<LogInPage> {
                     onPressed: toRegisterPage,
                     child: const Text("Non sei iscritto? Registrati"),
                   ),
-                  const Spacer(),
-                  const Spacer(),
+                  const Spacer(flex: 2),
+
                 ],
               ),
             ),
