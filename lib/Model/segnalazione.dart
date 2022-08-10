@@ -1,7 +1,13 @@
 class Segnalazione {
+  String email;
   String testo;
-  DateTime date;
+  String orario;
   int gravita;
-  
-  Segnalazione(this.testo, this.date, this.gravita);
+
+  Segnalazione(this.testo, this.orario, this.gravita, this.email);
+  Segnalazione.fromJson(json)
+      : email = json["email"],
+        testo = json["testo"],
+        orario = json["orario"],
+        gravita = json["gravita"];
 }
