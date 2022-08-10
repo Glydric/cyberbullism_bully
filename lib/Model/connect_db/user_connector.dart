@@ -82,7 +82,7 @@ class DbUserConnector {
   }
 
   static int getGravitaFrom(String testo) {
-    //TODO Implementa gravita
+    //TODO Implementare l'algoritmo per derivare la gravita
     return 0;
   }
 }
