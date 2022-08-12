@@ -1,3 +1,4 @@
+import 'package:cyberbullism_bully/Model/segnalazione.dart';
 import 'package:flutter/material.dart';
 
 class CardAggiunta extends StatefulWidget {
@@ -6,6 +7,7 @@ class CardAggiunta extends StatefulWidget {
   @override
   State<CardAggiunta> createState() => _CardAggiuntaState();
 }
+
 ///Classe che definisce l'interfaccia per l'aggiunta di una segnalazione
 class _CardAggiuntaState extends State<CardAggiunta> {
   @override
@@ -18,10 +20,8 @@ class _CardAggiuntaState extends State<CardAggiunta> {
               elevation: 2,
               color: Colors.orange,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("Qui va la segnalazione"),
-              ) //TODO completare la segnalazione
-              ),
+                  padding: EdgeInsets.all(8.0),
+                  child: FittedBox(fit: BoxFit.contain, child: Text("")))),
         ),
       );
 }

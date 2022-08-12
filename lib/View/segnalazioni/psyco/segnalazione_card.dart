@@ -14,26 +14,30 @@ class SegnalazioneCard extends StatefulWidget {
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: gravityColour(widget.segnalazione.gravita),
+    return Container(
+      height: 200,
+      color: Color.fromARGB(214, 255, 255, 255),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: gravityColour(widget.segnalazione.gravita),
+            ),
           ),
-        ),
-        const Spacer(),
-        Expanded(child: Text(widget.segnalazione.testo)),
-        const Spacer(),
-        Flexible(
-          flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [Text((widget.segnalazione.orario).toString())],
-          ),
-        )
-      ],
+          const Spacer(),
+          Expanded(child: Text(widget.segnalazione.testo)),
+          const Spacer(),
+          Flexible(
+            flex: 1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [Text((widget.segnalazione.orario).toString())],
+            ),
+          )
+        ],
+      ),
     );
   }
 

@@ -8,6 +8,7 @@ class ListaSegnalazioni extends StatelessWidget {
 
   const ListaSegnalazioni(this._list, {Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     // lista anche relativamente lunga e che
@@ -17,6 +18,7 @@ class ListaSegnalazioni extends StatelessWidget {
       itemCount: _list.length,
       itemBuilder: (BuildContext context, int index) => _list[index],
     );
+
 
     // return ListView(
     //     scrollDirection: Axis.vertical,
