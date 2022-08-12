@@ -1,6 +1,4 @@
 import 'card_aggiunta.dart';
-import '/Model/segnalazione.dart';
-import '/Model/connect_db/psy_connector.dart';
 import 'package:flutter/material.dart';
 
 class PsycoSegnalazione extends StatefulWidget {
@@ -17,7 +15,7 @@ class _PsycoSegnalazioneState extends State<PsycoSegnalazione> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [if (_isWriting) const CardAggiunta()]),
+      body: Column(children: [if (_isWriting) CardAggiunta()]),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: (() => setState(
