@@ -21,7 +21,9 @@ class _CardAggiuntaState extends State<CardAggiunta> {
               color: Colors.orange,
               child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: FittedBox(fit: BoxFit.contain, child: Text("")))),
+                  child: FittedBox(
+                    fit: BoxFit.contain, 
+                    child: Text()))),
         ),
       );
 }
