@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '/Model/user_save_manager.dart';
 import "/Model/user.dart";
-import 'login_registration/changePassword.dart';
+import 'login_registration/change_password.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
