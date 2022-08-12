@@ -13,7 +13,8 @@ class ListaSegnalazioni extends StatelessWidget {
   List<Segnalazione> lista =
       DbPsyConnector.getSegnalazioni() as List<Segnalazione>;
 
-  ListaSegnalazioni(this.lista, {Key? key}) : super(key: key);
+
+  ListaSegnalazioni({Key? key}) : super(key: key);
 
   List<SegnalazioneCard> fillCard(List<Segnalazione> myList) {
     //ci dovrebbe essere il metodo List.map da vedere meglio..
@@ -41,7 +42,7 @@ class ListaSegnalazioni extends StatelessWidget {
         itemCount: _list.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-            height: 100,
+            height: 200,
             color: Color.fromARGB(214, 255, 255, 255),
             child: Center(child: Text('${_list[index]}')),
           );

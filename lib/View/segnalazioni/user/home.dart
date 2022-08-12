@@ -16,15 +16,15 @@ class HomeSegnalazioni extends StatefulWidget {
 
 class _HomeSegnalazioniState extends State<HomeSegnalazioni> {
   bool _isWriting = false;
-
   
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context){
+    return Scaffold(
         body: Center(
           child: Stack(
-            children: <Widget>[ 
-              _isWriting ? const CardAggiunta() : Container(),
-              ListaSegnalazioni()
+            children: <Widget>[
+              ListaSegnalazioni(),
+              _isWriting ? const CardAggiunta() : Container(),  
             ],
           ),
         ),
@@ -34,4 +34,5 @@ class _HomeSegnalazioniState extends State<HomeSegnalazioni> {
           child: const Icon(Icons.add),
         ),
       );
+}
 }
