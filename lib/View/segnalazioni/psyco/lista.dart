@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'segnalazione_card.dart';
 
+
 class ListaSegnalazioni extends StatelessWidget {
   final List<SegnalazioneCard> _list;
 
@@ -13,8 +14,9 @@ class ListaSegnalazioni extends StatelessWidget {
     // riserva lo stesso spazio per ogni Container (segnalazione)
 
     return ListView.builder(
-        itemCount: _list.length,
-        itemBuilder: (BuildContext context, int index) => _list[index]);
+      itemCount: _list.length,
+      itemBuilder: (BuildContext context, int index) => _list[index],
+    );
 
     // return ListView(
     //     scrollDirection: Axis.vertical,
