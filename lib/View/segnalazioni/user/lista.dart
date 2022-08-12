@@ -15,12 +15,12 @@ class ListaSegnalazioni extends StatelessWidget {
 
   ListaSegnalazioni({Key? key}) : super(key: key);
 
-  List<SegnalazioneCard> fillCard(List<Segnalazione> myList) =>
+  List<SegnalazioneCard> fillCards(List<Segnalazione> myList) =>
       myList.map(SegnalazioneCard.new).toList();
 
   @override
   Widget build(BuildContext context) {
-    List<SegnalazioneCard> _list = fillCard(lista);
+    List<SegnalazioneCard> _list = fillCards(lista);
 
     // lista anche relativamente lunga e che
     // riserva lo stesso spazio per ogni Container (segnalazione)
