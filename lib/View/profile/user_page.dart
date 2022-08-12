@@ -4,14 +4,14 @@ import '/Model/user_save_manager.dart';
 import "/Model/user.dart";
 import 'login_registration/changePassword.dart';
 
-class UserInfoPage extends StatefulWidget {
-  const UserInfoPage({Key? key}) : super(key: key);
+class UserPage extends StatefulWidget {
+  const UserPage({Key? key}) : super(key: key);
 
   @override
-  State<UserInfoPage> createState() => _UserInfoPageState();
+  State<UserPage> createState() => _UserPageState();
 }
 
-class _UserInfoPageState extends State<UserInfoPage> {
+class _UserPageState extends State<UserPage> {
   User? user;
 
   void initUser() async {
@@ -33,16 +33,20 @@ class _UserInfoPageState extends State<UserInfoPage> {
             const Text("UserName:"),
             Text(user.toString()),
             const Spacer(),
-            Row(children: [
-              const ElevatedButton(
-                onPressed: UserSavingManager.removeUser,
-                child: Text("Logout"),
-              ),
-              ElevatedButton(
-                onPressed: toPage(ChangePassword()),
-                child: const Text("Logout"),
-              ),
-            ])
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(children: [
+                const ElevatedButton(
+                  onPressed: UserSavingManager.removeUser,
+                  child: Text("Logout"),
+                ),
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () => toPage(ChangePassword(user!)),
+                  child: const Text("Change Password"),
+                ),
+              ]),
+            )
           ],
         ),
       ),
