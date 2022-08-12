@@ -40,7 +40,7 @@ class DbUserConnector {
     );
     LoginException.thrower(response.body);
     final json = jsonDecode(response.body);
-    return json["isPsy"] == 0 ? User.fromJson(json) : Psyco.fromJson(json);
+    return json["isPsy"] == '0' ? User.fromJson(json) : Psyco.fromJson(json);
   }
 
   /// consente di modificare la password del'utente passando la nuova
