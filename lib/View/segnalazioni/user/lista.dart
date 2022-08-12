@@ -17,17 +17,6 @@ class ListaSegnalazioni extends StatelessWidget {
 
   List<SegnalazioneCard> fillCard(List<Segnalazione> myList) =>
       myList.map(SegnalazioneCard.new).toList();
-  //ci dovrebbe essere il metodo List.map da vedere meglio..
-  // List<SegnalazioneCard> temp = <SegnalazioneCard>[];
-  // if (myList.isNotEmpty) {
-  //   for (int i = 0; i < lista.length; i++) {
-  //     temp[i].segnalazione.orario = myList[i].orario;
-  //     temp[i].segnalazione.gravita = myList[i].gravita;
-  //     temp[i].segnalazione.testo = myList[i].testo;
-  //     temp[i].segnalazione.email = myList[i].email;
-  //   }
-  // }
-  // return temp;
 
   @override
   Widget build(BuildContext context) {
