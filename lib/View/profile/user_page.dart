@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '/Model/user_save_manager.dart';
 import "/Model/user.dart";
+import 'login_registration/changePassword.dart';
 
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({Key? key}) : super(key: key);
@@ -31,13 +32,25 @@ class _UserInfoPageState extends State<UserInfoPage> {
           children: [
             const Text("UserName:"),
             Text(user.toString()),
-            const ElevatedButton(
-              onPressed: UserSavingManager.removeUser,
-              child: Text("Logout"),
-            ),
+            const Spacer(),
+            Row(children: [
+              const ElevatedButton(
+                onPressed: UserSavingManager.removeUser,
+                child: Text("Logout"),
+              ),
+              ElevatedButton(
+                onPressed: toPage(ChangePassword()),
+                child: const Text("Logout"),
+              ),
+            ])
           ],
         ),
       ),
     );
   }
+
+  toPage(Widget page) => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => page),
+      );
 }
