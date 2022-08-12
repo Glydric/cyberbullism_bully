@@ -16,7 +16,7 @@ class LogInPage extends StatefulWidget {
 
 class _LogInPageState extends State<LogInPage> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passowordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   String _errorName = "";
 
   ///Sign In user
@@ -24,7 +24,7 @@ class _LogInPageState extends State<LogInPage> {
     try {
       User user = await DbUserConnector.getUser(
         _emailController.text,
-        _passowordController.text,
+        _passwordController.text,
       );
 
       UserSavingManager.saveUser(user);
@@ -82,7 +82,7 @@ class _LogInPageState extends State<LogInPage> {
                   ),
 
                   TextFormField(
-                    controller: _passowordController,
+                    controller: _passwordController,
                     obscureText: true,
                     autocorrect: false,
                     enableSuggestions: false,
@@ -101,7 +101,6 @@ class _LogInPageState extends State<LogInPage> {
                       ),
                     ),
                   ]),
-
                   ElevatedButton(
                     onPressed: signIn,
                     child: const Text("Login"),
@@ -111,7 +110,6 @@ class _LogInPageState extends State<LogInPage> {
                     child: const Text("Non sei iscritto? Registrati"),
                   ),
                   const Spacer(flex: 2),
-
                 ],
               ),
             ),

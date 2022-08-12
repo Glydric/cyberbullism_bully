@@ -45,10 +45,10 @@ class DbUserConnector {
 
   /// consente di modificare la password del'utente passando la nuova
   static modifyPassword(User user, String newPassword) async {
-    throw Exception("Metodo non definito, user" +
-        user.toString() +
-        "\n nuova password: " +
-        newPassword);/* 
+    // throw Exception("Metodo non definito, user" +
+    //     user.toString() +
+    //     "\n nuova password: " +
+    //     newPassword);
     Response response = await post(
       Uri.parse(
         url +
@@ -58,10 +58,10 @@ class DbUserConnector {
             "&password=" +
             user.password +
             "&newPassword=" +
-            newPassword,
+            User.crypt(newPassword),
       ),
     );
-    LoginException.thrower(response.body); */
+    LoginException.thrower(response.body);
     //TODO aggiungere la modifica della password
   }
 
