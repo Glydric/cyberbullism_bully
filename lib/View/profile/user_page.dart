@@ -12,7 +12,7 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  User? user;
+  User? user;//TODO move user getter to superior page
 
   void initUser() async {
     try {
@@ -27,15 +27,21 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     initUser();
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            const Text("UserName:"),
-            Text(user.toString()),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(children: [
+      appBar: AppBar(title: const Text("Utente")),
+      body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const Spacer(),
+              Text(
+                user!.nome + " " + user!.cognome,
+                style: const TextStyle(fontSize: 20),
+              ),
+              Text(user!.email),
+              const Spacer(
+                flex: 3,
+              ),
+              Row(children: [
                 const ElevatedButton(
                   onPressed: UserSavingManager.removeUser,
                   child: Text("Logout"),
@@ -46,10 +52,8 @@ class _UserPageState extends State<UserPage> {
                   child: const Text("Change Password"),
                 ),
               ]),
-            )
-          ],
-        ),
-      ),
+            ],
+          )),
     );
   }
 
