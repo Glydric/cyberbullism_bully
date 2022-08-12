@@ -114,7 +114,8 @@ class RegisterPageState extends State<RegisterPage> {
 
   void registrazione() => _isPsy ? psySignUp() : userSignUp();
 
-  psySignUp() async {
+  ///create a new psicologo
+  void psySignUp() async {
     try {
       Psyco psy = await PsycoUrlGetter.getFuturePsyco(
         _nomeController.text,
@@ -149,7 +150,7 @@ class RegisterPageState extends State<RegisterPage> {
           _passowordController.text,
         ),
       );
-      // toPage(const UserInfoPage());
+      
       backToLoginPage();
       _errorName = "";
     } on Exception catch (e) {

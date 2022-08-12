@@ -8,7 +8,7 @@ import 'psyco.dart';
 const String alboUrl = "https://areariservata.psy.it";
 
 class PsycoUrlGetter {
-  static getFuturePsyco(
+  static Future<Psyco> getFuturePsyco(
           String nome, String cognome, String ordine, String password) =>
       getFutureMap(nome, cognome, ordine, 0)
           .then(addPec)

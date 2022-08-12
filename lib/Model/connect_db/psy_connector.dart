@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 import '../segnalazione.dart';
 import '/Model/psyco/psyco.dart';
 
-const url = "miglio.tech";
+const url = "http://leonardomigliorelli.altervista.org/";
 
 class DbPsyConnector {
   static addPsy(Psyco psi, int firebaseID) {
@@ -28,7 +28,7 @@ class DbPsyConnector {
     final List<Segnalazione> result = <Segnalazione>[];
 
     for (var json in jsonList) {
-      result.add(Segnalazione.fromJson(jsonEncode(json)));
+      result.add(Segnalazione.fromJson(json));
     }
 
     return result;

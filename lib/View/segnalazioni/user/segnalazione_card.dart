@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '/Model/segnalazione.dart';
 
 class SegnalazioneCard extends StatefulWidget {
-  Segnalazione segnalazione;
+  final Segnalazione segnalazione;
 
-  SegnalazioneCard(this.segnalazione, {Key? key}) : super(key: key);
+  const SegnalazioneCard(this.segnalazione, {Key? key}) : super(key: key);
 
   @override
   State<SegnalazioneCard> createState() => _SegnalazioneCardState();
@@ -15,22 +15,24 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: <Widget>[
+      children: [
         Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: gravityColour(widget.segnalazione.gravita)),
+            borderRadius: BorderRadius.circular(8),
+            color: gravityColour(widget.segnalazione.gravita),
+          ),
         ),
         const Spacer(),
         Expanded(child: Text(widget.segnalazione.testo)),
         const Spacer(),
         Flexible(
-            flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [Text((widget.segnalazione.orario).toString())],
-            ))
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [Text((widget.segnalazione.orario).toString())],
+          ),
+        )
       ],
     );
   }
@@ -63,7 +65,7 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
 
       default:
         {
-          throw new Exception("Gravità non corretta");
+          throw Exception("Gravità non corretta");
         }
     }
   }
