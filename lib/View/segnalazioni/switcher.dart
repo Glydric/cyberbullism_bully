@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../Model/user_save_manager.dart';
+import '/Model/user.dart';
+import '/Model/user_save_manager.dart';
 import 'psyco/home.dart';
 import 'user/home.dart';
 
@@ -28,10 +29,10 @@ class _SegnalazioniPageState extends State<SegnalazioniPage> {
 
   void initUser() async {
     try {
-      final user = await UserSavingManager.getUser();
+      final User user = await UserSavingManager.getUser();
       _body = user.runtimeType.toString() == "Psyco"
-          ? const PsycoSegnalazione()
-          : const HomeSegnalazioni();
+          ? UserSegnalazione(user)
+          : const PsycoSegnalazioni();
       setState(() => _body);
     } catch (e) {
       debugPrint("Utente non trovato, ");
