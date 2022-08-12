@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '/Model/user_save_manager.dart';
 import 'login_registration/login_page.dart';
-import 'user_info_page.dart';
+import 'user_page.dart';
 
 class LoginPageSwitcher extends StatefulWidget {
   const LoginPageSwitcher({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
         // // PsycoInfoPage(),
         // break;
         case "User":
-          _screen = const UserInfoPage();
+          _screen = const UserPage();
       }
       setState(() => _screen);
     } catch (e) {
