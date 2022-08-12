@@ -23,7 +23,7 @@ class _HomeSegnalazioniState extends State<HomeSegnalazioni> {
         body: Center(
           child: Stack(
             children: <Widget>[ 
-              _isWriting ? const CardAggiunta() : Container(),
+              if(_isWriting) const CardAggiunta(),
               ListaSegnalazioni()
             ],
           ),
