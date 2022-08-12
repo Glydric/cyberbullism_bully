@@ -80,15 +80,13 @@ class _LogInPageState extends State<LogInPage> {
                       label: Text("Email"),
                     ),
                   ),
-
                   TextFormField(
                     controller: _passwordController,
                     obscureText: true,
                     autocorrect: false,
                     enableSuggestions: false,
                     decoration: const InputDecoration(label: Text("Password")),
-                  ), // PasswordField
-
+                  ),
                   Row(children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
