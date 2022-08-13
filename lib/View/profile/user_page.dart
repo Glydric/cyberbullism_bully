@@ -57,8 +57,7 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
-  toPage(Widget page) => Navigator.push(
-        context,
+  toPage(Widget page) => Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => page),
       );
 }
