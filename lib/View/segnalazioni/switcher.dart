@@ -12,30 +12,16 @@ class SegnalazioniPage extends StatefulWidget {
 }
 
 class _SegnalazioniPageState extends State<SegnalazioniPage> {
-  Widget _body = const Center(
-    child: Text("Eseguire il login"),
-  );
-
   @override
-  Widget build(BuildContext context) {
-    initUser();
-    return Scaffold(
-      body: _body,
-      appBar: AppBar(
-        title: const Text("Le tue segnalazioni"),
-      ),
-    );
-  }
-
-  void initUser() async {
-    try {
-      final User user = await UserSavingManager.getUser();
-      _body = user.runtimeType.toString() == "Psyco"
-          ? UserSegnalazione(user)
-          : const PsycoSegnalazioni();
-      setState(() => _body);
-    } catch (e) {
-      debugPrint("Utente non trovato, ");
-    }
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: const Text("Le tue segnalazioni")),
+        body: FutureBuilder(
+            future: UserSavingManager.getUser(),
+            builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
+                snapshot.hasData
+                    ? (snapshot.requireData.runtimeType.toString() == "User"//TODO! reinsert "Psyco" before release
+                        ? const PsycoSegnalazioni()
+                        : UserSegnalazione(snapshot.requireData))
+                    : const Center(child: Text("Eseguire il login"))),
+      );
 }
