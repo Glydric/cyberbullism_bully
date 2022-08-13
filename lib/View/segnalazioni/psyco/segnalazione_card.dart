@@ -14,42 +14,43 @@ class SegnalazioneCard extends StatefulWidget {
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(//TODO sostituire con widget che si adatta all'altezza
-      height: 70,
-      color: Color.fromARGB(214, 255, 255, 255),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: gravityColour(widget.segnalazione.gravita),
-              ),
+    return Container(
+        color: Color.fromARGB(214, 255, 255, 255),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Flexible(
+            fit: FlexFit.loose,
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: gravityColour(widget.segnalazione.gravita),
+                  ),
+                ),
+                Column(children: [
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text((widget.segnalazione.orario).toString()),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(widget.segnalazione.testo),
+                    ),
+                  ),
+                ])
+              ],
             ),
-            Column(children: [
-              Flexible(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text((widget.segnalazione.orario).toString()),
-                  ],
-                ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(widget.segnalazione.testo),
-                ),
-              ),
-            ])
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   Color gravityColour(int gravity) {
