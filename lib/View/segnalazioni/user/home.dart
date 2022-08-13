@@ -12,17 +12,17 @@ class UserSegnalazione extends StatefulWidget {
 
 class _UserSegnalazioneState extends State<UserSegnalazione> {
   bool _isWriting = false;
-  // Future<List<SegnalazioneCard>> fillCards() => DbPsyConnector.getSegnalazioni()
-  //     .then((List<Segnalazione> x) => x.map(SegnalazioneCard.new).toList());
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(children: [if (_isWriting) CardAggiunta(widget.user.email)]),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: (() => setState(
-            () => _isWriting ? _isWriting = false : _isWriting = true)),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        body: Stack(
+          children: [
+            if (_isWriting) CardAggiunta(widget.user.email),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: (() => setState(
+              () => _isWriting ? _isWriting = false : _isWriting = true)),
+        ),
+      );
 }
