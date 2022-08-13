@@ -13,14 +13,11 @@ class SegnalazioneCard extends StatefulWidget {
 
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Color.fromARGB(214, 255, 255, 255),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        //Questa è la riga che prende tutto lo spazio in larghezza
-        child: Flexible(
-          fit: FlexFit.tight,
+  Widget build(BuildContext context) => Container(
+        color: Color.fromARGB(214, 255, 255, 255),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          //Questa è la riga che prende tutto lo spazio in larghezza
           child: Row(children: [
             //Questo è il primo elemento della Row, ovvero il container che contiene la label colorata con la gravità
 
@@ -65,9 +62,7 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
             ),
           ]),
         ),
-      ),
-    );
-  }
+      );
 
   Color gravityColour(int gravity) {
     switch (gravity) {
