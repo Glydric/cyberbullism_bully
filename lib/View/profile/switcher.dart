@@ -15,22 +15,24 @@ class LoginPageSwitcher extends StatefulWidget {
 class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
   toPage(Widget page) => Navigator.of(context)
       .push(MaterialPageRoute(builder: (context) => page))
-      .whenComplete(() => setState(() => {}));
+      .whenComplete(() => setState(() {}));
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      body: FutureBuilder(
-        future: UserSavingManager.getUser(),
-        builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
-            snapshot.hasData
-                ? const UserPage()
-                : Center(
-                    child: ElevatedButton(
-                      onPressed: () => toPage(const LogInPage()),
-                      child: Text("Eseguire Il Login"),
+        appBar: AppBar(title: const Text("Utente")),
+        body: FutureBuilder(
+          future: UserSavingManager.getUser(),
+          builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
+              snapshot.hasData
+                  ? UserPage(snapshot.requireData)
+                  : Scaffold(
+                      body: Center(
+                        child: ElevatedButton(
+                          onPressed: () => toPage(const LogInPage()),
+                          child: const Text("LogIn"),
+                        ),
+                      ),
                     ),
-                  ),
-      ),
-    );
-  
+        ),
+      );
 }
