@@ -19,14 +19,11 @@ class UserSavingManager {
 
     if (userString == null) throw Exception("User not found");
 
-    Map<String, dynamic> userMap =
-        jsonDecode(userString) as Map<String, dynamic>;
+    Map<String, dynamic> userMap = jsonDecode(userString);
 
-    if (userMap["type"] == "User") {
-      return User.fromJson(userMap);
-    } else {
-      return Psyco.fromJson(userMap);
-    }
+    return userMap["type"] == "User"
+        ? User.fromJson(userMap)
+        : Psyco.fromJson(userMap);
   }
 
   static void removeUser() async {
