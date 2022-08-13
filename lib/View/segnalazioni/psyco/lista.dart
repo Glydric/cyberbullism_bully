@@ -16,7 +16,7 @@ class ListaSegnalazioni extends StatelessWidget {
 
     return ListView.builder(
       itemCount: _list.length,
-      itemBuilder: (BuildContext context, int index) => _list[index],
+      itemBuilder: (BuildContext context, int index) => _list[index]
     );
 
 
