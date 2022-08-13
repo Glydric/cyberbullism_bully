@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '/Model/user.dart';
 import '/Model/user_save_manager.dart';
 import 'login_registration/login_page.dart';
 import 'user_page.dart';
@@ -12,34 +13,24 @@ class LoginPageSwitcher extends StatefulWidget {
 }
 
 class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
-  Widget _screen = Container();
-
-  void initUser() async {
-    try {
-      final user = await UserSavingManager.getUser();
-      switch (user.runtimeType.toString()) {
-        case "Psyco":
-        // _screen = const UserInfoPage();
-        // // PsycoInfoPage(),
-        // break;
-        case "User":
-          _screen = const UserPage();
-      }
-      setState(() => _screen);
-    } catch (e) {
-      debugPrint("Utente non trovato, login");
-      toPage(const LogInPage());
-    }
-  }
-
-  toPage(Widget page) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => page),
-      ).whenComplete(() => setState(() => _screen));
+  toPage(Widget page) => Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => page))
+      .whenComplete(() => setState(() => {}));
 
   @override
-  Widget build(BuildContext context) {
-    initUser();
-    return Scaffold(body: _screen);
-  }
+  Widget build(BuildContext context) => Scaffold(
+      body: FutureBuilder(
+        future: UserSavingManager.getUser(),
+        builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
+            snapshot.hasData
+                ? const UserPage()
+                : Center(
+                    child: ElevatedButton(
+                      onPressed: () => toPage(const LogInPage()),
+                      child: Text("Eseguire Il Login"),
+                    ),
+                  ),
+      ),
+    );
+  
 }
