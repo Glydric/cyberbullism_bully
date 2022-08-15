@@ -9,13 +9,11 @@ class LoginException implements Exception {
   static void thrower(String body) {
     switch (body) {
       case "invalid-email":
-        throw LoginException("invalid-email");
       case "user-not-found":
-        throw LoginException("user-not-found");
       case "too-many-requests":
-        throw LoginException("too-many-requests");
       case "empty-password":
-        throw LoginException("empty-password");
+      case "wrong-password":
+        throw LoginException(body);
     }
   }
 }
