@@ -1,5 +1,12 @@
 class LoginException implements Exception {
   final dynamic message;
+  static final List<String> errorCodes = [
+    "invalid-email",
+    "user-not-found",
+    "too-many-requests",
+    "empty-password",
+    "wrong-password"
+  ];
 
   LoginException(this.message);
   @override
@@ -7,13 +14,8 @@ class LoginException implements Exception {
 
   ///passando una stringa solleva l'eccezione se essa è presente
   static void thrower(String body) {
-    switch (body) {
-      case "invalid-email":
-      case "user-not-found":
-      case "too-many-requests":
-      case "empty-password":
-      case "wrong-password":
-        throw LoginException(body);
+    if (errorCodes.contains(body)) {
+      throw LoginException(body);
     }
   }
 }
