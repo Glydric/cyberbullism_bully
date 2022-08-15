@@ -14,6 +14,8 @@ class LoginException implements Exception {
         throw LoginException("user-not-found");
       case "too-many-requests":
         throw LoginException("too-many-requests");
+      case "empty-password":
+        throw LoginException("empty-password");
     }
   }
 }
