@@ -2,13 +2,43 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
+import '../segnalazione.dart';
 import '/Model/psyco/psyco.dart';
 import '/Model/user.dart';
 import '/Model/connect_db/login_exception.dart';
 
 const url = "http://leonardomigliorelli.altervista.org/";
 
-class DbUserConnector {
+class DbConnector {
+  static addPsy(User user) async {
+    Response response = await post(
+      Uri.parse(url +
+          "createUser.php" +
+          "?nome=" +
+          user.nome +
+          "&cognome=" +
+          user.cognome +
+          "&email=" +
+          user.email +
+          "&password=" +
+          user.password +
+          "&isPsy=1"),
+    );
+    LoginException.thrower(response.body);
+  }
+
+  static Future<List<Segnalazione>> getSegnalazioni() async {
+    Response response = await post(Uri.parse(url + "getSegnalazioni.php"));
+    final List<dynamic> jsonList = jsonDecode(response.body);
+    final List<Segnalazione> result = <Segnalazione>[];
+
+    for (var json in jsonList) {
+      result.add(Segnalazione.fromJson(json));
+    }
+
+    return result;
+  }
+
   /// consente di creare l'utente sul database
   static addUser(User user) async {
     Response response = await post(
