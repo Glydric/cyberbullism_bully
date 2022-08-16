@@ -13,9 +13,9 @@ class LoginException implements Exception {
   toString() => message;
 
   ///passando una stringa solleva l'eccezione se essa è presente
-  static void thrower(String body) {
-    if (errorCodes.contains(body)) {
-      throw LoginException(body);
+  static void thrower(String textCode) {
+    if (errorCodes.contains(textCode)) {
+      throw LoginException(textCode);
     }
   }
 }
