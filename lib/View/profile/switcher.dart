@@ -36,19 +36,20 @@ class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text("Utente")),
-        body: FutureBuilder(
-          future: UserSavingManager.getUser(),
-          builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
-              snapshot.hasData
-                  ? Padding(
+  Widget build(BuildContext context) => FutureBuilder(
+        future: UserSavingManager.getUser(),
+        builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
+            snapshot.hasData
+                ? Scaffold(
+                    appBar: AppBar(
+                        title: snapshot.requireData.runtimeType.toString() ==
+                                "Psyco"
+                            ? const Text("Psicologo")
+                            : const Text("Utente")),
+                    body: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(children: [
                         const Spacer(),
-                        if (snapshot.requireData.runtimeType.toString() ==
-                            "Psyco")
-                          const Text("Psycologo"),
                         Text(
                           snapshot.requireData.nome +
                               " " +
@@ -72,21 +73,23 @@ class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
                           ),
                         ])
                       ]),
-                    )
-                  : Center(
+                    ),
+                  )
+                : Scaffold(
+                    appBar: AppBar(title: const Text("Profilo")),
+                    body: Center(
                       child: ElevatedButton(
                         onPressed: () => showMyBottomSheet(const LogInPage()),
                         child: const Text("LogIn"),
                       ),
                     ),
-        ),
+                  ),
       );
 
   void showMyBottomSheet(Widget page) => showModalBottomSheet(
           context: context,
           builder: (_) => page,
-          backgroundColor:
-              const Color.fromARGB(0, 0, 0, 0) // this is transparent
+          backgroundColor: const Color.fromARGB(0, 0, 0, 0) // trasparente
           )
       .whenComplete(() => setState(() {}));
 }
