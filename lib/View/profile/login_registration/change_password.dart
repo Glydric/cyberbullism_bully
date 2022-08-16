@@ -1,48 +1,93 @@
 import 'package:flutter/material.dart';
 
+import '/Model/user_save_manager.dart';
+import '/Model/connect_db/login_exception.dart';
+import '/Model/connect_db/user_connector.dart';
 import '/Model/user.dart';
 
-class ChangePassword extends StatelessWidget {
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _newPasswordController = TextEditingController();
-  
+class ChangePassword extends StatefulWidget {
   final User user;
 
-  ChangePassword(this.user, {Key? key}) : super(key: key);
-
-  void changePassword() {}//TODO implementa il cambio password
+  const ChangePassword(this.user, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text("Change Password"),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(children: [
-            TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              autocorrect: false,
-              enableSuggestions: false,
-              decoration: const InputDecoration(
-                label: Text("Vecchia Password"),
+  State<ChangePassword> createState() => _ChangePasswordState();
+}
+
+class _ChangePasswordState extends State<ChangePassword> {
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+
+  String _errorName = "";
+
+  void changePassword() async {
+    try {
+      await DbUserConnector.modifyPassword(
+        widget.user,
+        _passwordController.text,
+        _newPasswordController.text,
+      );
+
+      UserSavingManager.removeUser();
+      UserSavingManager.saveUser(User(
+        widget.user.nome,
+        widget.user.cognome,
+        widget.user.email,
+        _newPasswordController.text,
+      ));
+      Navigator.pop(context);
+    } on LoginException catch (e) {
+      switch (e.toString()) {
+        case 'wrong-password':
+          _errorName = "Password Sbagliata";
+          break;
+        default:
+          _errorName = 'Errore Sconosciuto';
+      }
+    } finally {
+      setState(() => _errorName);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(children: [
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                autocorrect: false,
+                enableSuggestions: false,
+                decoration: const InputDecoration(
+                  label: Text("Vecchia Password"),
+                ),
               ),
-            ),
-            TextFormField(
-              controller: _newPasswordController,
-              obscureText: true,
-              autocorrect: false,
-              enableSuggestions: false,
-              decoration: const InputDecoration(
-                label: Text("Nuova Password"),
+              TextFormField(
+                controller: _newPasswordController,
+                obscureText: true,
+                autocorrect: false,
+                enableSuggestions: false,
+                decoration: const InputDecoration(
+                  label: Text("Nuova Password"),
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: changePassword,
-              child: const Text("Cambia"),
-            )
-          ]),
-        ),
+              Text(
+                _errorName,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: changePassword,
+                child: const Text("Cambia"),
+              )
+            ]),
+          ),
       );
 }
