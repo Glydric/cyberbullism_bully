@@ -1,7 +1,7 @@
 import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:flutter/material.dart';
 
-import '/Model/connect_db/user_connector.dart';
+import '../../../Model/connect_db/db_connector.dart';
 import '/Model/psyco/psyco.dart';
 import '/Model/psyco/psyco_url_getter.dart';
 
@@ -16,7 +16,7 @@ class RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _cognomeController = TextEditingController();
-  final TextEditingController _passowordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   String _errorName = "";
   bool _isPsy = false;
@@ -61,7 +61,7 @@ class RegisterPageState extends State<RegisterPage> {
                   ),
                   TextFormField(
                     decoration: const InputDecoration(label: Text("Password")),
-                    controller: _passowordController,
+                    controller: _passwordController,
                     obscureText: true,
                     autocorrect: false,
                     enableSuggestions: false,
@@ -105,21 +105,20 @@ class RegisterPageState extends State<RegisterPage> {
 
   void registrazione() => _isPsy ? psySignUp() : userSignUp();
 
-  ///create a new psicologo
-  void psySignUp() async {
+  psyChecks() async {
     try {
       Psyco psy = await PsycoUrlGetter.getFuturePsyco(
         _nomeController.text,
         _cognomeController.text,
         "", //TODO impelemtare l'ordine
-        _passowordController.text,
+        _passwordController.text,
       );
       if (_emailController.text != psy.email) {
         _errorName = "Pec psicologo non valida";
       } else if (psy.isValid == "true" &&
           _nomeController.text.toLowerCase() == psy.nome.toLowerCase() &&
           _cognomeController.text.toLowerCase() == psy.cognome.toLowerCase()) {
-        userSignUp(); //TODO migliora la leggibilità
+        psySignUp(); //TODO migliora la leggibilità
         _errorName = "";
       } else {
         _errorName = "Psicologo sospeso dalla carica";
@@ -131,15 +130,46 @@ class RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  ///create a new user
-  void userSignUp() async {
+  ///create a new psicologo
+  void psySignUp() async {
     try {
-      await DbUserConnector.addUser(
+      await DbConnector.addPsy(
         User(
           _nomeController.text,
           _cognomeController.text,
           _emailController.text,
-          _passowordController.text,
+          _passwordController.text,
+        ),
+      );
+
+      backToLoginPage();
+      _errorName = "";
+    } on Exception catch (e) {
+      switch (e.toString()) {
+        case "weak-password":
+          setState(() => _errorName = "La password non è sicura");
+          break;
+        case "email-already-in-use":
+          setState(() => _errorName = "L'account è già esistente");
+          break;
+        case "invalid-email":
+          setState(() => _errorName = "Inserire un'email valida");
+          break;
+        default:
+          debugPrint(e.toString());
+      }
+    }
+  }
+
+  ///create a new user
+  void userSignUp() async {
+    try {
+      await DbConnector.addUser(
+        User(
+          _nomeController.text,
+          _cognomeController.text,
+          _emailController.text,
+          _passwordController.text,
         ),
       );
 

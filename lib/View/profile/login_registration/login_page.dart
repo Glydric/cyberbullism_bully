@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/Model/connect_db/user_connector.dart';
+import '../../../Model/connect_db/db_connector.dart';
 import '/Model/connect_db/login_exception.dart';
 import '/Model/user.dart';
 import '/Model/user_save_manager.dart';
@@ -22,7 +22,7 @@ class _LogInPageState extends State<LogInPage> {
   ///Sign In user
   void signIn() async {
     try {
-      User user = await DbUserConnector.getUser(
+      User user = await DbConnector.getUser(
         _emailController.text,
         _passwordController.text,
       );
