@@ -12,11 +12,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      /* initialRoute: '/UserInfo', //'/main',
-      routes: {
-        //'/main': (context) => HomePage(),
-        '/UserInfo': (context) => const UserInfo('', 'api', ''),
-      }, */
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textButtonTheme: TextButtonThemeData(
