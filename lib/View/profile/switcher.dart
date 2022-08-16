@@ -48,7 +48,7 @@ class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
                         const Spacer(),
                         if (snapshot.requireData.runtimeType.toString() ==
                             "Psyco")
-                          Text("Psycologo"),
+                          const Text("Psycologo"),
                         Text(
                           snapshot.requireData.nome +
                               " " +
