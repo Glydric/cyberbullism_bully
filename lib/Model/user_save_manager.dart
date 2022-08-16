@@ -5,7 +5,7 @@ import 'psyco/psyco.dart';
 import 'user.dart';
 
 class UserSavingManager {
-  static final key = "user";
+  static const key = "user";
 
   static void saveUser(User user) async {
     final prefs = await SharedPreferences.getInstance();
