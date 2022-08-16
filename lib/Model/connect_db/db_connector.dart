@@ -27,18 +27,6 @@ class DbConnector {
     LoginException.thrower(response.body);
   }
 
-  static Future<List<Segnalazione>> getSegnalazioni() async {
-    Response response = await post(Uri.parse(url + "getSegnalazioni.php"));
-    final List<dynamic> jsonList = jsonDecode(response.body);
-    final List<Segnalazione> result = <Segnalazione>[];
-
-    for (var json in jsonList) {
-      result.add(Segnalazione.fromJson(json));
-    }
-
-    return result;
-  }
-
   /// consente di creare l'utente sul database
   static addUser(User user) async {
     Response response = await post(
@@ -57,6 +45,19 @@ class DbConnector {
     );
     LoginException.thrower(response.body);
   }
+
+  static Future<List<Segnalazione>> getSegnalazioni() async {
+    Response response = await post(Uri.parse(url + "getSegnalazioni.php"));
+    final List<dynamic> jsonList = jsonDecode(response.body);
+    final List<Segnalazione> result = <Segnalazione>[];
+
+    for (var json in jsonList) {
+      result.add(Segnalazione.fromJson(json));
+    }
+
+    return result;
+  }
+
 
   /// consente di ottenere l'utente da email e password
   static Future<User> getUser(String email, String password) async {
