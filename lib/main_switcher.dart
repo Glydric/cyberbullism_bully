@@ -42,7 +42,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
               icon: Icon(Icons.dangerous),
             ),
             BottomNavigationBarItem(
-              label: "User (in work)",
+              label: "User",
               icon: Icon(Icons.account_circle_outlined),
             )
           ],
