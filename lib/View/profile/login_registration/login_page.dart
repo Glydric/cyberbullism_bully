@@ -59,57 +59,54 @@ class _LogInPageState extends State<LogInPage> {
       );
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text("Bentornato", style: TextStyle(fontSize: 20)),
-          automaticallyImplyLeading: false,
-        ),
-        body: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Column(
-                children: [
-                  const Spacer(flex: 3),
-
-                  TextFormField(
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                      label: Text("Email"),
-                    ),
+  Widget build(BuildContext context) => Center(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              children: [
+                const Spacer(flex: 2),
+                TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    label: Text("Email"),
                   ),
-                  TextFormField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    autocorrect: false,
-                    enableSuggestions: false,
-                    decoration: const InputDecoration(label: Text("Password")),
-                  ),
-                  Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Text(
-                        _errorName,
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  autocorrect: false,
+                  enableSuggestions: false,
+                  decoration: const InputDecoration(label: Text("Password")),
+                ),
+                Row(children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      _errorName,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ]),
-                  ElevatedButton(
-                    onPressed: signIn,
-                    child: const Text("Login"),
                   ),
-                  TextButton(
-                    onPressed: toRegisterPage,
-                    child: const Text("Non sei iscritto? Registrati"),
-                  ),
-                  const Spacer(flex: 2),
-                ],
-              ),
+                ]),
+                ElevatedButton(
+                  onPressed: signIn,
+                  child: const Text("Login"),
+                ),
+                TextButton(
+                  onPressed: toRegisterPage,
+                  child: const Text("Non sei iscritto? Registrati"),
+                ),
+                const Spacer(flex: 2),
+              ],
             ),
           ),
         ),
