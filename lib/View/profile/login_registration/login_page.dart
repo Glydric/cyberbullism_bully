@@ -28,7 +28,6 @@ class _LogInPageState extends State<LogInPage> {
       );
 
       UserSavingManager.saveUser(user);
-
       Navigator.pop(context);
 
       _errorName = "";

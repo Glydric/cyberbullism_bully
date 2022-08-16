@@ -1,6 +1,7 @@
 import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:flutter/material.dart';
 
+import '/Model/connect_db/login_exception.dart';
 import '/Model/connect_db/db_connector.dart';
 import '/Model/psyco/psyco.dart';
 import '/Model/psyco/psyco_url_getter.dart';
@@ -94,8 +95,7 @@ class RegisterPageState extends State<RegisterPage> {
                     onPressed: backToLoginPage,
                     child: const Text("Già iscritto? Accedi"),
                   ),
-                  const Spacer(),
-                  const Spacer(),
+                  const Spacer(flex: 2),
                 ],
               ),
             ),
@@ -105,34 +105,11 @@ class RegisterPageState extends State<RegisterPage> {
 
   void registrazione() => _isPsy ? psySignUp() : userSignUp();
 
-  psyChecks() async {
-    try {
-      Psyco psy = await PsycoUrlGetter.getFuturePsyco(
-        _nomeController.text,
-        _cognomeController.text,
-        "", //TODO impelemtare l'ordine
-        _passwordController.text,
-      );
-      if (_emailController.text != psy.email) {
-        _errorName = "Pec psicologo non valida";
-      } else if (psy.isValid == "true" &&
-          _nomeController.text.toLowerCase() == psy.nome.toLowerCase() &&
-          _cognomeController.text.toLowerCase() == psy.cognome.toLowerCase()) {
-        psySignUp(); //TODO migliora la leggibilità
-        _errorName = "";
-      } else {
-        _errorName = "Psicologo sospeso dalla carica";
-      }
-    } on RangeError {
-      _errorName = "Psicologo non iscritto all'albo";
-    } finally {
-      setState(() => _errorName);
-    }
-  }
-
   ///create a new psicologo
   void psySignUp() async {
     try {
+      await psyChecks();
+
       await DbConnector.addPsy(
         User(
           _nomeController.text,
@@ -144,21 +121,46 @@ class RegisterPageState extends State<RegisterPage> {
 
       backToLoginPage();
       _errorName = "";
-    } on Exception catch (e) {
+    } on LoginException catch (e) {
       switch (e.toString()) {
         case "weak-password":
-          setState(() => _errorName = "La password non è sicura");
+          _errorName = "La password non è sicura";
           break;
         case "email-already-in-use":
-          setState(() => _errorName = "L'account è già esistente");
+          _errorName = "L'account è già esistente";
           break;
         case "invalid-email":
-          setState(() => _errorName = "Inserire un'email valida");
+          _errorName = "Inserire un'email valida";
+          break;
+        case "pec-invalid":
+          _errorName = "Pec psicologo non valida";
+          break;
+        case "psy-invalid":
+          _errorName = "Psicologo sospeso dalla carica";
+          break;
+        case "psy-not-found":
+          _errorName = "Psicologo non iscritto all'albo";
           break;
         default:
           debugPrint(e.toString());
       }
+    } finally {
+      setState(() => _errorName);
     }
+  }
+
+  psyChecks() async {
+    LoginException.psyThrower(
+      await PsycoUrlGetter.getFuturePsyco(
+        _nomeController.text,
+        _cognomeController.text,
+        "", //TODO implementare l'ordine
+        _passwordController.text,
+      ),
+      _emailController.text,
+      _nomeController.text,
+      _cognomeController.text,
+    );
   }
 
   ///create a new user
@@ -175,20 +177,22 @@ class RegisterPageState extends State<RegisterPage> {
 
       backToLoginPage();
       _errorName = "";
-    } on Exception catch (e) {
+    } on LoginException catch (e) {
       switch (e.toString()) {
         case "weak-password":
-          setState(() => _errorName = "La password non è sicura");
+          _errorName = "La password non è sicura";
           break;
         case "email-already-in-use":
-          setState(() => _errorName = "L'account è già esistente");
+          _errorName = "L'account è già esistente";
           break;
         case "invalid-email":
-          setState(() => _errorName = "Inserire un'email valida");
+          _errorName = "Inserire un'email valida";
           break;
         default:
           debugPrint(e.toString());
       }
+    } finally {
+      setState(() => _errorName);
     }
   }
 

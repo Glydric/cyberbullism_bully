@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
+import '../connect_db/login_exception.dart';
 import 'psyco.dart';
 
 const String alboUrl = "https://areariservata.psy.it";
@@ -29,19 +30,24 @@ class PsycoUrlGetter {
   static Map<String, dynamic> psycoBodyParser(String body, int i) {
     Map<String, dynamic> map = HashMap();
     int _index = 8 * i;
-
-    List<Element> table = parse(body)
-        .getElementsByClassName(
-            "testo_small")[0] // questo è il nome della tabella
-        .getElementsByTagName("td"); // prendiamo tutte le celle
-    map["cognome"] = table[_index + 0].innerHtml;
-    map["nome"] = table[_index + 1].innerHtml;
-    map["ordine"] = extractFromTag(table[_index + 2], 'a').innerHtml;
-    map["sezione"] = extractFromTag(table[_index + 3], 'b').innerHtml;
-    map["isValid"] =
-        extractFromTag(table[_index + 5], 'font').innerHtml.isEmpty.toString();
-    map["pageUrl"] = alboUrl +
-        extractFromTag(table[_index + 6], 'a').attributes['href'].toString();
+    try {
+      List<Element> table = parse(body)
+          .getElementsByClassName(
+              "testo_small")[0] // questo è il nome della tabella
+          .getElementsByTagName("td"); // prendiamo tutte le celle
+      map["cognome"] = table[_index + 0].innerHtml;
+      map["nome"] = table[_index + 1].innerHtml;
+      map["ordine"] = extractFromTag(table[_index + 2], 'a').innerHtml;
+      map["sezione"] = extractFromTag(table[_index + 3], 'b').innerHtml;
+      map["isValid"] = extractFromTag(table[_index + 5], 'font')
+          .innerHtml
+          .isEmpty
+          .toString();
+      map["pageUrl"] = alboUrl +
+          extractFromTag(table[_index + 6], 'a').attributes['href'].toString();
+    } on RangeError {
+      throw LoginException("psy-not-found");
+    }
     return map;
   }
 
