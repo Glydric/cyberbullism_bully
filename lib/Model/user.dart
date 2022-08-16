@@ -20,7 +20,7 @@ class User {
         password = json["password"];
 
   Map<String, String> toJson() => {
-        'type': runtimeType.toString(),
+        'type': "User",
         'email': email,
         'nome': nome,
         'cognome': cognome,
