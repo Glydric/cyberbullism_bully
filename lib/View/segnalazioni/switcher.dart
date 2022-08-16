@@ -19,7 +19,7 @@ class _SegnalazioniPageState extends State<SegnalazioniPage> {
             future: UserSavingManager.getUser(),
             builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
                 snapshot.hasData
-                    ? (snapshot.requireData.runtimeType.toString() == "User"//TODO! reinsert "Psyco" before release
+                    ? (snapshot.requireData.runtimeType.toString() == "Psyco"
                         ? const PsycoSegnalazioni()
                         : UserSegnalazione(snapshot.requireData))
                     : const Center(child: Text("Eseguire il login"))),
