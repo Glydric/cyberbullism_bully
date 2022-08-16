@@ -44,12 +44,14 @@ class DbUserConnector {
   }
 
   /// consente di modificare la password del'utente passando la nuova
-  static modifyPassword(User user, String newPassword) async {
-    
+  static modifyPassword(User user, String password, String newPassword) async {
+    if (user.password != User.crypt(password)) {
+      throw LoginException('wrong-password');
+    }
     Response response = await post(
       Uri.parse(
         url +
-            "getUser.php" +
+            "changePassword.php" +
             "?email=" +
             user.email +
             "&password=" +
@@ -59,7 +61,6 @@ class DbUserConnector {
       ),
     );
     LoginException.thrower(response.body);
-    //TODO aggiungere la modifica della password
   }
 
   /// Consente di aggiungere una segnalazione al database passando un utente
