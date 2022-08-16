@@ -1,7 +1,7 @@
 import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Model/connect_db/db_connector.dart';
+import '/Model/connect_db/db_connector.dart';
 import '/Model/psyco/psyco.dart';
 import '/Model/psyco/psyco_url_getter.dart';
 
