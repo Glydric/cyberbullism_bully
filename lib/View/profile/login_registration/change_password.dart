@@ -51,43 +51,45 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   @override
   Widget build(BuildContext context) => Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(children: [
-              TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                autocorrect: false,
-                enableSuggestions: false,
-                decoration: const InputDecoration(
-                  label: Text("Vecchia Password"),
-                ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(children: [
+            const Spacer(),
+            TextFormField(
+              decoration: const InputDecoration(
+                label: Text("Vecchia Password"),
               ),
-              TextFormField(
-                controller: _newPasswordController,
-                obscureText: true,
-                autocorrect: false,
-                enableSuggestions: false,
-                decoration: const InputDecoration(
-                  label: Text("Nuova Password"),
-                ),
+              controller: _passwordController,
+              obscureText: true,
+              autocorrect: false,
+              enableSuggestions: false,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                label: Text("Nuova Password"),
               ),
-              Text(
-                _errorName,
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
+              controller: _newPasswordController,
+              obscureText: true,
+              autocorrect: false,
+              enableSuggestions: false,
+            ),
+            Text(
+              _errorName,
+              style: const TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
               ),
-              ElevatedButton(
-                onPressed: changePassword,
-                child: const Text("Cambia"),
-              )
-            ]),
-          ),
+            ),
+            ElevatedButton(
+              onPressed: changePassword,
+              child: const Text("Cambia"),
+            ),
+            const Spacer(flex: 2)
+          ]),
+        ),
       );
 }
