@@ -53,10 +53,9 @@ class _LogInPageState extends State<LogInPage> {
 
   toRegisterPage() => toPage(const RegisterPage());
 
-  toPage(Widget page) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => page),
-      );
+  toPage(Widget page) => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => page,
+      ));
 
   @override
   Widget build(BuildContext context) => Center(
@@ -71,19 +70,17 @@ class _LogInPageState extends State<LogInPage> {
               children: [
                 const Spacer(flex: 2),
                 TextFormField(
+                  decoration: const InputDecoration(label: Text("Email")),
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
-                  decoration: const InputDecoration(
-                    label: Text("Email"),
-                  ),
                 ),
                 TextFormField(
+                  decoration: const InputDecoration(label: Text("Password")),
                   controller: _passwordController,
                   obscureText: true,
                   autocorrect: false,
                   enableSuggestions: false,
-                  decoration: const InputDecoration(label: Text("Password")),
                 ),
                 Row(children: [
                   Padding(
