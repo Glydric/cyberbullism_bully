@@ -25,12 +25,15 @@ class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
           builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
               snapshot.hasData
                   ? UserPage(snapshot.requireData)
-                  : Scaffold(
-                      body: Center(
-                        child: ElevatedButton(
-                          onPressed: () => toPage(const LogInPage()),
-                          child: const Text("LogIn"),
-                        ),
+                  : Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (_) => const LogInPage(),
+                          ).whenComplete(() => setState(() {}));
+                        },
+                        child: const Text("LogIn"),
                       ),
                     ),
         ),
