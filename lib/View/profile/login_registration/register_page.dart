@@ -43,37 +43,28 @@ class RegisterPageState extends State<RegisterPage> {
                       fontSize: 36,
                     ),
                   ),
-                  const Spacer(),
-                  const Spacer(),
-                  const Spacer(),
-
+                  const Spacer(flex: 3),
                   TextFormField(
+                    decoration:
+                        InputDecoration(label: Text(_isPsy ? "Pec" : "Email")),
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: false,
-                    decoration: InputDecoration(
-                      label: Text(_isPsy ? "Pec" : "Email"),
-                    ),
                   ),
                   TextFormField(
+                    decoration: const InputDecoration(label: Text("Nome")),
                     controller: _nomeController,
-                    decoration: const InputDecoration(
-                      label: Text("Nome"),
-                    ),
                   ),
                   TextFormField(
+                    decoration: const InputDecoration(label: Text("Cognome")),
                     controller: _cognomeController,
-                    decoration: const InputDecoration(
-                      label: Text("Cognome"),
-                    ),
                   ),
-
                   TextFormField(
+                    decoration: const InputDecoration(label: Text("Password")),
                     controller: _passowordController,
                     obscureText: true,
                     autocorrect: false,
                     enableSuggestions: false,
-                    decoration: const InputDecoration(label: Text("Password")),
                   ), // PasswordField
 
                   Padding(
@@ -120,22 +111,23 @@ class RegisterPageState extends State<RegisterPage> {
       Psyco psy = await PsycoUrlGetter.getFuturePsyco(
         _nomeController.text,
         _cognomeController.text,
-        "",
+        "", //TODO impelemtare l'ordine
         _passowordController.text,
       );
       if (_emailController.text != psy.email) {
-        setState(() => _errorName = "Pec psicologo non valida");
-      }
-      if (psy.isValid == "true" &&
-          _nomeController.text == psy.nome.toLowerCase() &&
-          _cognomeController.text == psy.cognome.toLowerCase()) {
+        _errorName = "Pec psicologo non valida";
+      } else if (psy.isValid == "true" &&
+          _nomeController.text.toLowerCase() == psy.nome.toLowerCase() &&
+          _cognomeController.text.toLowerCase() == psy.cognome.toLowerCase()) {
         userSignUp(); //TODO migliora la leggibilità
         _errorName = "";
       } else {
-        setState(() => _errorName = "Psicologo sospeso dalla carica");
+        _errorName = "Psicologo sospeso dalla carica";
       }
     } on RangeError {
-      setState(() => _errorName = "Psicologo non iscritto all'albo");
+      _errorName = "Psicologo non iscritto all'albo";
+    } finally {
+      setState(() => _errorName);
     }
   }
 
@@ -150,7 +142,7 @@ class RegisterPageState extends State<RegisterPage> {
           _passowordController.text,
         ),
       );
-      
+
       backToLoginPage();
       _errorName = "";
     } on Exception catch (e) {
