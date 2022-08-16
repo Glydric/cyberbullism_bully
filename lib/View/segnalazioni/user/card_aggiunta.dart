@@ -29,7 +29,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
         //del suo container.. Possibile aspetto da rivedere. Forse è completamente da rimuovere
           child: Expanded (child: Card( 
             elevation: 2,
-            color: Color.fromARGB(197, 255, 153, 0),
+            color: const Color.fromARGB(197, 255, 153, 0),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               //La FittedBox tiene conto della grandezza del widget che c'è dentro
