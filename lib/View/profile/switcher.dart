@@ -25,7 +25,6 @@ class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
                 ),
                 MaterialButton(
                   onPressed: () => Navigator.pop(context, true),
-                  // UserSavingManager.removeUser,
                   child: const Text("Si"),
                 ),
               ],
@@ -47,6 +46,9 @@ class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(children: [
                         const Spacer(),
+                        if (snapshot.requireData.runtimeType.toString() ==
+                            "Psyco")
+                          Text("Psycologo"),
                         Text(
                           snapshot.requireData.nome +
                               " " +
@@ -66,7 +68,7 @@ class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
                           ElevatedButton(
                             onPressed: () => showMyBottomSheet(
                                 ChangePassword(snapshot.requireData)),
-                            child: const Text("Change Password"),
+                            child: const Text("Cambia Password"),
                           ),
                         ])
                       ]),
@@ -81,8 +83,10 @@ class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
       );
 
   void showMyBottomSheet(Widget page) => showModalBottomSheet(
-        backgroundColor: const Color.fromARGB(0, 0, 0, 0), // this is transparent
-        context: context,
-        builder: (_) => page,
-      ).whenComplete(() => setState(() {}));
+          context: context,
+          builder: (_) => page,
+          backgroundColor:
+              const Color.fromARGB(0, 0, 0, 0) // this is transparent
+          )
+      .whenComplete(() => setState(() {}));
 }
