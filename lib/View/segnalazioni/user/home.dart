@@ -1,3 +1,5 @@
+import 'package:cyberbullism_bully/View/segnalazioni/user/lista_chat.dart';
+
 import '/Model/user.dart';
 import 'card_aggiunta.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
   Widget build(BuildContext context) => Scaffold(
         body: Stack(
           children: [
+            ListaChat(),
             if (_isWriting) CardAggiunta(widget.user.email),
           ],
         ),
