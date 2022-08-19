@@ -20,9 +20,8 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: (() => setState(
-              () => _isWriting ? _isWriting = false : _isWriting = true)),
+          child: Icon(_isWriting ? Icons.close : Icons.add),
+          onPressed: (() => setState(() => _isWriting = !_isWriting)),
         ),
       );
 }
