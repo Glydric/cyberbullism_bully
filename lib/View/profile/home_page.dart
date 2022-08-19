@@ -5,14 +5,14 @@ import '/Model/user_save_manager.dart';
 import 'login_registration/login_page.dart';
 import 'login_registration/change_password.dart';
 
-class LoginPageSwitcher extends StatefulWidget {
-  const LoginPageSwitcher({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPageSwitcher> createState() => _LoginPageSwitcherState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _LoginPageSwitcherState extends State<LoginPageSwitcher> {
+class _HomePageState extends State<HomePage> {
   logoutAlertDialog() async {
     var result = await showDialog(
         context: context,

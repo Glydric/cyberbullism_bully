@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // importo pagine flutter
 import 'View/segnalazioni/switcher.dart';
-import 'View/profile/switcher.dart';
+import 'View/profile/home_page.dart';
 import 'example_home_page.dart';
 
 class ScreenSwitcher extends StatefulWidget {
@@ -17,7 +17,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   final List _screen = const [
     ExampleHomePage(),
     SegnalazioniPage(),
-    LoginPageSwitcher()
+    HomePage()
   ];
 
   void _updateIndex(int value) {
