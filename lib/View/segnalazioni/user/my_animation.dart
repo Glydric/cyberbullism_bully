@@ -12,7 +12,7 @@ class MyAnimation extends StatefulWidget {
 class _MyAnimationState extends State<MyAnimation>
     with TickerProviderStateMixin {
   late final AnimationController _animationController = AnimationController(
-    duration:  const Duration(milliseconds:300),
+    duration: const Duration(milliseconds: 300),
     vsync: this,
   )..repeat(reverse: true);
   late final Animation<double> _animation = Tween<double>(
