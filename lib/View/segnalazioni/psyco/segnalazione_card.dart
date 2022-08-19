@@ -65,7 +65,7 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
       );
 
   Color gravityColour(int gravity) {
-    switch (gravity) {
+    switch (gravity) {//TODO inserire i colori corretti
       case 0:
         {
           return const Color.fromARGB(200, 62, 62, 62);
