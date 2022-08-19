@@ -17,11 +17,11 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
   Widget build(BuildContext context) => Scaffold(
         body: ListaChat(),
         floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () => showDialog(
-                  context: context,
-                  builder: (context) => CardAggiunta(widget.user.email),
-                )
-            ),
+          onPressed: () => showDialog(
+            context: context,
+            builder: (_) => CardAggiunta(widget.user.email),
+          ),
+          child: const Icon(Icons.add),
+        ),
       );
 }
