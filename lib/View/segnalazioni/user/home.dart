@@ -13,17 +13,15 @@ class UserSegnalazione extends StatefulWidget {
 }
 
 class _UserSegnalazioneState extends State<UserSegnalazione> {
-  bool _isWriting = false;
   @override
   Widget build(BuildContext context) => Scaffold(
         body: ListaChat(),
         floatingActionButton: FloatingActionButton(
-            child: Icon(_isWriting ? Icons.close : Icons.add),
+            child: const Icon(Icons.add),
             onPressed: () => showDialog(
                   context: context,
                   builder: (context) => CardAggiunta(widget.user.email),
                 )
-            // setState(() => _isWriting = !_isWriting),
             ),
       );
 }
