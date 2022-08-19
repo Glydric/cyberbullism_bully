@@ -20,6 +20,7 @@ class LoginException implements Exception {
       throw LoginException(textCode);
     }
   }
+
   ///passando una stringa solleva eccezioni tipiche degli psicologi se essa è presente
   static void psyThrower(Psyco psy, String email, String nome, String cognome) {
     if (email != psy.email) {
@@ -28,10 +29,9 @@ class LoginException implements Exception {
     if (psy.isValid != "true") {
       throw LoginException("psy-invalid");
     }
-    if (nome.toLowerCase() == psy.nome.toLowerCase() &&
-        cognome.toLowerCase() == psy.cognome.toLowerCase()) {
+    if (nome.toLowerCase() != psy.nome.toLowerCase() ||
+        cognome.toLowerCase() != psy.cognome.toLowerCase()) {
       throw LoginException("psy-not-found");
     }
-    
   }
 }
