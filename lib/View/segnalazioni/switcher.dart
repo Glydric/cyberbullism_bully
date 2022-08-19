@@ -17,7 +17,7 @@ class _SegnalazioniPageState extends State<SegnalazioniPage> {
         appBar: AppBar(title: const Text("Le tue segnalazioni")),
         body: FutureBuilder(
           future: UserSavingManager.getUser(),
-          builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
+          builder: (_, AsyncSnapshot<User> snapshot) =>
               snapshot.hasError
                   ? const Center(child: Text("Eseguire il login"))
                   : (snapshot.hasData
