@@ -7,5 +7,5 @@ class ListaChat extends StatefulWidget {
 
 class _ListaChatState extends State<ListaChat> {
   @override
-  Widget build(BuildContext context) => ListView();
+  Widget build(BuildContext context) => ListView();//TODO lista chat
 }
