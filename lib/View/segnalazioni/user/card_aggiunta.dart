@@ -23,24 +23,40 @@ class _CardAggiuntaState extends State<CardAggiunta> {
 
   @override
   Widget build(BuildContext context) => Container(
+        color: const Color.fromARGB(48, 0, 0, 0),
         alignment: Alignment.center,
         child: Card(
-          elevation: 2,
+          margin: const EdgeInsets.all(24),
+          elevation: 10,
           color: const Color.fromARGB(197, 255, 153, 0),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              maxLength: 5000,
-              minLines: 4,
-              maxLines: 10,
-              controller: _textController,
-              keyboardType: TextInputType.multiline,
-              autocorrect: false,
-              decoration: const InputDecoration(
-                label: Text("Scrivere una segnalazione"),
-              ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextFormField(
+                  maxLength: 5000,
+                  minLines: 4,
+                  maxLines: 10,
+                  controller: _textController,
+                  keyboardType: TextInputType.multiline,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    label: Text("Scrivere una segnalazione"),
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: send,
+                  child: const Text("Send"),
+                )
+              ],
             ),
           ),
         ),
       );
+
+  void send() {
+    //TODO logic
+  }
 }
