@@ -13,7 +13,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  logoutAlertDialog() async {
+  Widget getHomePage(User user) => Scaffold(
+        appBar: AppBar(
+            title: user.runtimeType.toString() == "Psyco"
+                ? const Text("Psicologo")
+                : const Text("Utente")),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(children: [
+            const Spacer(),
+            Text(
+              user.nome + " " + user.cognome,
+              style: const TextStyle(fontSize: 20),
+            ),
+            Text(user.email),
+            const Spacer(
+              flex: 3,
+            ),
+            Row(children: [
+              ElevatedButton(
+                onPressed: logoutAlertDialog,
+                child: const Text("Logout"),
+              ),
+              const Spacer(),
+              ElevatedButton(
+                onPressed: () => showMyBottomSheet(ChangePassword(user)),
+                child: const Text("Cambia Password"),
+              ),
+            ])
+          ]),
+        ),
+      );
+
+  void logoutAlertDialog() async {
     var result = await showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -39,43 +71,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) => FutureBuilder(
         future: UserSavingManager.getUser(),
         builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
-            snapshot.hasData
+            snapshot.hasError
                 ? Scaffold(
-                    appBar: AppBar(
-                        title: snapshot.requireData.runtimeType.toString() ==
-                                "Psyco"
-                            ? const Text("Psicologo")
-                            : const Text("Utente")),
-                    body: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(children: [
-                        const Spacer(),
-                        Text(
-                          snapshot.requireData.nome +
-                              " " +
-                              snapshot.requireData.cognome,
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        Text(snapshot.requireData.email),
-                        const Spacer(
-                          flex: 3,
-                        ),
-                        Row(children: [
-                          ElevatedButton(
-                            onPressed: logoutAlertDialog,
-                            child: const Text("Logout"),
-                          ),
-                          const Spacer(),
-                          ElevatedButton(
-                            onPressed: () => showMyBottomSheet(
-                                ChangePassword(snapshot.requireData)),
-                            child: const Text("Cambia Password"),
-                          ),
-                        ])
-                      ]),
-                    ),
-                  )
-                : Scaffold(
                     appBar: AppBar(title: const Text("Profilo")),
                     body: Center(
                       child: ElevatedButton(
@@ -83,7 +80,10 @@ class _HomePageState extends State<HomePage> {
                         child: const Text("LogIn"),
                       ),
                     ),
-                  ),
+                  )
+                : snapshot.hasData
+                    ? getHomePage(snapshot.requireData)
+                    : const CircularProgressIndicator.adaptive(),
       );
 
   void showMyBottomSheet(Widget page) => showModalBottomSheet(
