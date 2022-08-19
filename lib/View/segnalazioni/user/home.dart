@@ -21,12 +21,23 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
         body: Stack(
           children: [
             ListaChat(),
-            if (_isWriting) MyAnimation(child: CardAggiunta(widget.user.email)),
+            // TextButton(
+            //     child: Text("click"),
+            //     onPressed: () => showDialog(
+            //           context: context,
+            //           builder: (_) => const AlertDialog(
+            //             title: Text("hello"),
+            //           ),
+            //         )),
+            Visibility(
+              visible: _isWriting,
+              child: MyAnimation(child: CardAggiunta(widget.user.email)),
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(_isWriting ? Icons.close : Icons.add),
-          onPressed: (() => setState(() => _isWriting = !_isWriting)),
+          onPressed: () => setState(() => _isWriting = !_isWriting),
         ),
       );
 }
