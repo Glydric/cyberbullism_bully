@@ -16,12 +16,15 @@ class _SegnalazioniPageState extends State<SegnalazioniPage> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: const Text("Le tue segnalazioni")),
         body: FutureBuilder(
-            future: UserSavingManager.getUser(),
-            builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
-                snapshot.hasData
-                    ? (snapshot.requireData.runtimeType.toString() == "Psyco"
-                        ? const PsycoSegnalazioni()
-                        : UserSegnalazione(snapshot.requireData))
-                    : const Center(child: Text("Eseguire il login"))),
+          future: UserSavingManager.getUser(),
+          builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
+              snapshot.hasError
+                  ? const Center(child: Text("Eseguire il login"))
+                  : (snapshot.hasData
+                      ? (snapshot.requireData.runtimeType.toString() == "Psyco"
+                          ? const PsycoSegnalazioni()
+                          : UserSegnalazione(snapshot.requireData))
+                      : const CircularProgressIndicator.adaptive()),
+        ),
       );
 }
