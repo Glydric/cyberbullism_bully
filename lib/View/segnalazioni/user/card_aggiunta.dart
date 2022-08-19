@@ -22,18 +22,15 @@ class _CardAggiuntaState extends State<CardAggiunta> {
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-        color: const Color.fromARGB(48, 0, 0, 0),
-        alignment: Alignment.center,
+  Widget build(BuildContext context) => Center(
         child: Card(
-          margin: const EdgeInsets.all(24),
+          margin: const EdgeInsets.symmetric(horizontal: 24),
           elevation: 10,
-          color: const Color.fromARGB(197, 255, 153, 0),
+          color: Colors.blueAccent,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextFormField(
                   maxLength: 5000,
@@ -43,13 +40,22 @@ class _CardAggiuntaState extends State<CardAggiunta> {
                   keyboardType: TextInputType.multiline,
                   autocorrect: false,
                   decoration: const InputDecoration(
-                    label: Text("Scrivere una segnalazione"),
+                    label: Text("Inserire la segnalazione")
                   ),
                 ),
-                MaterialButton(
-                  onPressed: send,
-                  child: const Text("Send"),
-                )
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    MaterialButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("Annulla"),
+                    ),
+                    MaterialButton(
+                      onPressed: send,
+                      child: const Text("Invia"),
+                    )
+                  ],
+                ),
               ],
             ),
           ),
