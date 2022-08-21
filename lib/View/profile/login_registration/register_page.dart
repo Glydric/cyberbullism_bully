@@ -36,14 +36,6 @@ class RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Column(
                 children: [
-                  const Spacer(),
-                  const Text(
-                    "", //TODO inserire il titolo
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 36,
-                    ),
-                  ),
                   const Spacer(flex: 3),
                   TextFormField(
                     decoration:
@@ -196,5 +188,5 @@ class RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  void backToLoginPage() => Navigator.pop(context);
+  void backToLoginPage() => Navigator.of(context).pop(true);
 }
