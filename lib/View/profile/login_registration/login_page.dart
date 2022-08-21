@@ -52,9 +52,20 @@ class _LogInPageState extends State<LogInPage> {
 
   toRegisterPage() => toPage(const RegisterPage());
 
-  toPage(Widget page) => Navigator.of(context).push(MaterialPageRoute(
+  toPage(Widget page) => Navigator.of(context)
+      .push(MaterialPageRoute(
         builder: (context) => page,
-      ));
+      ))
+      .then((v) => {
+            if (v == true)
+              showDialog(
+                context: context,
+                builder: (_) => const AlertDialog(
+                  content: Text(
+                      "Registrazione eseguita con successo, eseguire il login"),
+                ),
+              ),
+          });
 
   @override
   Widget build(BuildContext context) => Center(
