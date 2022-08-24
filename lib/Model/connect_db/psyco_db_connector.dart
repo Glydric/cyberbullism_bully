@@ -41,7 +41,7 @@ class PsycoDbConnector extends UserDbConnector {
     LoginException.thrower(response.body);
   }
 
-  Future<Psyco> getUser(String email, String password) async {
+  static Future<Psyco> getUser(String email, String password) async {
     Response response = await post(
       Uri.parse(url +
           "PsycoGet.php" +
