@@ -7,6 +7,6 @@ class Message {
 
   Message.fromJson(Map<String, dynamic> json)
       : otherEmail = json["email"],
-        text = json["text"],
+        text = json["testo"],
         orario = json["orario"];
 }
