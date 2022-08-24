@@ -14,11 +14,9 @@ class ListaChat extends StatefulWidget {
 class _ListaChatState extends State<ListaChat> {
   @override
   Widget build(BuildContext context) => GestureDetector(
-    // onTap: (value) => Message,
     child: ListView.builder(
           itemCount: widget.chats.length,
           itemBuilder: (_, int _index) => widget.chats[_index],
         ),
   );
-  //TODO lista chat
 }
