@@ -1,4 +1,3 @@
-import 'package:cyberbullism_bully/Model/segnalazione.dart';
 import 'package:flutter/material.dart';
 
 class CardAggiunta extends StatefulWidget {
