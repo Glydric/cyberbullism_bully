@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '/Model/connect_db/user_db_connector.dart';
 import '/Model/user.dart';
-import '../../../Model/chat/chat.dart';
+import '/Model/chat/chat.dart';
 import '/Model/chat/message.dart';
 
 import 'chat/lista_chat.dart';
@@ -19,33 +19,35 @@ class UserSegnalazione extends StatefulWidget {
 
 class _UserSegnalazioneState extends State<UserSegnalazione> {
   Future<List<ChatCard>> getChats() async {
-    List<Message> list = await UserDbConnector.getMessagesOf(widget.user);
-    String oldEmail = list[0].otherEmail;
+    List<Message> rawMessageList = await UserDbConnector.getMessagesOf(widget.user);
+    String oldEmail = rawMessageList[0].otherEmail;
 
-    List<Chat> newList = <Chat>[];
+    List<Chat> chatList = [Chat()];
     int _index = 0;
 
-    for (Message m in list) {
-      if (oldEmail == m.otherEmail) {
-        newList[_index].messages.add(m);
-      } else {
-        newList.add(Chat());
+    for (Message m in rawMessageList) {//TODO controllare se si può sviluppare meglio
+      if (oldEmail != m.otherEmail) {
+        chatList.add(Chat());
+        oldEmail = m.otherEmail;
+        _index++;
       }
 
-      oldEmail = m.otherEmail;
+      chatList[_index].messages.add(m);
     }
 
-    return newList.map(ChatCard.new).toList();
+    return chatList.map(ChatCard.new).toList();
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: FutureBuilder(
-          future: getChats(),
-          builder: (_, AsyncSnapshot<List<ChatCard>> snapshot) =>
-              snapshot.hasData
-                  ? ListaChat(snapshot.requireData)
-                  : const CircularProgressIndicator.adaptive(),
+        body: Center(
+          child: FutureBuilder(
+            future: getChats(),
+            builder: (_, AsyncSnapshot<List<ChatCard>> snapshot) =>
+                snapshot.hasData
+                    ? ListaChat(snapshot.requireData)
+                    : const CircularProgressIndicator.adaptive(),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add),
