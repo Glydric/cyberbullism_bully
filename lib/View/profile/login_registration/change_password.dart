@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '/Model/user_save_manager.dart';
 import '/Model/connect_db/login_exception.dart';
-import '/Model/connect_db/db_connector.dart';
+import '../../../Model/connect_db/user_db_connector.dart';
 import '/Model/user.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -22,7 +22,7 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   void changePassword() async {
     try {
-      await DbConnector.modifyPassword(
+      await UserDbConnector.modifyPassword(
         widget.user,
         _passwordController.text,
         _newPasswordController.text,
