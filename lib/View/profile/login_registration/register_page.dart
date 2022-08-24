@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import '/Model/connect_db/psyco_db_connector.dart';
 import '/Model/connect_db/login_exception.dart';
 import '/Model/connect_db/user_db_connector.dart';
-import '/Model/Psyco/psyco.dart';
-import '/Model/psyco/albo_getter.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -99,23 +97,16 @@ class RegisterPageState extends State<RegisterPage> {
   ///create a new psicologo
   void registrazione() async {
     try {
+      final user = User(
+        _nomeController.text,
+        _cognomeController.text,
+        _emailController.text,
+        _passwordController.text,
+      );
+
       _isPsy
-          ? await PsycoDbConnector.addUser(
-              User(
-                _nomeController.text,
-                _cognomeController.text,
-                _emailController.text,
-                _passwordController.text,
-              ),
-            )
-          : await UserDbConnector.addUser(
-              User(
-                _nomeController.text,
-                _cognomeController.text,
-                _emailController.text,
-                _passwordController.text,
-              ),
-            );
+          ? await PsycoDbConnector.addUser(user)
+          : await UserDbConnector.addUser(user);
 
       backToLoginPage();
       _errorName = "";
@@ -125,7 +116,7 @@ class RegisterPageState extends State<RegisterPage> {
           _errorName = "La password non è sicura";
           break;
         case "email-already-in-use":
-          _errorName = "L'account è già esistente";
+          _errorName = "Account già esistente";
           break;
         case "invalid-email":
           _errorName = "Inserire un'email valida";
