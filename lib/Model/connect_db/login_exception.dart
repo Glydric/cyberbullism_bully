@@ -3,11 +3,12 @@ import '../psyco/psyco.dart';
 class LoginException implements Exception {
   final dynamic message;
   static final List<String> errorCodes = [
-    "invalid-email",
     "user-not-found",
-    "too-many-requests",
+    "invalid-email",
+    "email-already-in-use",
     "empty-password",
     "wrong-password"
+    "too-many-requests",
   ];
 
   LoginException(this.message);
