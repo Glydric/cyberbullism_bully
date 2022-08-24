@@ -19,9 +19,11 @@ class UserSegnalazione extends StatefulWidget {
 
 class _UserSegnalazioneState extends State<UserSegnalazione> {
   Future<List<ChatCard>> getChats() async {
+    //ottiene la lista di messaggi
     List<Message> rawMessageList = await UserDbConnector.getMessagesOf(widget.user);
     String oldEmail = rawMessageList[0].otherEmail;
 
+    // trasforma una lista di messaggi in una lista di chat
     List<Chat> chatList = [Chat()];
     int _index = 0;
 
@@ -35,6 +37,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
       chatList[_index].messages.add(m);
     }
 
+    // trasforma la lista di chat in una lista di ChatCard e la ritorna
     return chatList.map(ChatCard.new).toList();
   }
 
