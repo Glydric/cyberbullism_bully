@@ -1,10 +1,11 @@
 import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:flutter/material.dart';
 
+import '/Model/connect_db/psyco_db_connector.dart';
 import '/Model/connect_db/login_exception.dart';
-import '/Model/connect_db/db_connector.dart';
-import '/Model/psyco/psyco.dart';
-import '/Model/psyco/psyco_url_getter.dart';
+import '/Model/connect_db/user_db_connector.dart';
+import '/Model/Psyco/psyco.dart';
+import '/Model/psyco/albo_getter.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -95,21 +96,26 @@ class RegisterPageState extends State<RegisterPage> {
         ),
       );
 
-  void registrazione() => _isPsy ? psySignUp() : userSignUp();
-
   ///create a new psicologo
-  void psySignUp() async {
+  void registrazione() async {
     try {
-      await psyChecks();
-
-      await DbConnector.addPsy(
-        User(
-          _nomeController.text,
-          _cognomeController.text,
-          _emailController.text,
-          _passwordController.text,
-        ),
-      );
+      _isPsy
+          ? await PsycoDbConnector.addUser(
+              User(
+                _nomeController.text,
+                _cognomeController.text,
+                _emailController.text,
+                _passwordController.text,
+              ),
+            )
+          : await UserDbConnector.addUser(
+              User(
+                _nomeController.text,
+                _cognomeController.text,
+                _emailController.text,
+                _passwordController.text,
+              ),
+            );
 
       backToLoginPage();
       _errorName = "";
@@ -132,53 +138,6 @@ class RegisterPageState extends State<RegisterPage> {
           break;
         case "psy-not-found":
           _errorName = "Psicologo non iscritto all'albo";
-          break;
-        default:
-          debugPrint(e.toString());
-      }
-    } finally {
-      setState(() => _errorName);
-    }
-  }
-
-  psyChecks() async {
-    LoginException.psyThrower(
-      await PsycoUrlGetter.getFuturePsyco(
-        _nomeController.text,
-        _cognomeController.text,
-        "", //TODO implementare l'ordine
-        _passwordController.text,
-      ),
-      _emailController.text,
-      _nomeController.text,
-      _cognomeController.text,
-    );
-  }
-
-  ///create a new user
-  void userSignUp() async {
-    try {
-      await DbConnector.addUser(
-        User(
-          _nomeController.text,
-          _cognomeController.text,
-          _emailController.text,
-          _passwordController.text,
-        ),
-      );
-
-      backToLoginPage();
-      _errorName = "";
-    } on LoginException catch (e) {
-      switch (e.toString()) {
-        case "weak-password":
-          _errorName = "La password non è sicura";
-          break;
-        case "email-already-in-use":
-          _errorName = "L'account è già esistente";
-          break;
-        case "invalid-email":
-          _errorName = "Inserire un'email valida";
           break;
         default:
           debugPrint(e.toString());
