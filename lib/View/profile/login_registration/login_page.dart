@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../Model/connect_db/db_connector.dart';
+import '/Model/psyco/psyco.dart';
+import '/Model/connect_db/psyco_db_connector.dart';
+import '/Model/connect_db/user_db_connector.dart';
 import '/Model/connect_db/login_exception.dart';
 import '/Model/user.dart';
 import '/Model/user_save_manager.dart';
@@ -19,10 +21,10 @@ class _LogInPageState extends State<LogInPage> {
   final TextEditingController _passwordController = TextEditingController();
   String _errorName = "";
 
-  ///Sign In user
-  void signIn() async {
+  ///Sign In Psyco
+  void psycoSignIn() async {
     try {
-      User user = await DbConnector.getUser(
+      Psyco user = await PsycoDbConnector.getUser(
         _emailController.text,
         _passwordController.text,
       );
@@ -38,6 +40,37 @@ class _LogInPageState extends State<LogInPage> {
           break;
         case "user-not-found":
           _errorName = "Utente o password errata";
+          break;
+        case "too-many-requests":
+          _errorName = "Troppi tentativi, provare più tardi";
+          break;
+        default:
+          debugPrint(e.toString());
+      }
+    } finally {
+      setState(() => _errorName);
+    }
+  }
+
+  ///Sign In user
+  void userSignIn() async {
+    try {
+      User user = await UserDbConnector.getUser(
+        _emailController.text,
+        _passwordController.text,
+      );
+
+      UserSavingManager.saveUser(user);
+      Navigator.pop(context);
+
+      _errorName = "";
+    } on LoginException catch (e) {
+      switch (e.toString()) {
+        case "invalid-email":
+          _errorName = "Inserire un'email corretta";
+          break;
+        case "user-not-found":
+          psycoSignIn();
           break;
         case "too-many-requests":
           _errorName = "Troppi tentativi, provare più tardi";
@@ -105,7 +138,7 @@ class _LogInPageState extends State<LogInPage> {
                   ),
                 ]),
                 ElevatedButton(
-                  onPressed: signIn,
+                  onPressed: userSignIn,
                   child: const Text("Login"),
                 ),
                 TextButton(
