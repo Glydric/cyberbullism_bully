@@ -14,30 +14,27 @@ class SegnalazioneCard extends StatefulWidget {
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
   @override
   Widget build(BuildContext context) => Container(
-        color: const Color.fromARGB(214, 255, 255, 255),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        color: Color.fromARGB(212, 255, 255, 255),
+        child: Card(
+          
+          elevation: 5,
           //Questa è la riga che prende tutto lo spazio in larghezza
           child: Row(children: [
             //Questo è il primo elemento della Row, ovvero il container che contiene la label colorata con la gravità
 
-            //Forse l'Expanded deve essere impostato su una COLONNA e non un container
-            Expanded(
-              child: Container(
-                //Vogliamo che il container (etichetta) nella colonna sia "Expanded", ovvero venga occupata tutta, ma che la sua
-                //larghezza nella riga sia impostata ad un valore fisso (10 o diverso).
-                width: 10,
-                padding: const EdgeInsets.all(8),
+            
+           
+            Container(
+                height: 30,
+                width: 30,
+                padding: EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(16),
                   color: gravityColour(widget.segnalazione.gravita),
                 ),
-              ),
-            ),
-            const Spacer(flex: 1),
+             
+            ),       
 
-            //Questa è la parte dove c'è il testo. Flessibile e può prendere meno spazio di quello che ha, o può aumentare
-            //in base alla grandezza del testo in entrata
             Expanded(
               flex: 2,
               child: (
@@ -65,7 +62,8 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
       );
 
   Color gravityColour(int gravity) {
-    switch (gravity) {//TODO inserire i colori corretti
+    switch (gravity) {
+      //TODO inserire i colori corretti
       case 0:
         {
           return const Color.fromARGB(200, 62, 62, 62);
