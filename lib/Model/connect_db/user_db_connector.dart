@@ -9,7 +9,6 @@ import '/Model/connect_db/login_exception.dart';
 const url = "http://leonardomigliorelli.altervista.org/";
 
 class UserDbConnector {
-
   /// consente di creare l'utente sul database
   static addUser(User user) async {
     Response response = await post(
@@ -95,6 +94,20 @@ class UserDbConnector {
     return 0;
   }
 
+  static Future<List<Message>> getLastMessages(User user) async {
+    Response response = await post(
+      Uri.parse(url +
+          "UserGetLastMessages.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password),
+    );
+    LoginException.thrower(response.body);
+    final List<dynamic> jsonList = jsonDecode(response.body);
+    return jsonList.map((json) => Message.fromJson(json)).toList();
+  }
+
   static Future<List<Message>> getMessagesOf(User user) async {
     Response response = await post(
       Uri.parse(url +
@@ -106,12 +119,6 @@ class UserDbConnector {
     );
     LoginException.thrower(response.body);
     final List<dynamic> jsonList = jsonDecode(response.body);
-    final List<Message> result = <Message>[];
-
-    for (Map<String, dynamic> json in jsonList) {
-      result.add(Message.fromJson(json));
-    }
-
-    return result;
+    return jsonList.map((json) => Message.fromJson(json)).toList();
   }
 }
