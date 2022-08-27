@@ -10,7 +10,7 @@ class Chat {
         otherEmail = "";
   Chat.singleMessage(Message message)
       : messages = <Message>[message],
-        otherEmail = "";
+        otherEmail = message.otherEmail;
 
   Chat.fromList(List<Message> messageList)
       : otherEmail = messageList[0].otherEmail,
