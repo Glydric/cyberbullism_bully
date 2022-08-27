@@ -8,6 +8,7 @@ class Chat {
   Chat()
       : messages = <Message>[],
         otherEmail = "";
+
   Chat.singleMessage(Message message)
       : messages = <Message>[message],
         otherEmail = message.otherEmail;
