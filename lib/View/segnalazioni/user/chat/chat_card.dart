@@ -6,7 +6,6 @@ import '/Model/chat/chat.dart';
 class ChatCard extends StatelessWidget {
   final Chat chat;
 
-
   const ChatCard(this.chat, {Key? key}) : super(key: key);
 
   @override

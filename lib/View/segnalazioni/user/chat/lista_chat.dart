@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '/Model/chat/chat.dart';
 import 'chat_card.dart';
 import 'chat_view.dart';
 
 class ListaChat extends StatefulWidget {
-  final List<ChatCard> chats;
+  final List<Chat> chats;
 
   const ListaChat(this.chats, {Key? key}) : super(key: key);
 
@@ -17,12 +18,12 @@ class _ListaChatState extends State<ListaChat> {
   Widget build(BuildContext context) => ListView.builder(
         itemCount: widget.chats.length,
         itemBuilder: (_, int _index) => GestureDetector(
-          onTap: () => toPage(ChatView(widget.chats[_index].chat)),
-          child: widget.chats[_index],
+          onTap: () => toChatPage(widget.chats[_index].otherEmail),
+          child: ChatCard(widget.chats[_index]),
         ),
       );
 
-  toPage(Widget page) => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => page,
+  toChatPage(String otherEmail) => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ChatView(otherEmail),
       ));
 }
