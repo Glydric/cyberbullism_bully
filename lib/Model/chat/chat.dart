@@ -8,8 +8,17 @@ class Chat {
   Chat()
       : messages = <Message>[],
         otherEmail = "";
-  
-  addMessage(Message message){
+  Chat.singleMessage(Message message)
+      : messages = <Message>[message],
+        otherEmail = "";
+
+  Chat.fromList(List<Message> messageList)
+      : otherEmail = messageList[0].otherEmail,
+        messages = messageList
+            .where((message) => message.otherEmail == messageList[0].otherEmail)
+            .toList();
+
+  addMessage(Message message) {
     messages.add(message);
   }
 
