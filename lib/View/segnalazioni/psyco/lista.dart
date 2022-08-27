@@ -9,8 +9,11 @@ class ListaSegnalazioni extends StatelessWidget {
 
   const ListaSegnalazioni(this._list, {Key? key}) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) => ListView.builder(
       itemCount: _list.length,
-      itemBuilder: (_, int index) => _list[index]);
+      itemBuilder: (context, int index) => _list[index]);
 }
+

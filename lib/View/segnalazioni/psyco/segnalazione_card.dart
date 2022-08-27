@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'lista.dart';
 import '/Model/segnalazione.dart';
 
 class SegnalazioneCard extends StatefulWidget {
@@ -12,6 +12,7 @@ class SegnalazioneCard extends StatefulWidget {
 }
 
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
+
   @override
   Widget build(BuildContext context) =>
       /* Padding( 
@@ -68,20 +69,31 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
       Card(
           margin: EdgeInsets.all(10),
           child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: gravityColour(widget.segnalazione.gravita),
-            ),
-            title: Text(
-              widget.segnalazione.testo,
-              maxLines: 5,
-            ),
-            trailing: Column(
-              children: [
-                Text(data(widget.segnalazione.orario)),
-                Text(ora(widget.segnalazione.orario)),
-              ],
-            ),
-          ));
+              leading: CircleAvatar(
+                backgroundColor: gravityColour(widget.segnalazione.gravita),
+              ),
+              title: Text(
+                widget.segnalazione.testo,
+                maxLines: 5,
+              ),
+              trailing: Column(
+                children: [
+                  Text(data(widget.segnalazione.orario)),
+                  Text(ora(widget.segnalazione.orario)),
+                  IconButton(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.delete)),
+                ],
+              ),
+              onTap: () => {}
+              /*
+              TODO
+              Azione che avviene quando si tocca la lista
+              onLongPressed() -> azione dopo che si tiene premuto
+              */
+              ));
 
   Color gravityColour(int gravity) {
     switch (gravity) {
@@ -119,7 +131,8 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
 
 /*
      10/08/2022_--:-- AM
-     0123456789
+    [0123456789012345678] posizioni dei caratteri
+  
 */
   String ora(String input) {
     String orario = "";
@@ -136,5 +149,9 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
       data = input.substring(0, 10);
     }
     return data;
+  }
+
+  deleteItem(List lista, int index) {
+    int indice = 0;
   }
 }
