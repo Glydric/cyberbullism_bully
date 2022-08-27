@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // importo pagine flutter
 import 'View/segnalazioni/switcher.dart';
 import 'View/profile/home_page.dart';
-import 'example_home_page.dart';
+import 'View/learning/example_home_page.dart';
 
 class ScreenSwitcher extends StatefulWidget {
   const ScreenSwitcher({Key? key}) : super(key: key);
@@ -20,9 +20,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
     HomePage()
   ];
 
-  void _updateIndex(int value) {
-    setState(() => _index = value);
-  }
+  void _updateIndex(int value) => setState(() => _index = value);
 
   @override
   Widget build(BuildContext context) => Scaffold(
