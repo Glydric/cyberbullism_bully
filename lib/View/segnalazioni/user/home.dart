@@ -18,11 +18,10 @@ class UserSegnalazione extends StatefulWidget {
 }
 
 class _UserSegnalazioneState extends State<UserSegnalazione> {
-  Future<List<ChatCard>> getChats() async {
-    //ottiene la lista degli ultimi messaggi
-    return UserDbConnector.getLastMessages(widget.user).then(
-        (value) => value.map(Chat.singleMessage).map(ChatCard.new).toList());
-  }
+  ///ottiene la lista degli ultimi messaggi
+  Future<List<ChatCard>> getChats() async =>
+      UserDbConnector.getLastMessages(widget.user).then(
+          (value) => value.map(Chat.singleMessage).map(ChatCard.new).toList());
 
   @override
   Widget build(BuildContext context) => Scaffold(
