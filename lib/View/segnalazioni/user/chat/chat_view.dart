@@ -14,11 +14,10 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   Chat chat = Chat();
 
-
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text(chat.otherEmail)),
+      appBar: AppBar(title: Text(widget.userEmail)),
       body: Container(
-        child: Text(chat.otherEmail),
+        child: Text(widget.userEmail),
       ));
 }
