@@ -13,7 +13,11 @@ class SegnalazioneCard extends StatefulWidget {
 
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) =>
+      /* Padding( 
+    padding: EdgeInsets.all(12.0),
+   
+    child: Container(
         color: Color.fromARGB(212, 255, 255, 255),
         child: Card(
           
@@ -22,8 +26,6 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
           child: Row(children: [
             //Questo è il primo elemento della Row, ovvero il container che contiene la label colorata con la gravità
 
-            
-           
             Container(
                 height: 30,
                 width: 30,
@@ -59,7 +61,27 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
             ),
           ]),
         ),
+      )
       );
+      */
+
+      Card(
+          margin: EdgeInsets.all(10),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: gravityColour(widget.segnalazione.gravita),
+            ),
+            title: Text(
+              widget.segnalazione.testo,
+              maxLines: 5,
+            ),
+            trailing: Column(
+              children: [
+                Text(data(widget.segnalazione.orario)),
+                Text(ora(widget.segnalazione.orario)),
+              ],
+            ),
+          ));
 
   Color gravityColour(int gravity) {
     switch (gravity) {
@@ -93,5 +115,26 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
           throw Exception("Gravità non corretta");
         }
     }
+  }
+
+/*
+     10/08/2022_--:-- AM
+     0123456789
+*/
+  String ora(String input) {
+    String orario = "";
+    if (input != null) {
+      //partendo dalla 11 posizione escludo lo spazio tra la data e l'ora
+      orario = input.substring(11);
+    }
+    return orario;
+  }
+
+  String data(String input) {
+    String data = "";
+    if (input != null) {
+      data = input.substring(0, 10);
+    }
+    return data;
   }
 }
