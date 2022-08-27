@@ -18,6 +18,5 @@ class _ChatViewState extends State<ChatView> {
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text(widget.userEmail)),
       body: Container(
-        child: Text(widget.userEmail),
       ));
 }
