@@ -27,7 +27,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
     List<Chat> chatList = [Chat()];
     int _index = 0;
 
-    for (Message m in rawMessageList) {//TODO controllare se si può sviluppare meglio
+    for (Message m in rawMessageList) {//TODO sviluppare meglio
       if (oldEmail != m.otherEmail) {
         chatList.add(Chat());
         oldEmail = m.otherEmail;
