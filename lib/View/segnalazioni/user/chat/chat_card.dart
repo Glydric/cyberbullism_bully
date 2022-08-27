@@ -6,6 +6,7 @@ import '/Model/chat/chat.dart';
 class ChatCard extends StatelessWidget {
   final Chat chat;
 
+
   const ChatCard(this.chat, {Key? key}) : super(key: key);
 
   @override
@@ -18,12 +19,12 @@ class ChatCard extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Column(children: [
                 Row(children: [
-                  Text(chat.messages[0].otherEmail),
+                  Text(chat.getMaxMessage().otherEmail),
                   const Spacer(),
-                  Text(chat.messages[0].orario),
+                  Text(chat.getMaxMessage().orario),
                 ]),
                 const Text(''),
-                Text(chat.messages[0].text),
+                Text(chat.getMaxMessage().text),
               ]),
             ),
           ),
