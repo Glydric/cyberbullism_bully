@@ -3,19 +3,22 @@ import 'package:flutter/material.dart';
 import '/Model/chat/chat.dart';
 
 class ChatView extends StatefulWidget {
-  Chat chat;
+  String userEmail;
 
-  ChatView(this.chat, {Key? key}) : super(key: key);
+  ChatView(this.userEmail, {Key? key}) : super(key: key);
 
   @override
   State<ChatView> createState() => _ChatViewState();
 }
 
 class _ChatViewState extends State<ChatView> {
+  Chat chat = Chat();
+
+
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text(widget.chat.otherEmail)),
+      appBar: AppBar(title: Text(chat.otherEmail)),
       body: Container(
-        child: Text(widget.chat.otherEmail),
+        child: Text(chat.otherEmail),
       ));
 }
