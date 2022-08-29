@@ -19,9 +19,5 @@ class Chat {
             .where((message) => message.otherEmail == messageList[0].otherEmail)
             .toList();
 
-  addMessage(Message message) {
-    messages.add(message);
-  }
-
   Message getMaxMessage() => messages[messages.length - 1];
 }
