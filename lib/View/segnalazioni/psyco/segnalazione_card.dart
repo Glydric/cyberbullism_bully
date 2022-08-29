@@ -11,89 +11,32 @@ class SegnalazioneCard extends StatefulWidget {
   State<SegnalazioneCard> createState() => _SegnalazioneCardState();
 }
 
+/// La singola carta che specifica una segnalazione nella lista
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
-
   @override
-  Widget build(BuildContext context) =>
-      /* Padding( 
-    padding: EdgeInsets.all(12.0),
-   
-    child: Container(
-        color: Color.fromARGB(212, 255, 255, 255),
-        child: Card(
-          
-          elevation: 5,
-          //Questa è la riga che prende tutto lo spazio in larghezza
-          child: Row(children: [
-            //Questo è il primo elemento della Row, ovvero il container che contiene la label colorata con la gravità
-
-            Container(
-                height: 30,
-                width: 30,
-                padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: gravityColour(widget.segnalazione.gravita),
-                ),
-             
-            ),       
-
-            Expanded(
-              flex: 2,
-              child: (
-                  //Probabilmente può essere utile inserire qui un padding... da verificare
-                  Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(widget.segnalazione.testo),
-              )),
+  Widget build(BuildContext context) => Card(
+        elevation: 4,
+        margin: const EdgeInsets.all(4),
+        child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: gravityColour(widget.segnalazione.gravita),
             ),
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                //Tiene il testo in alto
-                mainAxisAlignment: MainAxisAlignment.start,
-                //A destra
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text((widget.segnalazione.orario).toString()),
-                ],
-              ),
+            title: Text(
+              widget.segnalazione.testo,
+              maxLines: 5,
             ),
-          ]),
-        ),
-      )
-      );
-      */
-
-      Card(
-          margin: EdgeInsets.all(10),
-          child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: gravityColour(widget.segnalazione.gravita),
-              ),
-              title: Text(
-                widget.segnalazione.testo,
-                maxLines: 5,
-              ),
-              trailing: Column(
-                children: [
-                  Text(data(widget.segnalazione.orario)),
-                  Text(ora(widget.segnalazione.orario)),
-                  IconButton(
-                      onPressed: () {
-                        setState(() {});
-                      },
-                      icon: const Icon(Icons.delete)),
-                ],
-              ),
-              onTap: () => {}
-              /*
-              TODO
-              Azione che avviene quando si tocca la lista
-              onLongPressed() -> azione dopo che si tiene premuto
+            trailing: Column(
+              children: [
+                Text(data(widget.segnalazione.orario)),
+                Text(ora(widget.segnalazione.orario)),
+              ],
+            ),
+            onTap: () => {}
+            /*
+              TODO Azione che avviene quando si tocca la lista
               */
-              ));
+            ),
+      );
 
   Color gravityColour(int gravity) {
     switch (gravity) {
@@ -132,7 +75,6 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
 /*
      10/08/2022_--:-- AM
     [0123456789012345678] posizioni dei caratteri
-  
 */
   String ora(String input) {
     String orario = "";
@@ -149,9 +91,5 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
       data = input.substring(0, 10);
     }
     return data;
-  }
-
-  deleteItem(List lista, int index) {
-    int indice = 0;
   }
 }
