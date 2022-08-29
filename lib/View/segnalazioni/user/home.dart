@@ -30,7 +30,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
             future: getChats(),
             builder: (_, AsyncSnapshot<List<Chat>> snapshot) =>
                 snapshot.hasData
-                    ? ListaChat(snapshot.requireData)
+                    ? ListaChat(widget.user,snapshot.requireData)
                     : const CircularProgressIndicator.adaptive(),
           ),
         ),
