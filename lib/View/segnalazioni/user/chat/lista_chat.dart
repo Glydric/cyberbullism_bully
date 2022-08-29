@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/Model/chat/chat.dart';
+
 import 'chat_card.dart';
 import 'chat_view.dart';
 
