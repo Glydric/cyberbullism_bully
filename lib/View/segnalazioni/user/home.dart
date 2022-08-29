@@ -27,7 +27,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
           future: getChats(),
           builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasData
               ? ListaChat(widget.user, snapshot.requireData)
-              : Container(),
+              : const Center(child: CircularProgressIndicator.adaptive()),
         ),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add),
