@@ -32,9 +32,7 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
               ],
             ),
             onTap: () => {}
-            /*
-              TODO Azione che avviene quando si tocca la lista
-              */
+            //TODO Azione che avviene quando si tocca la lista
             ),
       );
 
