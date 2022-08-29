@@ -22,11 +22,11 @@ class _ListaChatState extends State<ListaChat> {
         itemCount: widget.chats.length,
         itemBuilder: (_, int _index) => GestureDetector(
           onTap: () => toChatPage(widget.chats[_index].otherEmail),
-          child: ChatCard(widget.chats[_index]),
+          child: ChatCard(widget.chats[_index].getMaxMessage()),
         ),
       );
 
   toChatPage(String otherEmail) => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => ChatView(widget.user, otherEmail),
+        builder: (_) => ChatView(widget.user, otherEmail),
       ));
 }
