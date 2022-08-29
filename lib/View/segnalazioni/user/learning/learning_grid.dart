@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'learning_card.dart';
+
 class LearningGrid extends StatelessWidget {
   final List<LearningCard> _grid;
   @override
