@@ -25,7 +25,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: _screen[_index],
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar:  BottomNavigationBar(
           elevation: 1,
           type: BottomNavigationBarType.fixed,
           currentIndex: _index,
