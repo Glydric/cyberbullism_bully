@@ -108,14 +108,17 @@ class UserDbConnector {
     return jsonList.map((json) => Message.fromJson(json)).toList();
   }
 
-  static Future<List<Message>> getMessagesOf(User user) async {
+  static Future<List<Message>> getMessagesOf(
+      User user, String otherEmail) async {
     Response response = await post(
       Uri.parse(url +
           "UserGetMessages.php" +
           "?email=" +
           user.email +
           "&password=" +
-          user.password),
+          user.password +
+          "&otherEmail=" +
+          otherEmail),
     );
     LoginException.thrower(response.body);
     final List<dynamic> jsonList = jsonDecode(response.body);
