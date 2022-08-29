@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '/Model/user.dart';
 import '/Model/chat/chat.dart';
 
 import 'chat_card.dart';
@@ -7,8 +8,9 @@ import 'chat_view.dart';
 
 class ListaChat extends StatefulWidget {
   final List<Chat> chats;
+  final User user;
 
-  const ListaChat(this.chats, {Key? key}) : super(key: key);
+  const ListaChat(this.user, this.chats, {Key? key}) : super(key: key);
 
   @override
   State<ListaChat> createState() => _ListaChatState();
@@ -25,6 +27,6 @@ class _ListaChatState extends State<ListaChat> {
       );
 
   toChatPage(String otherEmail) => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => ChatView(otherEmail),
+        builder: (context) => ChatView(widget.user, otherEmail),
       ));
 }
