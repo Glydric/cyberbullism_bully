@@ -9,8 +9,8 @@ class ChatCard extends StatelessWidget {
   const ChatCard(this.chat, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        child: Padding(
+  Widget build(BuildContext context) => 
+        Padding(
           padding: const EdgeInsets.all(4),
           child: Card(
             elevation: 8,
@@ -23,10 +23,17 @@ class ChatCard extends StatelessWidget {
                   Text(chat.getMaxMessage().orario),
                 ]),
                 const Text(''),
-                Text(chat.getMaxMessage().text),
+                Text(
+                  (chat.getMaxMessage().sender
+                          ? chat.getMaxMessage().otherEmail
+                          : "Tu") +
+                      ": " +
+                      chat.getMaxMessage().text,
+                  maxLines: 3,
+                  softWrap: true,
+                ),
               ]),
             ),
           ),
-        ),
-      );
+        );
 }
