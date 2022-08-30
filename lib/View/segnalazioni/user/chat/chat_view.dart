@@ -40,8 +40,7 @@ class _ChatViewState extends State<ChatView> {
                                 itemBuilder: (_, int _index) => MessageCard(
                                     snapshot.requireData.messages[_index]),
                               )
-                            : const Center(
-                                child: CircularProgressIndicator.adaptive()),
+                            : Container(),
                   ),
                 ),
               ),
