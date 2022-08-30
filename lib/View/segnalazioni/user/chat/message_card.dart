@@ -7,6 +7,10 @@ class MessageCard extends StatelessWidget {
 
   const MessageCard(this.message, {Key? key}) : super(key: key);
 
+  get chipColor => const Color.fromARGB(16, 0, 0, 0);
+  get messageAlignment =>
+      message.sender ? Alignment.centerLeft : Alignment.centerRight;
+
   @override
   Widget build(BuildContext context) => Column(
         children: [
@@ -16,14 +20,11 @@ class MessageCard extends StatelessWidget {
             style: const TextStyle(fontSize: 10),
           ),
           Align(
-            alignment:
-                message.sender ? Alignment.centerLeft : Alignment.centerRight,
-            child: Card(
+            alignment: messageAlignment,
+            child: Chip(
+              backgroundColor: chipColor,
               elevation: 4,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(message.text),
-              ),
+              label: Text(message.text),
             ),
           )
         ],
