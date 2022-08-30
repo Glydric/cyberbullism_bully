@@ -22,18 +22,16 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Center(
-          child: Stack(
-            children: [
-              FutureBuilder(
-                future: fillCards(),
-                builder:
-                    (context, AsyncSnapshot<List<SegnalazioneCard>> snapshot) =>
-                        snapshot.hasData
-                            ? ListaSegnalazioni(snapshot.requireData)
-                            : const CircularProgressIndicator.adaptive(),
-              )
-            ],
-          ),
+          child: Stack(children: [
+            FutureBuilder(
+              future: fillCards(),
+              builder:
+                  (_, AsyncSnapshot<List<SegnalazioneCard>> snapshot) =>
+                      snapshot.hasData
+                          ? ListaSegnalazioni(snapshot.requireData)
+                          : const CircularProgressIndicator.adaptive(),
+            )
+          ]),
         ),
       );
 }
