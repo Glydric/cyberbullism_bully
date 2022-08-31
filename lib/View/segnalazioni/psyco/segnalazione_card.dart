@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'lista.dart';
 import '/Model/segnalazione.dart';
 
 class SegnalazioneCard extends StatefulWidget {
@@ -73,21 +72,9 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
 /*
      10/08/2022_--:-- AM
     [0123456789012345678] posizioni dei caratteri
-*/
-  String ora(String input) {
-    String orario = "";
-    if (input != null) {
-      //partendo dalla 11 posizione escludo lo spazio tra la data e l'ora
-      orario = input.substring(11);
-    }
-    return orario;
-  }
+*/ //partendo dalla 11 posizione escludo lo spazio tra la data e l'ora
 
-  String data(String input) {
-    String data = "";
-    if (input != null) {
-      data = input.substring(0, 10);
-    }
-    return data;
-  }
+  String ora(String input) => input.substring(11);
+
+  String data(String input) => input.substring(0, 10);
 }
