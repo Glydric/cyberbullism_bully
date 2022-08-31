@@ -24,10 +24,14 @@ class _ChatViewState extends State<ChatView> {
       UserDbConnector.getMessagesOf(widget.user, widget.otherEmail)
           .then(Chat.fromList);
 
-  get _maxTextLength => 500;
+  get _maximumTextLength => 500;
 
-  get errorText => _textController.text.length == _maxTextLength
+  get errorText => _textController.text.length == _maximumTextLength
       ? "Impossibile inserire altri caratteri"
+      : null;
+
+  get maxLength => _textController.text.length > _maximumTextLength - 50
+      ? _maximumTextLength
       : null;
 
   void updateChat() => setState(() {
@@ -63,20 +67,23 @@ class _ChatViewState extends State<ChatView> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                maxLength: maxLength,
                 onChanged: (s) => setState(() => errorText),
                 inputFormatters: [
-                  LengthLimitingTextInputFormatter(_maxTextLength)
+                  LengthLimitingTextInputFormatter(_maximumTextLength)
                 ],
                 textAlignVertical: TextAlignVertical.center,
                 controller: _textController,
                 decoration: InputDecoration(
+                  hintText: "Inserire il messaggio",
+                  helperText:
+                      "", // fornisce uno spazio in modo che all'aggiunta degli altri elementi il textfield non si alzi
                   errorText: errorText,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 8,
                     vertical: 4,
                   ),
                   border: const OutlineInputBorder(),
-                  hintText: "Inserire il messaggio",
                   suffixIcon: IconButton(
                     splashRadius: 20,
                     color: Theme.of(context).primaryColor,
