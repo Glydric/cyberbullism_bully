@@ -20,17 +20,18 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   final TextEditingController _textController = TextEditingController();
 
+  int get _maximumTextLength => 500;
+
   Future<Chat> get messages =>
       UserDbConnector.getMessagesOf(widget.user, widget.otherEmail)
           .then(Chat.fromList);
-
-  get _maximumTextLength => 500;
 
   get errorText => _textController.text.length == _maximumTextLength
       ? "Impossibile inserire altri caratteri"
       : null;
 
-  get maxLength => _textController.text.length > _maximumTextLength - 50
+  ///Fornisce il valore da inserire nel campo maxLength cosi da mostrare il massimo all'occorrenza
+  get seeMaxLength => _textController.text.length > _maximumTextLength - 50
       ? _maximumTextLength
       : null;
 
@@ -67,7 +68,7 @@ class _ChatViewState extends State<ChatView> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                maxLength: maxLength,
+                maxLength: seeMaxLength,
                 onChanged: (s) => setState(() => errorText),
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(_maximumTextLength)
