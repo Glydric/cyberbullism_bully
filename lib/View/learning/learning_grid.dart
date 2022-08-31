@@ -14,13 +14,10 @@ class _LearningGridState extends State<LearningGrid> {
   final controller = ScrollController();
 
   @override
-  Widget build(BuildContext context) => 
-      GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  Widget build(BuildContext context) => GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 5),
-        padding: const EdgeInsets.all(20),
-      
-        itemCount: widget._grid.length,
-        itemBuilder: (context, int index) => widget._grid[index]
-      );
+      padding: const EdgeInsets.all(20),
+      itemCount: widget._grid.length,
+      itemBuilder: (context, int index) => widget._grid[index]);
 }
