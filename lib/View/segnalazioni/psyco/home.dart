@@ -4,7 +4,6 @@ import '/Model/connect_db/psyco_db_connector.dart';
 import '../psyco/segnalazione_card.dart';
 import '/Model/segnalazione.dart';
 import 'lista.dart';
-import 'segnalazione_card.dart';
 
 class PsycoSegnalazioni extends StatefulWidget {
   const PsycoSegnalazioni({Key? key}) : super(key: key);
