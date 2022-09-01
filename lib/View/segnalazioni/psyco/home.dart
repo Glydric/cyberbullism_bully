@@ -4,7 +4,6 @@ import '/Model/connect_db/psyco_db_connector.dart';
 import '../psyco/segnalazione_card.dart';
 import '/Model/segnalazione.dart';
 import 'lista.dart';
-import 'segnalazione_card.dart';
 
 class PsycoSegnalazioni extends StatefulWidget {
   const PsycoSegnalazioni({Key? key}) : super(key: key);
@@ -22,18 +21,16 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Center(
-          child: Stack(
-            children: [
-              FutureBuilder(
-                future: fillCards(),
-                builder:
-                    (context, AsyncSnapshot<List<SegnalazioneCard>> snapshot) =>
-                        snapshot.hasData
-                            ? ListaSegnalazioni(snapshot.requireData)
-                            : const CircularProgressIndicator.adaptive(),
-              )
-            ],
-          ),
+          child: Stack(children: [
+            FutureBuilder(
+              future: fillCards(),
+              builder:
+                  (_, AsyncSnapshot<List<SegnalazioneCard>> snapshot) =>
+                      snapshot.hasData
+                          ? ListaSegnalazioni(snapshot.requireData)
+                          : const CircularProgressIndicator.adaptive(),
+            )
+          ]),
         ),
       );
 }

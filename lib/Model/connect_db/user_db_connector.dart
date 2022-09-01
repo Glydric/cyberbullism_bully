@@ -86,6 +86,7 @@ class UserDbConnector {
             getGravitaFrom(testo).toString(),
       ),
     );
+    LoginException.thrower(response.body);
   }
 
   /// consente di ottenere la gravità passando un testo

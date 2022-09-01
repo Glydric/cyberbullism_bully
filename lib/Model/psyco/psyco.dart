@@ -15,7 +15,7 @@ class Psyco extends User {
 
   ///genera uno psicologo a partire da un json, se isValid non è presente
   ///lo definisce true di default
-  Psyco.fromJson(Map<String, dynamic> json) //? TODO serve davvero?
+  Psyco.fromJson(Map<String, dynamic> json)
       : isValid = json.containsKey("isValid") ? json["isValid"] : "true",
         super.fromJson(json);
 
