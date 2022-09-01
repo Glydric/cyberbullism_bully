@@ -1,17 +1,19 @@
 import 'package:cyberbullism_bully/View/learning/learning_card.dart';
 import 'package:flutter/material.dart';
 
+
 class LearningGrid extends StatefulWidget {
   final List<LearningCard> _grid;
 
-  LearningGrid(this._grid, {Key? key}) : super(key: key);
+  LearningGrid(this._grid, {Key? key}) : super(key: key) {
+
+  }
 
   @override
-  State<LearningGrid> createState() => _LearningGridState();
+  State<StatefulWidget> createState() => _LearningGridState();
 }
 
 class _LearningGridState extends State<LearningGrid> {
-  final controller = ScrollController();
 
   @override
   Widget build(BuildContext context) => GridView.builder(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class LearningCard extends StatefulWidget {
   const LearningCard({Key? key}) : super(key: key);
@@ -10,6 +11,14 @@ class LearningCard extends StatefulWidget {
 class LearningCardState extends State<LearningCard> {
   Icon fav = Icon(Icons.favorite_border);
   bool isntFav = true;
+  String text = "";
+
+  getData() async {
+    String response = await rootBundle.loadString('learning_resources/turing.txt');
+    setState(() {
+      text = response;
+    });
+  }
 
   Widget build(BuildContext context) => Container(
       child: Padding(
@@ -28,7 +37,7 @@ class LearningCardState extends State<LearningCard> {
                 trailing: Icon(Icons.download_rounded),
               ),
               child:
-                  Center(child: Text('learning_resources/turing.txt')),
+                  Center(child: Text(text)),
             ),
             color: Color.fromARGB(202, 223, 236, 82),
           )));
