@@ -28,7 +28,7 @@ class LearningCardState extends State<LearningCard> {
                 trailing: Icon(Icons.download_rounded),
               ),
               child:
-                  Center(child: Text('learning_resources/Leone_tastiera.docx')),
+                  Center(child: Text('learning_resources/turing.txt')),
             ),
             color: Color.fromARGB(202, 223, 236, 82),
           )));
