@@ -37,11 +37,9 @@ class _ChatViewState extends State<ChatView> {
       ? _maximumTextLength
       : null;
 
-  void updateChat() => Timer.periodic(
-      const Duration(seconds: 1),
-      (_) => setState(() {
-            messages;
-          }));
+  void updateChat() => setState(() {
+        messages;
+      });
 
   void send() {
     UserDbConnector.sendMessage(
@@ -50,12 +48,12 @@ class _ChatViewState extends State<ChatView> {
       _textController.text,
     );
     _textController.clear();
-    // updateChat();
+    updateChat();
   }
 
   @override
   void initState() {
-    updateChat();
+    Timer.periodic(const Duration(seconds: 1), (_) => updateChat());
     super.initState();
   }
 
@@ -65,7 +63,7 @@ class _ChatViewState extends State<ChatView> {
         body: SafeArea(
           child: Column(children: [
             Expanded(
-              child: Padding(
+              child: Container(
                 padding: const EdgeInsets.all(8.0),
                 child: FutureBuilder(
                   future: messages,
@@ -73,7 +71,9 @@ class _ChatViewState extends State<ChatView> {
                       ? ListView.builder(
                           itemCount: snapshot.requireData.messages.length,
                           itemBuilder: (_, int _index) => MessageCard(
-                              snapshot.requireData.messages[_index]),
+                            snapshot.requireData.messages[_index],
+                            //TODO focus last not first
+                          ),
                         )
                       : Container(),
                 ),
