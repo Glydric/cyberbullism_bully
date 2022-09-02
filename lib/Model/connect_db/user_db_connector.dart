@@ -134,10 +134,10 @@ class UserDbConnector {
           user.email +
           "&password=" +
           user.password +
-          "&testo" +
-          testo +
           "&psyco_email=" +
-          otherEmail),
+          otherEmail +
+          "&testo=" +
+          testo),
     );
     LoginException.thrower(response.body);
   }
