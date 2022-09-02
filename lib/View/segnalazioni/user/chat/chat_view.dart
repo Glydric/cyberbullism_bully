@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,14 +37,26 @@ class _ChatViewState extends State<ChatView> {
       ? _maximumTextLength
       : null;
 
-  void updateChat() => setState(() {
-        messages;
-      });
+  void updateChat() => Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => setState(() {
+            messages;
+          }));
 
   void send() {
-    //TODO inviare il messaggio
-    _textController.clear;
+    UserDbConnector.sendMessage(
+      widget.user,
+      widget.otherEmail,
+      _textController.text,
+    );
+    _textController.clear();
+    // updateChat();
+  }
+
+  @override
+  void initState() {
     updateChat();
+    super.initState();
   }
 
   @override
