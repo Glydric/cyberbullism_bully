@@ -20,7 +20,7 @@ class MessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(children: [
         Text(
-          "\n" + message.orario + "\n",
+          "\n" + message.data.toString() + "\n",
           textAlign: TextAlign.left,
           style: const TextStyle(fontSize: 10),
         ),

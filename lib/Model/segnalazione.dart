@@ -1,14 +1,14 @@
 class Segnalazione {
   String email;
   String testo;
-  String orario;
+  String data;
   int gravita;
 
-  Segnalazione(this.testo, this.orario, this.gravita, this.email);
+  Segnalazione(this.testo, this.data, this.gravita, this.email);
   
   Segnalazione.fromJson(Map<String, dynamic> json)
       : email = json["email"],
         testo = json["testo"],
-        orario = json["orario"],
+        data = json["data"],
         gravita = int.parse(json["gravita"]);
 }

@@ -26,8 +26,8 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
             ),
             trailing: Column(
               children: [
-                Text(data(widget.segnalazione.orario)),
-                Text(ora(widget.segnalazione.orario)),
+                Text(data(widget.segnalazione.data)),
+                Text(ora(widget.segnalazione.data)),
               ],
             ),
             onTap: () => {}
