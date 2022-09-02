@@ -23,7 +23,7 @@ class ChatCard extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
-                Text(showingMessage.getHourMinutes),
+                Text(showingMessage.hourMinutes),
               ]),
               const Text(''),
               Text((showingMessage.sender ? "" : "Tu: ") + showingMessage.text,
