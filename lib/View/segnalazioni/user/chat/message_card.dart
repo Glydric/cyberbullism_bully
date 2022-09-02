@@ -25,6 +25,7 @@ class MessageCard extends StatelessWidget {
           style: const TextStyle(fontSize: 10),
         ),
         Align(
+          //TODO add padding
           alignment: messageAlignment,
           child: Card(
             margin: marginAlignments,
