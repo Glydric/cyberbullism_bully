@@ -1,45 +1,69 @@
 import 'package:flutter/material.dart';
-
 import '/Model/chat/message.dart';
 
 class MessageCard extends StatelessWidget {
   final Message message;
+  final bool showDate;
 
-  const MessageCard(this.message, {Key? key}) : super(key: key);
+  const MessageCard(this.message, {Key? key, this.showDate = true})
+      : super(key: key);
 
-  get cardColor => const Color.fromARGB(255, 233, 233, 233);
+  Color get cardColor => const Color.fromARGB(255, 233, 233, 233);
 
-  get messageAlignment =>
+  Alignment get messageAlignment =>
       message.sender ? Alignment.centerLeft : Alignment.centerRight;
 
-  get marginAlignments => EdgeInsets.only(
+  CrossAxisAlignment get crossTextAlignment =>
+      message.sender ? CrossAxisAlignment.start : CrossAxisAlignment.end;
+
+  TextAlign get textAlignment =>
+      message.sender ? TextAlign.left : TextAlign.right;
+
+  EdgeInsets get marginAlignments => EdgeInsets.only(
         left: message.sender ? 0 : 50,
         right: message.sender ? 50 : 0,
       );
 
   @override
   Widget build(BuildContext context) => Column(children: [
-        Text(
-          "\n" + message.orario + "\n",
-          textAlign: TextAlign.left,
-          style: const TextStyle(fontSize: 10),
-        ),
-        Align(
-          alignment: messageAlignment,
-          child: Card(
-            margin: marginAlignments,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            color: cardColor,
-            elevation: 4,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-              child: Text(
-                message.text,
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-            ),
+        Visibility(
+          visible: showDate,
+          child: Text(
+            "\n" + message.yearMonthDate,
+            textAlign: TextAlign.left,
+            style: const TextStyle(fontSize: 10),
           ),
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+          child: Align(
+              alignment: messageAlignment,
+              child: Column(
+                crossAxisAlignment: crossTextAlignment,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(
+                      message.hourMinutes,
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                  ),
+                  Card(
+                    margin: marginAlignments,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14)),
+                    color: cardColor,
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        message.text,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+        ),
       ]);
 }

@@ -14,6 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: Theme.of(context).textTheme.copyWith(
+              labelSmall: Theme.of(context)
+                  .textTheme
+                  .labelSmall!
+                  .copyWith(letterSpacing: 0),
+            ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             foregroundColor: Colors.grey,

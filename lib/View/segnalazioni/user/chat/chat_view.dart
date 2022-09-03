@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '/Model/user.dart';
 import '/Model/connect_db/user_db_connector.dart';
 import '/Model/chat/chat.dart';
+
 import 'message_card.dart';
 
 /// La schermata che consente di portare avanti una chat con un utente
@@ -19,6 +22,7 @@ class ChatView extends StatefulWidget {
 
 class _ChatViewState extends State<ChatView> {
   final TextEditingController _textController = TextEditingController();
+  late final Timer timer;
 
   int get _maximumTextLength => 500;
 
@@ -40,9 +44,26 @@ class _ChatViewState extends State<ChatView> {
       });
 
   void send() {
-    //TODO inviare il messaggio
-    _textController.clear;
+    UserDbConnector.sendMessage(
+      widget.user,
+      widget.otherEmail,
+      _textController.text,
+    );
+    _textController.clear();
     updateChat();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    _textController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => updateChat());
+    super.initState();
   }
 
   @override
@@ -51,22 +72,23 @@ class _ChatViewState extends State<ChatView> {
         body: SafeArea(
           child: Column(children: [
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FutureBuilder(
-                  future: messages,
-                  builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasData
-                      ? ListView.builder(
-                          itemCount: snapshot.requireData.messages.length,
-                          itemBuilder: (_, int _index) => MessageCard(
-                              snapshot.requireData.messages[_index]),
-                        )
-                      : Container(),
-                ),
+              child: FutureBuilder(
+                future: messages,
+                builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasData
+                    ? ListView.builder(
+                        reverse: true,
+                        itemCount: snapshot.requireData.messages.length,
+                        itemBuilder: (_, int _index) => MessageCard(
+                            snapshot.requireData.messages[_index],
+                            showDate: showDate(snapshot.requireData, _index)
+                            //TODO focus last not first
+                            ),
+                      )
+                    : Container(),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: TextField(
                 maxLength: seeMaxLength,
                 onChanged: (s) => setState(() => errorText),
@@ -99,4 +121,9 @@ class _ChatViewState extends State<ChatView> {
           ]),
         ),
       );
+
+  bool showDate(Chat chat, int _index) =>
+      _index + 1 == chat.messages.length ||
+      chat.messages[_index].yearMonthDate !=
+          chat.messages[_index + 1].yearMonthDate;
 }

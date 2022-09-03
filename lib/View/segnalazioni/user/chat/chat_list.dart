@@ -17,8 +17,11 @@ class ListaChat extends StatefulWidget {
 }
 
 class _ListaChatState extends State<ListaChat> {
+  
+
   @override
-  Widget build(BuildContext context) => ListView.builder(
+  Widget build(BuildContext context) =>
+   ListView.builder(
         itemCount: widget.chats.length,
         itemBuilder: (_, int _index) => GestureDetector(
           onTap: () => toChatPage(widget.chats[_index].otherEmail),

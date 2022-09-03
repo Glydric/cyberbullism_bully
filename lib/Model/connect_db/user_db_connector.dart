@@ -125,4 +125,20 @@ class UserDbConnector {
     final List<dynamic> jsonList = jsonDecode(response.body);
     return jsonList.map((json) => Message.fromJson(json)).toList();
   }
+
+  static void sendMessage(User user, String otherEmail, String testo) async {
+    Response response = await post(
+      Uri.parse(url +
+          "UserSendMessage.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password +
+          "&psyco_email=" +
+          otherEmail +
+          "&testo=" +
+          testo),
+    );
+    LoginException.thrower(response.body);
+  }
 }
