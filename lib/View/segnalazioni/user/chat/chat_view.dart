@@ -56,6 +56,7 @@ class _ChatViewState extends State<ChatView> {
   @override
   void dispose() {
     timer.cancel();
+    _textController.dispose();
     super.dispose();
   }
 
