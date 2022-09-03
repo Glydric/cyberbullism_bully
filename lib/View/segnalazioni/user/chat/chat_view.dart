@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import '/Model/user.dart';
 import '/Model/connect_db/user_db_connector.dart';
 import '/Model/chat/chat.dart';
+
 import 'message_card.dart';
 
 /// La schermata che consente di portare avanti una chat con un utente
@@ -71,9 +72,11 @@ class _ChatViewState extends State<ChatView> {
                       ? ListView.builder(
                           itemCount: snapshot.requireData.messages.length,
                           itemBuilder: (_, int _index) => MessageCard(
-                            snapshot.requireData.messages[_index],
-                            //TODO focus last not first
-                          ),
+                              snapshot.requireData.messages[_index],
+                              showDate: showDate(snapshot.requireData, _index)
+
+                              //TODO focus last not first
+                              ),
                         )
                       : Container(),
                 ),
@@ -113,4 +116,9 @@ class _ChatViewState extends State<ChatView> {
           ]),
         ),
       );
+
+  bool showDate(Chat chat, int _index) =>
+      _index <= 0 ||
+      chat.messages[_index].yearMonthDate !=
+          chat.messages[_index - 1].yearMonthDate;
 }
