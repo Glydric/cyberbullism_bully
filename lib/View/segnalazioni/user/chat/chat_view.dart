@@ -22,6 +22,7 @@ class ChatView extends StatefulWidget {
 
 class _ChatViewState extends State<ChatView> {
   final TextEditingController _textController = TextEditingController();
+  late final Timer timer;
 
   int get _maximumTextLength => 500;
 
@@ -53,8 +54,14 @@ class _ChatViewState extends State<ChatView> {
   }
 
   @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   void initState() {
-    Timer.periodic(const Duration(seconds: 1), (_) => updateChat());
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => updateChat());
     super.initState();
   }
 
@@ -64,26 +71,23 @@ class _ChatViewState extends State<ChatView> {
         body: SafeArea(
           child: Column(children: [
             Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                child: FutureBuilder(
-                  future: messages,
-                  builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasData
-                      ? ListView.builder(
-                          itemCount: snapshot.requireData.messages.length,
-                          itemBuilder: (_, int _index) => MessageCard(
-                              snapshot.requireData.messages[_index],
-                              showDate: showDate(snapshot.requireData, _index)
-
-                              //TODO focus last not first
-                              ),
-                        )
-                      : Container(),
-                ),
+              child: FutureBuilder(
+                future: messages,
+                builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasData
+                    ? ListView.builder(
+                        reverse: true,
+                        itemCount: snapshot.requireData.messages.length,
+                        itemBuilder: (_, int _index) => MessageCard(
+                            snapshot.requireData.messages[_index],
+                            showDate: showDate(snapshot.requireData, _index)
+                            //TODO focus last not first
+                            ),
+                      )
+                    : Container(),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: TextField(
                 maxLength: seeMaxLength,
                 onChanged: (s) => setState(() => errorText),
@@ -118,7 +122,7 @@ class _ChatViewState extends State<ChatView> {
       );
 
   bool showDate(Chat chat, int _index) =>
-      _index <= 0 ||
+      _index + 1 == chat.messages.length ||
       chat.messages[_index].yearMonthDate !=
-          chat.messages[_index - 1].yearMonthDate;
+          chat.messages[_index + 1].yearMonthDate;
 }
