@@ -14,8 +14,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
+    // Clean up the controller when the widget is removed from the widget tree
     _textController.dispose();
     super.dispose();
   }
@@ -39,8 +38,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
                   keyboardType: TextInputType.multiline,
                   autocorrect: false,
                   decoration: const InputDecoration(
-                    label: Text("Inserire la segnalazione")
-                  ),
+                      label: Text("Inserire la segnalazione")),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
