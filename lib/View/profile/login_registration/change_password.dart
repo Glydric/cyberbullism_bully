@@ -50,12 +50,8 @@ class _ChangePasswordState extends State<ChangePassword> {
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Padding(
+  Widget build(BuildContext context) => Scaffold(
+        body: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(children: [
             const Spacer(),
