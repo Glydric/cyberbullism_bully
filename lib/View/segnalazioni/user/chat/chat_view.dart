@@ -79,10 +79,10 @@ class _ChatViewState extends State<ChatView> {
                         reverse: true,
                         itemCount: snapshot.requireData.messages.length,
                         itemBuilder: (_, int _index) => MessageCard(
-                            snapshot.requireData.messages[_index],
-                            showDate: showDate(snapshot.requireData, _index)
-                            //TODO focus last not first
-                            ),
+                          snapshot.requireData.messages[_index],
+                          showDate: showDate(snapshot.requireData, _index),
+                          isLast: _index == 0,
+                        ),
                       )
                     : Container(),
               ),
