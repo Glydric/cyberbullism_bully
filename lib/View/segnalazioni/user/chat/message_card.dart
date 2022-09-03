@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '/Model/chat/message.dart';
 
 class MessageCard extends StatelessWidget {
@@ -36,7 +35,7 @@ class MessageCard extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
           child: Align(
               alignment: messageAlignment,
               child: Column(
