@@ -13,7 +13,7 @@ class PsycoSegnalazioni extends StatefulWidget {
 }
 
 class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
-  Future<List<SegnalazioneCard>> fillCards() =>
+  Future<List<SegnalazioneCard>> get fillCards =>
       PsycoDbConnector.getSegnalazioni()
           .then((List<Segnalazione> l) => l.map(SegnalazioneCard.new).toList());
   //TODO questo non deve essere visibile dallo psicologo
@@ -23,12 +23,11 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
         body: Center(
           child: Stack(children: [
             FutureBuilder(
-              future: fillCards(),
-              builder:
-                  (_, AsyncSnapshot<List<SegnalazioneCard>> snapshot) =>
-                      snapshot.hasData
-                          ? ListaSegnalazioni(snapshot.requireData)
-                          : const CircularProgressIndicator.adaptive(),
+              future: fillCards,
+              builder: (_, AsyncSnapshot<List<SegnalazioneCard>> snapshot) =>
+                  snapshot.hasData
+                      ? ListaSegnalazioni(snapshot.requireData)
+                      : const CircularProgressIndicator.adaptive(),
             )
           ]),
         ),
