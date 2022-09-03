@@ -1,4 +1,4 @@
-package com.unicam.studenti.cyberbullism-bully
+package com.unicam.studenti.cyberbullismbully
 
 import io.flutter.embedding.android.FlutterActivity
 
