@@ -11,6 +11,7 @@ class ListaSegnalazioni extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView.builder(
-      itemCount: _list.length,
-      itemBuilder: (context, int index) => _list[index]);
+        itemCount: _list.length,
+        itemBuilder: (context, int index) => _list[index],
+      );
 }
