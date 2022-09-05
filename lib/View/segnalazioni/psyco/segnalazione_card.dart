@@ -12,17 +12,27 @@ class SegnalazioneCard extends StatefulWidget {
 
 /// La singola carta che specifica una segnalazione nella lista
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
+  Color get gravityColour {
+    switch (widget.segnalazione.gravita) {
+      case 0:
+        return Colors.green;
+      case 1:
+        return Colors.yellow;
+      case 2:
+        return Colors.red;
+      default:
+        throw Exception("Gravità non corretta");
+    }
+  }
+
   @override
   Widget build(BuildContext context) => Card(
         elevation: 4,
-        margin: const EdgeInsets.all(4),
         child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: gravityColour(widget.segnalazione.gravita),
-            ),
-            title: Text(
-              widget.segnalazione.testo,
-              maxLines: 5,
+            leading: CircleAvatar(backgroundColor: gravityColour),
+            title: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(widget.segnalazione.testo),
             ),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -35,19 +45,4 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
             //TODO Azione che avviene quando si tocca la lista
             ),
       );
-
-  Color gravityColour(int gravity) {
-    switch (gravity) {
-      case 0:
-        return Colors.green;
-      case 1:
-        return Colors.yellow;
-      case 2:
-        return Colors.red;
-      default:
-        {
-          throw Exception("Gravità non corretta");
-        }
-    }
-  }
 }
