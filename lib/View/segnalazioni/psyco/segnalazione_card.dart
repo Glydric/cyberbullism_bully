@@ -37,31 +37,12 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
 
   Color gravityColour(int gravity) {
     switch (gravity) {
-      //TODO inserire i colori corretti
       case 0:
-        {
-          return const Color.fromARGB(200, 62, 62, 62);
-        }
+        return Colors.green;
       case 1:
-        {
-          return const Color.fromARGB(255, 130, 223, 42);
-        }
-
+        return Colors.yellow;
       case 2:
-        {
-          return const Color.fromARGB(255, 245, 245, 9);
-        }
-
-      case 3:
-        {
-          return const Color.fromARGB(255, 223, 156, 0);
-        }
-
-      case 4:
-        {
-          return const Color.fromRGBO(255, 43, 190, 1);
-        }
-
+        return Colors.red;
       default:
         {
           throw Exception("Gravità non corretta");
