@@ -52,10 +52,18 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
               : const Center(child: CircularProgressIndicator.adaptive()),
         ),
         floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () => showDialog(
-                  context: context,
-                  builder: (_) => CardAggiunta(widget.user),
-                )),
+          child: const Icon(Icons.add),
+          onPressed: () => showDialog(
+            context: context,
+            builder: (_) => CardAggiunta(widget.user),
+          ).then(
+            (value) => value
+                ? showDialog(
+                    context: context,
+                    builder: (_) => const AlertDialog(
+                        title: Text("Segnalazione inserita ")))
+                : null,
+          ),
+        ),
       );
 }
