@@ -69,7 +69,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
     try {
       await UserDbConnector.addSegnalazioneFromUser(
           widget.user, _textController.text);
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     } on LoginException catch (e) {
       _errorText = e.toString();
     }
