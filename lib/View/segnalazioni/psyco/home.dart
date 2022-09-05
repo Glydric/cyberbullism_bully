@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '/Model/user.dart';
 import '/Model/connect_db/psyco_db_connector.dart';
 import '../psyco/segnalazione_card.dart';
 import '/Model/segnalazione.dart';
 import 'lista.dart';
 
 class PsycoSegnalazioni extends StatefulWidget {
-  const PsycoSegnalazioni({Key? key}) : super(key: key);
+  final User user;
+
+  const PsycoSegnalazioni(this.user, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PsycoSegnalazioniState();
@@ -14,7 +17,7 @@ class PsycoSegnalazioni extends StatefulWidget {
 
 class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
   Future<List<SegnalazioneCard>> get fillCards =>
-      PsycoDbConnector.getSegnalazioni()
+      PsycoDbConnector.getSegnalazioni(widget.user)
           .then((List<Segnalazione> l) => l.map(SegnalazioneCard.new).toList());
   //TODO questo non deve essere visibile dallo psicologo
 
