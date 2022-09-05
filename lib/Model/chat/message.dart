@@ -3,9 +3,8 @@ import 'package:intl/intl.dart';
 class Message {
   final String otherEmail;
   final String text;
-  final DateTime data;
   final bool sender;
-  final f = DateFormat('yyyy-MM-dd hh:mm');
+  final DateTime data;
 
   Message(this.otherEmail, this.text, this.data, this.sender);
 
