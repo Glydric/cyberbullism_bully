@@ -1,8 +1,12 @@
+import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Model/connect_db/login_exception.dart';
+import '/Model/user.dart';
+
 class CardAggiunta extends StatefulWidget {
-  final String email;
-  const CardAggiunta(this.email, {Key? key}) : super(key: key);
+  final User user;
+  const CardAggiunta(this.user, {Key? key}) : super(key: key);
 
   @override
   State<CardAggiunta> createState() => _CardAggiuntaState();
@@ -11,6 +15,7 @@ class CardAggiunta extends StatefulWidget {
 ///Classe che definisce l'interfaccia per l'aggiunta di una segnalazione
 class _CardAggiuntaState extends State<CardAggiunta> {
   final TextEditingController _textController = TextEditingController();
+  String? _errorText;
 
   @override
   void dispose() {
@@ -24,21 +29,22 @@ class _CardAggiuntaState extends State<CardAggiunta> {
         child: Card(
           margin: const EdgeInsets.symmetric(horizontal: 24),
           elevation: 10,
-          color: Colors.blueAccent,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextFormField(
+                TextField(
                   maxLength: 5000,
                   minLines: 4,
                   maxLines: 10,
                   controller: _textController,
                   keyboardType: TextInputType.multiline,
                   autocorrect: false,
-                  decoration: const InputDecoration(
-                      label: Text("Inserire la segnalazione")),
+                  decoration: InputDecoration(
+                    errorText: _errorText,
+                    label: const Text("Inserire la segnalazione"),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -59,7 +65,13 @@ class _CardAggiuntaState extends State<CardAggiunta> {
         ),
       );
 
-  void send() {
-    //TODO logic
+  void send() async {
+    try {
+      await UserDbConnector.addSegnalazioneFromUser(
+          widget.user, _textController.text);
+      Navigator.pop(context);
+    } on LoginException catch (e) {
+      _errorText = e.toString();
+    }
   }
 }
