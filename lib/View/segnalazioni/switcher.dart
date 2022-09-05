@@ -17,14 +17,13 @@ class _SegnalazioniPageState extends State<SegnalazioniPage> {
         appBar: AppBar(title: const Text("Le tue segnalazioni")),
         body: FutureBuilder(
           future: UserSavingManager.getUser(),
-          builder: (_, AsyncSnapshot<User> snapshot) =>
-              snapshot.hasError
-                  ? const Center(child: Text("Eseguire il login"))
-                  : (snapshot.hasData
-                      ? (snapshot.requireData.runtimeType.toString() == "Psyco"
-                          ? const PsycoSegnalazioni()
-                          : UserSegnalazione(snapshot.requireData))
-                      : const CircularProgressIndicator.adaptive()),
+          builder: (_, AsyncSnapshot<User> snapshot) => snapshot.hasError
+              ? const Center(child: Text("Eseguire il login"))
+              : (snapshot.hasData
+                  ? (snapshot.requireData.runtimeType.toString() == "Psyco"
+                      ? PsycoSegnalazioni(snapshot.requireData)
+                      : UserSegnalazione(snapshot.requireData))
+                  : const CircularProgressIndicator.adaptive()),
         ),
       );
 }
