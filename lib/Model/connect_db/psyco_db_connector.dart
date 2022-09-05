@@ -42,21 +42,29 @@ class PsycoDbConnector extends UserDbConnector {
   }
 
   static Future<Psyco> getUser(String email, String password) async {
-    Response response = await post(
-      Uri.parse(url +
+    Response response = await post(Uri.parse(
+      url +
           "PsycoGet.php" +
           "?email=" +
           email +
           "&password=" +
-          User.crypt(password)),
-    );
+          User.crypt(password),
+    ));
     LoginException.thrower(response.body);
     final json = jsonDecode(response.body);
     return Psyco.fromJson(json);
   }
 
-  static Future<List<Segnalazione>> getSegnalazioni() async {
-    Response response = await post(Uri.parse(url + "PsycoGetSegnalazioni.php"));
+  static Future<List<Segnalazione>> getSegnalazioni(User user) async {
+    Response response = await post(Uri.parse(
+      url +
+          "PsycoGetSegnalazioni.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password,
+    ));
+
     final List<dynamic> jsonList = jsonDecode(response.body);
     final List<Segnalazione> result = <Segnalazione>[];
 
