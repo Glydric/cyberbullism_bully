@@ -34,19 +34,7 @@ class _LogInPageState extends State<LogInPage> {
 
       _errorName = "";
     } on LoginException catch (e) {
-      switch (e.toString()) {
-        case "invalid-email":
-          _errorName = "Inserire un'email corretta";
-          break;
-        case "user-not-found":
-          _errorName = "Utente o password errata";
-          break;
-        case "too-many-requests":
-          _errorName = "Troppi tentativi, provare più tardi";
-          break;
-        default:
-          debugPrint(e.toString());
-      }
+      _errorName = e.toString();
     } finally {
       setState(() => _errorName);
     }
@@ -65,18 +53,10 @@ class _LogInPageState extends State<LogInPage> {
 
       _errorName = "";
     } on LoginException catch (e) {
-      switch (e.toString()) {
-        case "invalid-email":
-          _errorName = "Inserire un'email corretta";
-          break;
-        case "user-not-found":
-          psycoSignIn();
-          break;
-        case "too-many-requests":
-          _errorName = "Troppi tentativi, provare più tardi";
-          break;
-        default:
-          debugPrint(e.toString());
+      if (e.message == "user-not-found") {
+        psycoSignIn();
+      } else {
+        _errorName = e.toString();
       }
     } finally {
       setState(() => _errorName);
@@ -101,8 +81,7 @@ class _LogInPageState extends State<LogInPage> {
           });
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         body: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),

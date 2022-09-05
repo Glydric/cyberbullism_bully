@@ -111,28 +111,7 @@ class RegisterPageState extends State<RegisterPage> {
       backToLoginPage();
       _errorName = "";
     } on LoginException catch (e) {
-      switch (e.toString()) {
-        case "weak-password":
-          _errorName = "La password non è sicura";
-          break;
-        case "email-already-in-use":
-          _errorName = "Account già esistente";
-          break;
-        case "invalid-email":
-          _errorName = "Inserire un'email valida";
-          break;
-        case "pec-invalid":
-          _errorName = "Pec psicologo non valida";
-          break;
-        case "psy-invalid":
-          _errorName = "Psicologo sospeso dalla carica";
-          break;
-        case "psy-not-found":
-          _errorName = "Psicologo non iscritto all'albo";
-          break;
-        default:
-          debugPrint(e.toString());
-      }
+      _errorName = e.toString();
     } finally {
       setState(() => _errorName);
     }

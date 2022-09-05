@@ -37,13 +37,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       ));
       Navigator.pop(context);
     } on LoginException catch (e) {
-      switch (e.toString()) {
-        case 'wrong-password':
-          _errorName = "Password Sbagliata";
-          break;
-        default:
-          _errorName = 'Errore Sconosciuto';
-      }
+      _errorName = e.toString();
     } finally {
       setState(() => _errorName);
     }
