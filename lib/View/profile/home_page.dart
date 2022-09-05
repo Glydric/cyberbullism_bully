@@ -25,16 +25,17 @@ class _HomePageState extends State<HomePage> {
                 ? Scaffold(
                     appBar: AppBar(title: const Text("Profilo")),
                     body: Center(
-                        child: ElevatedButton(
-                          onPressed: () => showMyBottomSheet(const LogInPage()),
-                          child: const Text("LogIn"),
-                        ),
+                      child: ElevatedButton(
+                        onPressed: () => showMyBottomSheet(const LogInPage()),
+                        child: const Text("LogIn"),
+                      ),
                     ),
                   )
                 : snapshot.hasData
                     ? getInfoPage(snapshot.requireData)
                     : const CircularProgressIndicator.adaptive(),
       );
+
   Widget getInfoPage(User user) => Scaffold(
         appBar: AppBar(title: getTitle(user)),
         body: Padding(
