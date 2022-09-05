@@ -25,9 +25,10 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
               maxLines: 5,
             ),
             trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(data(widget.segnalazione.data)),
-                Text(ora(widget.segnalazione.data)),
+                Text(widget.segnalazione.yearMonth),
+                Text(widget.segnalazione.hourDay),
               ],
             ),
             onTap: () => {}
@@ -49,13 +50,4 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
         }
     }
   }
-
-/*
-     10/08/2022_--:-- AM
-    [0123456789012345678] posizioni dei caratteri
-*/ //partendo dalla 11 posizione escludo lo spazio tra la data e l'ora
-
-  String ora(String input) => input.substring(11);
-
-  String data(String input) => input.substring(0, 10);
 }
