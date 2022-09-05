@@ -19,7 +19,6 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
   Future<List<SegnalazioneCard>> get fillCards =>
       PsycoDbConnector.getSegnalazioni(widget.user)
           .then((List<Segnalazione> l) => l.map(SegnalazioneCard.new).toList());
-  //TODO questo non deve essere visibile dallo psicologo
 
   @override
   Widget build(BuildContext context) => Scaffold(
