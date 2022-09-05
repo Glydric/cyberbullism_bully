@@ -30,7 +30,8 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
         elevation: 4,
         child: ListTile(
             leading: CircleAvatar(backgroundColor: gravityColour),
-            title: Padding(
+            title: Text(widget.segnalazione.email),
+            subtitle: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(widget.segnalazione.testo),
             ),
