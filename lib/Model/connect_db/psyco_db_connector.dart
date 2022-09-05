@@ -66,12 +66,7 @@ class PsycoDbConnector extends UserDbConnector {
     ));
 
     final List<dynamic> jsonList = jsonDecode(response.body);
-    final List<Segnalazione> result = <Segnalazione>[];
 
-    for (Map<String, dynamic> json in jsonList) {
-      result.add(Segnalazione.fromJson(json));
-    }
-
-    return result;
+    return jsonList.map((s) => Segnalazione.fromJson(s)).toList();
   }
 }
