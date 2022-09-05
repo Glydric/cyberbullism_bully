@@ -78,7 +78,7 @@ class UserDbConnector {
             "UserCreateSegnalazione.php" +
             "?email=" +
             userEmail +
-            "?password=" +
+            "&password=" +
             password +
             "&testo=" +
             testo +
