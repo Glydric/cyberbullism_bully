@@ -28,9 +28,11 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
             FutureBuilder(
               future: fillCards,
               builder: (_, AsyncSnapshot<List<SegnalazioneCard>> snapshot) =>
-                  snapshot.hasData
-                      ? ListaSegnalazioni(snapshot.requireData)
-                      : const CircularProgressIndicator.adaptive(),
+                  snapshot.hasError
+                      ? Text(snapshot.error.toString())
+                      : snapshot.hasData
+                          ? ListaSegnalazioni(snapshot.requireData)
+                          : const CircularProgressIndicator.adaptive(),
             )
           ]),
         ),
