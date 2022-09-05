@@ -8,12 +8,36 @@ class LoginException implements Exception {
     "email-already-in-use",
     "empty-password",
     "wrong-password"
-    "too-many-requests",
+        "too-many-requests",
   ];
 
   LoginException(this.message);
+
   @override
-  toString() => message;
+  toString() {
+    switch (message) {
+      case "invalid-email":
+        return "Inserire un'email corretta";
+      case "email-already-in-use":
+        return "Account già esistente";
+      case "weak-password":
+        return "La password non è sicura";
+      case 'wrong-password':
+        return "Password Sbagliata";
+      case "pec-invalid":
+        return "Pec psicologo non valida";
+      case "psy-invalid":
+        return "Psicologo sospeso dalla carica";
+      case "psy-not-found":
+        return "Psicologo non iscritto all'albo";
+      case "user-not-found":
+        return "Utente o password errata";
+      case "too-many-requests":
+        return "Troppi tentativi, provare più tardi";
+      default:
+        return 'Errore Sconosciuto';
+    }
+  }
 
   ///passando una stringa solleva l'eccezione se essa è presente
   static void thrower(String textCode) {
