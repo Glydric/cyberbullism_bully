@@ -21,4 +21,6 @@ class Segnalazione {
 
   String get yearMonth => DateFormat.yMd().format(data);
   String get hourDay => DateFormat.Hm().format(data);
+
+  String get nomeCognome => nome + " " + cognome;
 }
