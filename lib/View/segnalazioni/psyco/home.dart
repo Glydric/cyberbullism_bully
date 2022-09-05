@@ -16,9 +16,8 @@ class PsycoSegnalazioni extends StatefulWidget {
 }
 
 class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
-  Future<List<SegnalazioneCard>> get fillCards =>
-      PsycoDbConnector.getSegnalazioni(widget.user)
-          .then((List<Segnalazione> l) => l.map(SegnalazioneCard.new).toList());
+  Future<List<Segnalazione>> get fillCards =>
+      PsycoDbConnector.getSegnalazioni(widget.user);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -26,11 +25,11 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
           child: Stack(children: [
             FutureBuilder(
               future: fillCards,
-              builder: (_, AsyncSnapshot<List<SegnalazioneCard>> snapshot) =>
+              builder: (_, AsyncSnapshot<List<Segnalazione>> snapshot) =>
                   snapshot.hasError
                       ? Text(snapshot.error.toString())
                       : snapshot.hasData
-                          ? ListaSegnalazioni(snapshot.requireData)
+                          ? ListaSegnalazioni(widget.user, snapshot.requireData)
                           : const CircularProgressIndicator.adaptive(),
             )
           ]),
