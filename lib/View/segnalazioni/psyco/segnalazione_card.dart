@@ -29,21 +29,19 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
   Widget build(BuildContext context) => Card(
         elevation: 4,
         child: ListTile(
-            leading: CircleAvatar(backgroundColor: gravityColour),
-            title: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Text(widget.segnalazione.nomeCognome),
-            ),
-            subtitle: Text(widget.segnalazione.testo),
-            trailing: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(widget.segnalazione.yearMonth),
-                Text(widget.segnalazione.hourDay),
-              ],
-            ),
-            onTap: () => {}
-            //TODO Azione che avviene quando si tocca la lista
-            ),
+          leading: CircleAvatar(backgroundColor: gravityColour),
+          title: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(widget.segnalazione.nomeCognome),
+          ),
+          subtitle: Text(widget.segnalazione.testo),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(widget.segnalazione.yearMonth),
+              Text(widget.segnalazione.hourDay),
+            ],
+          ),
+        ),
       );
 }
