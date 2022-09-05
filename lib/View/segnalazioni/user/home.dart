@@ -55,7 +55,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
             child: const Icon(Icons.add),
             onPressed: () => showDialog(
                   context: context,
-                  builder: (_) => CardAggiunta(widget.user.email),
+                  builder: (_) => CardAggiunta(widget.user),
                 )),
       );
 }
