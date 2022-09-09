@@ -1,12 +1,10 @@
-import 'dart:collection';
-
 import 'package:cyberbullism_bully/Model/user_save_manager.dart';
 import 'package:flutter/material.dart';
 
 // importo pagine flutter
-import 'View/segnalazioni/switcher.dart';
-import 'View/profile/home_page.dart';
-import 'View/learning/example_home_page.dart';
+import 'package:cyberbullism_bully/View/segnalazioni/switcher.dart';
+import 'package:cyberbullism_bully/View/profile/home_page.dart';
+import 'package:cyberbullism_bully/View/learning/learning_page.dart';
 
 class ScreenSwitcher extends StatefulWidget {
   const ScreenSwitcher({Key? key}) : super(key: key);
@@ -18,8 +16,8 @@ class ScreenSwitcher extends StatefulWidget {
 class _ScreenSwitcherState extends State<ScreenSwitcher> {
   int _index = 0;
   final Map<Widget, BottomNavigationBarItem> map = {
-    const ExampleHomePage(): const BottomNavigationBarItem(
-      label: "Learning (Later)",
+    const LearningPage(): const BottomNavigationBarItem(
+      label: "Learning (in work)",
       icon: Icon(Icons.description),
     ),
     const SegnalazioniPage(): const BottomNavigationBarItem(
