@@ -13,10 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Text getTitle(User user) => user.runtimeType.toString() == "Psyco"
-      ? const Text("Psicologo")
-      : const Text("Utente");
-
   @override
   Widget build(BuildContext context) => FutureBuilder(
         future: UserSavingManager.getUser(),
@@ -32,34 +28,41 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                 : snapshot.hasData
-                    ? getInfoPage(snapshot.requireData)
-                    : const CircularProgressIndicator.adaptive(),
+                    ? getInfoScreen(snapshot.requireData)
+                    : Scaffold(
+                        appBar: AppBar(),
+                        body: const CircularProgressIndicator.adaptive(),
+                      ),
       );
 
-  Widget getInfoPage(User user) => Scaffold(
+  Text getTitle(User user) => user.runtimeType.toString() == "Psyco"
+      ? const Text("Psicologo")
+      : const Text("Utente");
+
+  Widget getInfoScreen(User user) => Scaffold(
         appBar: AppBar(title: getTitle(user)),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(children: [
-            const Spacer(),
-            Text(
-              user.nome + " " + user.cognome,
-              style: const TextStyle(fontSize: 20),
-            ),
-            Text(user.email),
-            const Spacer(flex: 3),
-            Row(children: [
-              ElevatedButton(
-                onPressed: logoutAlertDialog,
-                child: const Text("Logout"),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: [
+              const Spacer(flex: 2),
+              Text(
+                user.nome + " " + user.cognome,
+                style: const TextStyle(fontSize: 20),
               ),
-              const Spacer(),
+              Text(user.email),
+              const Spacer(flex: 6),
               ElevatedButton(
                 onPressed: () => showMyBottomSheet(ChangePassword(user)),
                 child: const Text("Cambia Password"),
               ),
-            ])
-          ]),
+              const Spacer(),
+              ElevatedButton(
+                onPressed: logoutAlertDialog,
+                child: const Text("Logout"),
+              ),
+            ]),
+          ),
         ),
       );
 
