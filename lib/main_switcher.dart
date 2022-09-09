@@ -1,3 +1,6 @@
+import 'dart:collection';
+
+import 'package:cyberbullism_bully/Model/user_save_manager.dart';
 import 'package:flutter/material.dart';
 
 // importo pagine flutter
@@ -14,36 +17,40 @@ class ScreenSwitcher extends StatefulWidget {
 
 class _ScreenSwitcherState extends State<ScreenSwitcher> {
   int _index = 0;
-  final List _screen = const [
-    ExampleHomePage(),
-    SegnalazioniPage(),
-    HomePage()
-  ];
+  final Map<Widget, BottomNavigationBarItem> map = {
+    const ExampleHomePage(): const BottomNavigationBarItem(
+      label: "Learning (Later)",
+      icon: Icon(Icons.description),
+    ),
+    const SegnalazioniPage(): const BottomNavigationBarItem(
+      label: "Chat (in work)",
+      icon: Icon(Icons.chat),
+    ),
+    const HomePage(): const BottomNavigationBarItem(
+      label: "User",
+      icon: Icon(Icons.account_circle_outlined),
+    )
+  };
 
-  void _updateIndex(int value) => setState(() => _index = value);
+  List<Widget> get getPages => map.keys.toList();
+
+  List<BottomNavigationBarItem> get getItems => map.values.toList();
+
+  _updateIndex(int value) => setState(() => _index = value);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: _screen[_index],
-        bottomNavigationBar:  BottomNavigationBar(
-          elevation: 1,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _index,
-          onTap: _updateIndex,
-          items: const [
-            BottomNavigationBarItem(
-              label: "Learning (Later)",
-              icon: Icon(Icons.description),
-            ),
-            BottomNavigationBarItem(
-              label: "Chat (in work)",
-              icon: Icon(Icons.chat),
-            ),
-            BottomNavigationBarItem(
-              label: "User",
-              icon: Icon(Icons.account_circle_outlined),
-            )
-          ],
+  Widget build(BuildContext context) => FutureBuilder(
+        future: UserSavingManager.getUser(),
+        builder: (_, AsyncSnapshot snapshot) => Scaffold(
+          body: getPages[_index],
+          bottomNavigationBar: BottomNavigationBar(
+            elevation: 1,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _index,
+            onTap: _updateIndex,
+            items: getItems,
+          ),
         ),
       );
+
 }
