@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '/Model/user.dart';
 import '/Model/connect_db/psyco_db_connector.dart';
-import '../psyco/segnalazione_card.dart';
 import '/Model/segnalazione.dart';
 import 'lista.dart';
 
