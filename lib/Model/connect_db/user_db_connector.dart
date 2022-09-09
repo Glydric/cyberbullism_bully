@@ -134,7 +134,7 @@ class UserDbConnector {
           user.email +
           "&password=" +
           user.password +
-          "&psyco_email=" +
+          "&otherEmail=" +
           otherEmail +
           "&testo=" +
           testo),
