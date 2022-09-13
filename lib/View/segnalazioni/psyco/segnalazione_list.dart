@@ -1,7 +1,7 @@
 import 'package:cyberbullism_bully/View/segnalazioni/psyco/chat/psyco_chat_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Model/connect_db/psyco_db_connector.dart';
+import '/Model/connect_db/psyco_db_connector.dart';
 import '/Model/segnalazione.dart';
 import '/Model/user.dart';
 import 'segnalazione_card.dart';
