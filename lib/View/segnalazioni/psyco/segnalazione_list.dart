@@ -43,7 +43,35 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
         ),
       );
 
-  void openChat(String email) => Navigator.of(context).push(
+  void openChat(String email) async {
+    final result = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Attenzione!"),
+        content: const Text(
+            "Proseguendo la segnalazione verrà legata indissolubilmente a questo profilo e nessun altro psicologo potrà visualizzarla"),
+            //TODO! PROBLEMA se lo psicologo non invia il messaggio la segnalazione si perde
+            //TODO! PROBLEMA impossibile vedere la segnalzione dopo aver iniziato la conversazione
+            //TODO POSSIBILE SOLUZIONE la segnalazione diventa un messaggio (oppure è sempre un messaggio) finchè uno psicologo non inizia la chat, allora diventa il primo messaggio dell'utente
+            //TODO non è stato implementato niente a background
+        actions: [
+          MaterialButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text("Annulla"),
+          ),
+          MaterialButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text("Prosegui"),
+          ),
+        ],
+      ),
+    );
+    if (result) {
+      toChat(email);
+    }
+  }
+
+  void toChat(String email) => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => PsycoChatView(widget.user, email),
         ),
