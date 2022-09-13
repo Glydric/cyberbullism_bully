@@ -117,5 +117,4 @@ class PsycoDbConnector extends UserDbConnector {
     );
     LoginException.thrower(response.body);
   }
-
 }
