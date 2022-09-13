@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '/Model/user.dart';
-import '/Model/connect_db/psyco_db_connector.dart';
-import '/Model/segnalazione.dart';
 import 'segnalazione_list.dart';
 
 class PsycoSegnalazioni extends StatefulWidget {
@@ -15,23 +13,14 @@ class PsycoSegnalazioni extends StatefulWidget {
 }
 
 class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
-  Future<List<Segnalazione>> get fillCards =>
-      PsycoDbConnector.getSegnalazioni(widget.user);
-
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Center(
-          child: Stack(children: [
-            FutureBuilder(
-              future: fillCards,
-              builder: (_, AsyncSnapshot<List<Segnalazione>> snapshot) =>
-                  snapshot.hasError
-                      ? Text(snapshot.error.toString())
-                      : snapshot.hasData
-                          ? ListaSegnalazioni(widget.user, snapshot.requireData)
-                          : const CircularProgressIndicator.adaptive(),
-            )
-          ]),
-        ),
-      );
+      floatingActionButton: FloatingActionButton(
+        onPressed: ()=>toPage(ListaSegnalazioni(widget.user)),
+      ),
+      body: ListaSegnalazioni(widget.user));
+
+  toPage(Widget page) => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => page,
+      ));
 }
