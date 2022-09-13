@@ -45,10 +45,18 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => toPage(ListaSegnalazioni(widget.user)),
-      ),
-      body: PsycoChatList(widget.user, chats));
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => toPage(ListaSegnalazioni(widget.user)),
+        ),
+        body: Center(
+          child: FutureBuilder(
+            future: chats,
+            builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasData
+                ? PsycoChatList(widget.user, snapshot.requireData)
+                : const CircularProgressIndicator.adaptive(),
+          ),
+        ),
+      );
 
   toPage(Widget page) => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => page,
