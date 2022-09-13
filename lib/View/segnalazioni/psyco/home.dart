@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../../Model/chat/chat.dart';
-import '../../../Model/connect_db/psyco_db_connector.dart';
+import '/Model/chat/chat.dart';
+import '/Model/connect_db/psyco_db_connector.dart';
 import '/Model/user.dart';
 import 'chat/psyco_chat_list.dart';
 import 'segnalazione_list.dart';
