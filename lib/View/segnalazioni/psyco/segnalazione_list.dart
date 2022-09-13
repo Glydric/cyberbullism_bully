@@ -21,15 +21,18 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
   Future<List<Segnalazione>> get fillCards =>
       PsycoDbConnector.getSegnalazioni(widget.user);
   @override
-  Widget build(BuildContext context) => Center(
-        child: FutureBuilder(
-            future: fillCards,
-            builder: (_, AsyncSnapshot<List<Segnalazione>> snapshot) =>
-                snapshot.hasError
-                    ? Text(snapshot.error.toString())
-                    : snapshot.hasData
-                        ? buildList(snapshot.requireData)
-                        : const CircularProgressIndicator.adaptive()),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: const Text("Lista Segnalazioni")),
+        body: Center(
+          child: FutureBuilder(
+              future: fillCards,
+              builder: (_, AsyncSnapshot<List<Segnalazione>> snapshot) =>
+                  snapshot.hasError
+                      ? Text(snapshot.error.toString())
+                      : snapshot.hasData
+                          ? buildList(snapshot.requireData)
+                          : const CircularProgressIndicator.adaptive()),
+        ),
       );
 
   ListView buildList(List<Segnalazione> list) => ListView.builder(
