@@ -9,6 +9,12 @@ import '/Model/connect_db/login_exception.dart';
 const url = "http://leonardomigliorelli.altervista.org/";
 
 class UserDbConnector {
+  /// consente di ottenere la gravità passando un testo
+  static int getGravitaFrom(String testo) {
+    //TODO Implementare l'algoritmo per derivare la gravita
+    return 0;
+  }
+
   /// consente di creare l'utente sul database
   static addUser(User user) async {
     Response response = await post(
@@ -87,12 +93,6 @@ class UserDbConnector {
       ),
     );
     LoginException.thrower(response.body);
-  }
-
-  /// consente di ottenere la gravità passando un testo
-  static int getGravitaFrom(String testo) {
-    //TODO Implementare l'algoritmo per derivare la gravita
-    return 0;
   }
 
   static Future<List<Message>> getLastMessages(User user) async {
