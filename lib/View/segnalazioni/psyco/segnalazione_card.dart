@@ -12,7 +12,7 @@ class SegnalazioneCard extends StatefulWidget {
 
 /// La singola carta che specifica una segnalazione nella lista
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
-  Color get gravityColour {
+  Color get gravityColor {
     switch (widget.segnalazione.gravita) {
       case 0:
         return Colors.green;
@@ -29,7 +29,7 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
   Widget build(BuildContext context) => Card(
         elevation: 4,
         child: ListTile(
-          leading: CircleAvatar(backgroundColor: gravityColour),
+          leading: CircleAvatar(backgroundColor: gravityColor),
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(widget.segnalazione.nomeCognome),
