@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '/Model/user.dart';
 import '/Model/connect_db/psyco_db_connector.dart';
 import '/Model/segnalazione.dart';
-import 'lista.dart';
+import 'segnalazione_list.dart';
 
 class PsycoSegnalazioni extends StatefulWidget {
   final User user;
