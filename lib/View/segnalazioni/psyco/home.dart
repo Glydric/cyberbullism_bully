@@ -1,36 +1,65 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
+import '/Model/chat/chat.dart';
 import '/Model/connect_db/psyco_db_connector.dart';
-import '../psyco/segnalazione_card.dart';
-import '/Model/segnalazione.dart';
-import 'lista.dart';
+import '/Model/user.dart';
+import 'chat/psyco_chat_list.dart';
+import 'segnalazione_list.dart';
 
 class PsycoSegnalazioni extends StatefulWidget {
-  const PsycoSegnalazioni({Key? key}) : super(key: key);
+  final User user;
+
+  const PsycoSegnalazioni(this.user, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PsycoSegnalazioniState();
 }
 
 class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
-  Future<List<SegnalazioneCard>> fillCards() =>
-      PsycoDbConnector.getSegnalazioni()
-          .then((List<Segnalazione> l) => l.map(SegnalazioneCard.new).toList());
-  //TODO questo non deve essere visibile dallo psicologo
+  late final Timer timer;
+
+  ///ottiene la lista degli ultimi messaggi
+  get chats => PsycoDbConnector.getLastMessages(widget.user)
+      .then((messages) => messages.map(Chat.singleMessage).toList());
+
+  void updateChat() => setState(() {
+        chats;
+      });
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => updateChat(),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () => toPage(ListaSegnalazioni(widget.user)),
+        ),
         body: Center(
-          child: Stack(children: [
-            FutureBuilder(
-              future: fillCards(),
-              builder:
-                  (_, AsyncSnapshot<List<SegnalazioneCard>> snapshot) =>
-                      snapshot.hasData
-                          ? ListaSegnalazioni(snapshot.requireData)
-                          : const CircularProgressIndicator.adaptive(),
-            )
-          ]),
+          child: FutureBuilder(
+            future: chats,
+            builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasData
+                ? PsycoChatList(widget.user, snapshot.requireData)
+                : const CircularProgressIndicator.adaptive(),
+          ),
         ),
       );
+
+  toPage(Widget page) => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => page,
+      ));
 }

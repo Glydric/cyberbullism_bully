@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
+import 'user_db_connector.dart';
 import 'package:http/http.dart';
 
+import '../chat/message.dart';
 import '../psyco/albo_getter.dart';
 import '../psyco/psyco.dart';
 import '../segnalazione.dart';
@@ -42,28 +43,78 @@ class PsycoDbConnector extends UserDbConnector {
   }
 
   static Future<Psyco> getUser(String email, String password) async {
-    Response response = await post(
-      Uri.parse(url +
+    Response response = await post(Uri.parse(
+      url +
           "PsycoGet.php" +
           "?email=" +
           email +
           "&password=" +
-          User.crypt(password)),
-    );
+          User.crypt(password),
+    ));
     LoginException.thrower(response.body);
     final json = jsonDecode(response.body);
     return Psyco.fromJson(json);
   }
 
-  static Future<List<Segnalazione>> getSegnalazioni() async {
-    Response response = await post(Uri.parse(url + "PsycoGetSegnalazioni.php"));
+  static Future<List<Segnalazione>> getSegnalazioni(User user) async {
+    Response response = await post(Uri.parse(
+      url +
+          "PsycoGetSegnalazioni.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password,
+    ));
+
     final List<dynamic> jsonList = jsonDecode(response.body);
-    final List<Segnalazione> result = <Segnalazione>[];
 
-    for (Map<String, dynamic> json in jsonList) {
-      result.add(Segnalazione.fromJson(json));
-    }
+    return jsonList.map((s) => Segnalazione.fromJson(s)).toList();
+  }
 
-    return result;
+  static Future<List<Message>> getLastMessages(User user) async {
+    Response response = await post(
+      Uri.parse(url +
+          "PsycoGetLastMessages.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password),
+    );
+    LoginException.thrower(response.body);
+    final List<dynamic> jsonList = jsonDecode(response.body);
+    return jsonList.map((json) => Message.fromJson(json)).toList();
+  }
+
+  static Future<List<Message>> getMessagesOf(
+      User user, String otherEmail) async {
+    Response response = await post(
+      Uri.parse(url +
+          "PsycoGetMessages.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password +
+          "&otherEmail=" +
+          otherEmail),
+    );
+    LoginException.thrower(response.body);
+    final List<dynamic> jsonList = jsonDecode(response.body);
+    return jsonList.map((json) => Message.fromJson(json)).toList();
+  }
+
+  static void sendMessage(User user, String otherEmail, String testo) async {
+    Response response = await post(
+      Uri.parse(url +
+          "PsycoSendMessage.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password +
+          "&otherEmail=" +
+          otherEmail +
+          "&testo=" +
+          testo),
+    );
+    LoginException.thrower(response.body);
   }
 }

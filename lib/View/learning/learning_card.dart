@@ -9,8 +9,8 @@ class LearningCard extends StatefulWidget {
 }
 
 class LearningCardState extends State<LearningCard> {
-  Icon fav = Icon(Icons.favorite_border);
-  bool isntFav = true;
+  Icon fav = const Icon(Icons.favorite_border);
+  bool isFav = true; // TODO remove fav because of no implementation
   String text = "";
 
   getData() async {
@@ -20,25 +20,25 @@ class LearningCardState extends State<LearningCard> {
     });
   }
 
-  Widget build(BuildContext context) => Container(
-      child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: Card(
-            elevation: 8,
-            child: GridTile(
-              header: ListTile(
-                leading: IconButton(
-                    icon: fav,
-                    onPressed: () => setState(
-                          () => isntFav
-                              ? Icon(Icons.favorite)
-                              : Icon(Icons.favorite_border),
-                        )),
-                trailing: Icon(Icons.download_rounded),
-              ),
-              child:
-                  Center(child: Text(text)),
-            ),
-            color: Color.fromARGB(202, 223, 236, 82),
-          )));
+  @override
+  Widget build(BuildContext context) => Padding(
+      padding: const EdgeInsets.all(4),
+      child: Card(
+        elevation: 8,
+        child: GridTile(
+          header: ListTile(
+            leading: IconButton(
+                icon: fav,
+                onPressed: () => setState(
+                      () => isFav
+                          ? const Icon(Icons.favorite)
+                          : const Icon(Icons.favorite_border),
+                    )),
+            trailing: const Icon(Icons.download_rounded),
+          ),
+          child:
+              Center(child: Text(text)),
+        ),
+        color: const Color.fromARGB(202, 223, 236, 82),
+      ));
 }

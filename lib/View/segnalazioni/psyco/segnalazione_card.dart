@@ -12,69 +12,36 @@ class SegnalazioneCard extends StatefulWidget {
 
 /// La singola carta che specifica una segnalazione nella lista
 class _SegnalazioneCardState extends State<SegnalazioneCard> {
-  @override
-  Widget build(BuildContext context) => Card(
-        elevation: 4,
-        margin: const EdgeInsets.all(4),
-        child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: gravityColour(widget.segnalazione.gravita),
-            ),
-            title: Text(
-              widget.segnalazione.testo,
-              maxLines: 5,
-            ),
-            trailing: Column(
-              children: [
-                Text(data(widget.segnalazione.data)),
-                Text(ora(widget.segnalazione.data)),
-              ],
-            ),
-            onTap: () => {}
-            //TODO Azione che avviene quando si tocca la lista
-            ),
-      );
-
-  Color gravityColour(int gravity) {
-    switch (gravity) {
-      //TODO inserire i colori corretti
+  Color get gravityColor {
+    switch (widget.segnalazione.gravita) {
       case 0:
-        {
-          return const Color.fromARGB(200, 62, 62, 62);
-        }
+        return Colors.green;
       case 1:
-        {
-          return const Color.fromARGB(255, 130, 223, 42);
-        }
-
+        return Colors.yellow;
       case 2:
-        {
-          return const Color.fromARGB(255, 245, 245, 9);
-        }
-
-      case 3:
-        {
-          return const Color.fromARGB(255, 223, 156, 0);
-        }
-
-      case 4:
-        {
-          return const Color.fromRGBO(255, 43, 190, 1);
-        }
-
+        return Colors.red;
       default:
-        {
-          throw Exception("Gravità non corretta");
-        }
+        throw Exception("Gravità non corretta");
     }
   }
 
-/*
-     10/08/2022_--:-- AM
-    [0123456789012345678] posizioni dei caratteri
-*/ //partendo dalla 11 posizione escludo lo spazio tra la data e l'ora
-
-  String ora(String input) => input.substring(11);
-
-  String data(String input) => input.substring(0, 10);
+  @override
+  Widget build(BuildContext context) => Card(
+        elevation: 4,
+        child: ListTile(
+          leading: CircleAvatar(backgroundColor: gravityColor),
+          title: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(widget.segnalazione.nomeCognome),
+          ),
+          subtitle: Text(widget.segnalazione.testo),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(widget.segnalazione.yearMonth),
+              Text(widget.segnalazione.hourDay),
+            ],
+          ),
+        ),
+      );
 }

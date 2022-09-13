@@ -37,25 +37,15 @@ class _ChangePasswordState extends State<ChangePassword> {
       ));
       Navigator.pop(context);
     } on LoginException catch (e) {
-      switch (e.toString()) {
-        case 'wrong-password':
-          _errorName = "Password Sbagliata";
-          break;
-        default:
-          _errorName = 'Errore Sconosciuto';
-      }
+      _errorName = e.toString();
     } finally {
       setState(() => _errorName);
     }
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Padding(
+  Widget build(BuildContext context) => Scaffold(
+        body: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(children: [
             const Spacer(),

@@ -13,40 +13,61 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Widget getHomePage(User user) => Scaffold(
-        appBar: AppBar(
-            title: user.runtimeType.toString() == "Psyco"
-                ? const Text("Psicologo")
-                : const Text("Utente")),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(children: [
-            const Spacer(),
-            Text(
-              user.nome + " " + user.cognome,
-              style: const TextStyle(fontSize: 20),
-            ),
-            Text(user.email),
-            const Spacer(
-              flex: 3,
-            ),
-            Row(children: [
-              ElevatedButton(
-                onPressed: logoutAlertDialog,
-                child: const Text("Logout"),
+  @override
+  Widget build(BuildContext context) => FutureBuilder(
+        future: UserSavingManager.getUser(),
+        builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
+            snapshot.hasError
+                ? Scaffold(
+                    appBar: AppBar(title: const Text("Profilo")),
+                    body: Center(
+                      child: ElevatedButton(
+                        onPressed: () => showMyBottomSheet(const LogInPage()),
+                        child: const Text("LogIn"),
+                      ),
+                    ),
+                  )
+                : snapshot.hasData
+                    ? getInfoScreen(snapshot.requireData)
+                    : Scaffold(
+                        appBar: AppBar(),
+                        body: const CircularProgressIndicator.adaptive(),
+                      ),
+      );
+
+  Text getTitle(User user) => user.runtimeType.toString() == "Psyco"
+      ? const Text("Psicologo")
+      : const Text("Utente");
+
+  Widget getInfoScreen(User user) => Scaffold(
+        appBar: AppBar(title: getTitle(user)),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: [
+              const Spacer(flex: 2),
+              Text(
+                user.nome + " " + user.cognome,
+                style: const TextStyle(fontSize: 20),
               ),
-              const Spacer(),
+              Text(user.email),
+              const Spacer(flex: 6),
               ElevatedButton(
                 onPressed: () => showMyBottomSheet(ChangePassword(user)),
                 child: const Text("Cambia Password"),
               ),
-            ])
-          ]),
+              const Spacer(),
+              ElevatedButton(
+                onPressed: logoutAlertDialog,
+                child: const Text("Logout"),
+              ),
+            ]),
+          ),
         ),
       );
 
   void logoutAlertDialog() async {
-    var result = await showDialog(
+    final result = await showDialog(
         context: context,
         builder: (_) => AlertDialog(
               title: const Text("Eseguire il logout?"),
@@ -67,29 +88,11 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) => FutureBuilder(
-        future: UserSavingManager.getUser(),
-        builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
-            snapshot.hasError
-                ? Scaffold(
-                    appBar: AppBar(title: const Text("Profilo")),
-                    body: Center(
-                      child: ElevatedButton(
-                        onPressed: () => showMyBottomSheet(const LogInPage()),
-                        child: const Text("LogIn"),
-                      ),
-                    ),
-                  )
-                : snapshot.hasData
-                    ? getHomePage(snapshot.requireData)
-                    : const CircularProgressIndicator.adaptive(),
-      );
-
   void showMyBottomSheet(Widget page) => showModalBottomSheet(
-          context: context,
-          builder: (_) => page,
-          backgroundColor: const Color.fromARGB(0, 0, 0, 0) // trasparente
-          )
-      .whenComplete(() => setState(() {}));
+        isScrollControlled: true,
+        context: context,
+        builder: (_) => page,
+        // trasparente
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+      ).whenComplete(() => setState(() {}));
 }

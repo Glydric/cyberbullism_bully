@@ -18,20 +18,28 @@ class UserSegnalazione extends StatefulWidget {
 }
 
 class _UserSegnalazioneState extends State<UserSegnalazione> {
+  late final Timer timer;
+
   ///ottiene la lista degli ultimi messaggi
   get chats => UserDbConnector.getLastMessages(widget.user)
       .then((messages) => messages.map(Chat.singleMessage).toList());
 
+  void updateChat() => setState(() {
+        chats;
+      });
 
-  void updateChat() => Timer.periodic(
-      const Duration(seconds: 1),
-      (_) => setState(() {
-            chats;
-          }));
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   @override
   void initState() {
-    updateChat();
+    timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => updateChat(),
+    );
     super.initState();
   }
 
@@ -44,10 +52,18 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
               : const Center(child: CircularProgressIndicator.adaptive()),
         ),
         floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () => showDialog(
-                  context: context,
-                  builder: (_) => CardAggiunta(widget.user.email),
-                )),
+            child: const Icon(Icons.add), onPressed: addSegnalazione),
+      );
+
+  void addSegnalazione() => showDialog(
+        context: context,
+        builder: (_) => CardAggiunta(widget.user),
+      ).then(
+        (value) => value
+            ? showDialog(
+                context: context,
+                builder: (_) =>
+                    const AlertDialog(content: Text("Segnalazione inserita ")))
+            : null,
       );
 }

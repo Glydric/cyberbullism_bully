@@ -1,33 +1,32 @@
 import 'dart:async';
 
+import 'package:cyberbullism_bully/Model/connect_db/psyco_db_connector.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '/Model/user.dart';
-import '/Model/connect_db/user_db_connector.dart';
+import '../../user/chat/message_card.dart';
 import '/Model/chat/chat.dart';
 
-import 'message_card.dart';
-
 /// La schermata che consente di portare avanti una chat con un utente
-class ChatView extends StatefulWidget {
+class PsycoChatView extends StatefulWidget {
   final User user;
   final String otherEmail;
 
-  const ChatView(this.user, this.otherEmail, {Key? key}) : super(key: key);
+  const PsycoChatView(this.user, this.otherEmail, {Key? key}) : super(key: key);
 
   @override
-  State<ChatView> createState() => _ChatViewState();
+  State<PsycoChatView> createState() => PsycoChatViewState();
 }
 
-class _ChatViewState extends State<ChatView> {
+class PsycoChatViewState extends State<PsycoChatView> {
   final TextEditingController _textController = TextEditingController();
   late final Timer timer;
 
   int get _maximumTextLength => 500;
 
   Future<Chat> get messages =>
-      UserDbConnector.getMessagesOf(widget.user, widget.otherEmail)
+      PsycoDbConnector.getMessagesOf(widget.user, widget.otherEmail)
           .then(Chat.fromList);
 
   get errorText => _textController.text.length == _maximumTextLength
@@ -44,7 +43,7 @@ class _ChatViewState extends State<ChatView> {
       });
 
   void send() {
-    UserDbConnector.sendMessage(
+    PsycoDbConnector.sendMessage(
       widget.user,
       widget.otherEmail,
       _textController.text,
