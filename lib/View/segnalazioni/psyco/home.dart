@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/Model/user.dart';
+import 'chat/psyco_chat_list.dart';
 import 'segnalazione_list.dart';
 
 class PsycoSegnalazioni extends StatefulWidget {
@@ -16,9 +17,9 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
   @override
   Widget build(BuildContext context) => Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: ()=>toPage(ListaSegnalazioni(widget.user)),
+        onPressed: () => toPage(ListaSegnalazioni(widget.user)),
       ),
-      body: ListaSegnalazioni(widget.user));
+      body: PsycoChatList(widget.user));
 
   toPage(Widget page) => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => page,
