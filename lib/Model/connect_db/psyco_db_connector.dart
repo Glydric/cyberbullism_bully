@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
+import 'user_db_connector.dart';
 import 'package:http/http.dart';
 
+import '../chat/message.dart';
 import '../psyco/albo_getter.dart';
 import '../psyco/psyco.dart';
 import '../segnalazione.dart';
@@ -69,4 +70,52 @@ class PsycoDbConnector extends UserDbConnector {
 
     return jsonList.map((s) => Segnalazione.fromJson(s)).toList();
   }
+
+  static Future<List<Message>> getLastMessages(User user) async {
+    Response response = await post(
+      Uri.parse(url +
+          "PsycoGetLastMessages.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password),
+    );
+    LoginException.thrower(response.body);
+    final List<dynamic> jsonList = jsonDecode(response.body);
+    return jsonList.map((json) => Message.fromJson(json)).toList();
+  }
+
+  static Future<List<Message>> getMessagesOf(
+      User user, String otherEmail) async {
+    Response response = await post(
+      Uri.parse(url +
+          "PsycoGetMessages.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password +
+          "&otherEmail=" +
+          otherEmail),
+    );
+    LoginException.thrower(response.body);
+    final List<dynamic> jsonList = jsonDecode(response.body);
+    return jsonList.map((json) => Message.fromJson(json)).toList();
+  }
+
+  static void sendMessage(User user, String otherEmail, String testo) async {
+    Response response = await post(
+      Uri.parse(url +
+          "PsycoSendMessage.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password +
+          "&otherEmail=" +
+          otherEmail +
+          "&testo=" +
+          testo),
+    );
+    LoginException.thrower(response.body);
+  }
+
 }
