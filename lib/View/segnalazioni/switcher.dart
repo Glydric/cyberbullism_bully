@@ -14,7 +14,7 @@ class SegnalazioniPage extends StatefulWidget {
 class _SegnalazioniPageState extends State<SegnalazioniPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text("Le tue segnalazioni")),
+        appBar: AppBar(title: const Text("Chat")),
         body: FutureBuilder(
           future: UserSavingManager.getUser(),
           builder: (_, AsyncSnapshot<User> snapshot) => snapshot.hasError
