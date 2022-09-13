@@ -1,8 +1,8 @@
+import 'package:cyberbullism_bully/View/segnalazioni/psyco/chat/psyco_chat_view.dart';
 import 'package:flutter/material.dart';
 
 import '/Model/segnalazione.dart';
 import '/Model/user.dart';
-import '../user/chat/chat_view.dart';
 import 'segnalazione_card.dart';
 
 /// lista anche relativamente lunga e che
@@ -30,7 +30,7 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
 
   void openChat(int _index) => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => ChatView(widget.user, widget._list[_index].email),
+          builder: (_) => PsycoChatView(widget.user, widget._list[_index].email),
         ),
       );
 }
