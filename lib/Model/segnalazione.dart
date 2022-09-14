@@ -12,7 +12,7 @@ class Segnalazione {
       this.testo, this.data, this.gravita, this.email, this.cognome, this.nome);
 
   Segnalazione.fromJson(Map<String, dynamic> json)
-      : email = json["email"],
+      : email = json["user_email"],
         testo = json["testo"],
         nome = json["nome"],
         cognome = json["cognome"],
