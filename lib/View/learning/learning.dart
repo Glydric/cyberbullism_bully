@@ -1,3 +1,4 @@
+import 'package:cyberbullism_bully/Model/learning/get_learnings.dart';
 import 'package:cyberbullism_bully/View/learning/learning_grid.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ class LearningPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    floatingActionButton: FloatingActionButton(onPressed: () => GetLearnings.elements()),
         appBar: AppBar(title: const Text("Learning Page")),
         body: LearningGrid(getListOfLearning),
       );
