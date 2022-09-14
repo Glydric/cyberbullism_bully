@@ -8,11 +8,16 @@ class LearningPage extends StatelessWidget {
   const LearningPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => FutureBuilder(
-        future: GetLearnings.elements,
-        builder: (_, AsyncSnapshot<List<LearningElement>> snapshot) => Scaffold(
-          appBar: AppBar(title: const Text("Learning Page")),
-          body: LearningGrid(snapshot.requireData),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: const Text("Learning Page")),
+        body: FutureBuilder(
+          future: GetLearnings.learnings,
+          builder: (_, AsyncSnapshot<List<LearningElement>> snapshot) =>
+              snapshot.hasError
+                  ? Text(snapshot.error.toString())
+                  : snapshot.hasData
+                      ? LearningGrid(snapshot.requireData)
+                      : Container(),
         ),
       );
 }
