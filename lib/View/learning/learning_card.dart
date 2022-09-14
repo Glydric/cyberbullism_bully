@@ -12,16 +12,14 @@ class LearningCard extends StatefulWidget {
 
 class LearningCardState extends State<LearningCard> {
   @override
-  Widget build(BuildContext context) => Padding(
-      padding: const EdgeInsets.all(4),
-      child: Card(
+  Widget build(BuildContext context) => Card(
         elevation: 8,
-        child: GridTile(
-          header: ListTile(
-            leading: Text(widget.learning.title),
-            trailing: const Icon(Icons.download_rounded),
+        child: 
+        GridTile(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(child: Text(widget.learning.title)),
           ),
-          child: Center(child: Text(widget.learning.text)),
         ),
-      ));
+      );
 }
