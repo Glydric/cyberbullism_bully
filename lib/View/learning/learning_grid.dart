@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import '/Model/learning/learning_element.dart';
 
 class LearningGrid extends StatefulWidget {
-  final List<LearningElement> _list;
+  final List<LearningElement> list;
 
-  const LearningGrid(this._list, {Key? key}) : super(key: key);
+  const LearningGrid(this.list, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _LearningGridState();
@@ -15,16 +15,15 @@ class LearningGrid extends StatefulWidget {
 class _LearningGridState extends State<LearningGrid> {
   @override
   Widget build(BuildContext context) => GridView.builder(
+        padding: const EdgeInsets.all(8),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: 5,
+          mainAxisSpacing: 10,
           crossAxisSpacing: 5,
         ),
-        padding: const EdgeInsets.all(20),
-        itemCount: widget._list.length,
-        itemBuilder: (context, int index) => learnings[index],
+        itemCount: widget.list.length,
+        itemBuilder: (_, int index) => learnings.elementAt(index),
       );
 
-  List<LearningCard> get learnings =>
-      widget._list.map(LearningCard.new).toList();
+  Iterable<LearningCard> get learnings => widget.list.map(LearningCard.new);
 }
