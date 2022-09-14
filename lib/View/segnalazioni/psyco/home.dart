@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import '/View/connection_error_ui.dart';
 import 'package:flutter/material.dart';
 
 import '/Model/chat/chat.dart';
@@ -54,12 +55,7 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
             future: chats,
             builder: (_, AsyncSnapshot<List<Chat>> snapshot) =>
                 snapshot.hasError
-                    ? Column(
-                        children: const [
-                          Icon(Icons.signal_wifi_bad),
-                          Text("Errore di connessione"),
-                        ],
-                      )
+                    ? const ConnectionErrorUI()
                     : snapshot.hasData
                         ? PsycoChatList(widget.user, snapshot.requireData)
                         : const CircularProgressIndicator.adaptive(),

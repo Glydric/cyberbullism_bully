@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '/View/connection_error_ui.dart';
 import '/Model/user.dart';
 import '/Model/connect_db/user_db_connector.dart';
 import '/Model/chat/chat.dart';
@@ -78,12 +79,7 @@ class _ChatViewState extends State<ChatView> {
               child: FutureBuilder(
                 future: messages,
                 builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasError
-                    ? Column(
-                        children: const [
-                          Icon(Icons.signal_wifi_bad),
-                          Text("Errore di connessione"),
-                        ],
-                      )
+                    ? const ConnectionErrorUI()
                     : snapshot.hasData
                         ? ListView.builder(
                             reverse: true,

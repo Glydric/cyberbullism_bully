@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '/View/connection_error_ui.dart';
 import '/Model/connect_db/user_db_connector.dart';
 import '/Model/user.dart';
 import '/Model/chat/chat.dart';
@@ -48,12 +49,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
         body: FutureBuilder(
           future: chats,
           builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasError
-              ? Column(
-                  children: const [
-                    Icon(Icons.signal_wifi_bad),
-                    Text("Errore di connessione"),
-                  ],
-                )
+              ? const ConnectionErrorUI()
               : snapshot.hasData
                   ? ListaChat(widget.user, snapshot.requireData)
                   : const Center(child: CircularProgressIndicator.adaptive()),

@@ -5,6 +5,7 @@ import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '/View/connection_error_ui.dart';
 import '../../user/chat/message_card.dart';
 import '/Model/chat/chat.dart';
 
@@ -77,12 +78,7 @@ class PsycoChatViewState extends State<PsycoChatView> {
               child: FutureBuilder(
                 future: messages,
                 builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasError
-                    ? Column(
-                        children: const [
-                          Icon(Icons.signal_wifi_bad),
-                          Text("Errore di connessione"),
-                        ],
-                      )
+                    ? const ConnectionErrorUI()
                     : snapshot.hasData
                         ? ListView.builder(
                             reverse: true,
