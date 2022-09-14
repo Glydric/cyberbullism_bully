@@ -52,11 +52,17 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
         body: Center(
           child: FutureBuilder(
             future: chats,
-            builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasError
-                    ? const Text("Errore di connessione")
+            builder: (_, AsyncSnapshot<List<Chat>> snapshot) =>
+                snapshot.hasError
+                    ? Column(
+                        children: const [
+                          Icon(Icons.signal_wifi_bad),
+                          Text("Errore di connessione"),
+                        ],
+                      )
                     : snapshot.hasData
-                ? PsycoChatList(widget.user, snapshot.requireData)
-                : const CircularProgressIndicator.adaptive(),
+                        ? PsycoChatList(widget.user, snapshot.requireData)
+                        : const CircularProgressIndicator.adaptive(),
           ),
         ),
       );

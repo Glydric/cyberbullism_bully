@@ -77,7 +77,12 @@ class PsycoChatViewState extends State<PsycoChatView> {
               child: FutureBuilder(
                 future: messages,
                 builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasError
-                    ? const Text("Errore di connessione")
+                    ? Column(
+                        children: const [
+                          Icon(Icons.signal_wifi_bad),
+                          Text("Errore di connessione"),
+                        ],
+                      )
                     : snapshot.hasData
                         ? ListView.builder(
                             reverse: true,

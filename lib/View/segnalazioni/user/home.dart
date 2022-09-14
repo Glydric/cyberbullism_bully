@@ -48,7 +48,12 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
         body: FutureBuilder(
           future: chats,
           builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasError
-              ? const Text("Errore di connessione")
+              ? Column(
+                  children: const [
+                    Icon(Icons.signal_wifi_bad),
+                    Text("Errore di connessione"),
+                  ],
+                )
               : snapshot.hasData
                   ? ListaChat(widget.user, snapshot.requireData)
                   : const Center(child: CircularProgressIndicator.adaptive()),
