@@ -65,9 +65,8 @@ class PsycoDbConnector extends UserDbConnector {
           "&password=" +
           user.password,
     ));
-
+    LoginException.thrower(response.body);
     final List<dynamic> jsonList = jsonDecode(response.body);
-
     return jsonList.map((s) => Segnalazione.fromJson(s)).toList();
   }
 
