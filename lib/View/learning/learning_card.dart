@@ -13,18 +13,23 @@ class LearningCard extends StatefulWidget {
 
 class LearningCardState extends State<LearningCard> {
   @override
-
   Widget build(BuildContext context) => GestureDetector(
-    child: Card(
+        child: Card(
           clipBehavior: Clip.antiAlias,
           elevation: 4,
           child: ListTile(
-            title: Text(widget.element.title),
+            title: Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                widget.element.title,
+                textAlign: TextAlign.center,
+              ),
+            ),
             subtitle: Text(widget.element.text),
           ),
         ),
         onTap: () => openBigView(widget.element),
-  );
+      );
 
   void openBigView(LearningElement element) => Navigator.of(context).push(
         MaterialPageRoute(
