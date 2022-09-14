@@ -1,25 +1,16 @@
+import 'package:cyberbullism_bully/Model/learning/learning_element.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class LearningCard extends StatefulWidget {
-  const LearningCard({Key? key}) : super(key: key);
+  final LearningElement learning;
+
+  const LearningCard(this.learning, {Key? key}) : super(key: key);
 
   @override
   State<LearningCard> createState() => LearningCardState();
 }
 
 class LearningCardState extends State<LearningCard> {
-  Icon fav = const Icon(Icons.favorite_border);
-  bool isFav = true; // TODO remove fav because of no implementation
-  String text = "";
-
-  getData() async {
-    String response = await rootBundle.loadString('learning_resources/turing.txt');
-    setState(() {
-      text = response;
-    });
-  }
-
   @override
   Widget build(BuildContext context) => Padding(
       padding: const EdgeInsets.all(4),
@@ -27,18 +18,10 @@ class LearningCardState extends State<LearningCard> {
         elevation: 8,
         child: GridTile(
           header: ListTile(
-            leading: IconButton(
-                icon: fav,
-                onPressed: () => setState(
-                      () => isFav
-                          ? const Icon(Icons.favorite)
-                          : const Icon(Icons.favorite_border),
-                    )),
+            leading: Text(widget.learning.title),
             trailing: const Icon(Icons.download_rounded),
           ),
-          child:
-              Center(child: Text(text)),
+          child: Center(child: Text(widget.learning.text)),
         ),
-        color: const Color.fromARGB(202, 223, 236, 82),
       ));
 }
