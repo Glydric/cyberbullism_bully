@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // importo pagine flutter
 import 'package:cyberbullism_bully/View/segnalazioni/switcher.dart';
 import 'package:cyberbullism_bully/View/profile/home_page.dart';
-import 'package:cyberbullism_bully/View/learning/learning_page.dart';
+import 'package:cyberbullism_bully/View/learning/learning.dart';
 
 class ScreenSwitcher extends StatefulWidget {
   const ScreenSwitcher({Key? key}) : super(key: key);
