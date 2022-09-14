@@ -1,10 +1,11 @@
 import 'package:cyberbullism_bully/Model/learning/learning_element.dart';
+import 'package:cyberbullism_bully/View/learning/learning_big_view.dart';
 import 'package:flutter/material.dart';
 
 class LearningCard extends StatefulWidget {
-  final LearningElement learning;
+  final LearningElement element;
 
-  const LearningCard(this.learning, {Key? key}) : super(key: key);
+  const LearningCard(this.element, {Key? key}) : super(key: key);
 
   @override
   State<LearningCard> createState() => LearningCardState();
@@ -12,14 +13,22 @@ class LearningCard extends StatefulWidget {
 
 class LearningCardState extends State<LearningCard> {
   @override
-  Widget build(BuildContext context) => Card(
-        elevation: 8,
-        child: 
-        GridTile(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(child: Text(widget.learning.title)),
+
+  Widget build(BuildContext context) => GestureDetector(
+    child: Card(
+          clipBehavior: Clip.antiAlias,
+          elevation: 4,
+          child: ListTile(
+            title: Text(widget.element.title),
+            subtitle: Text(widget.element.text),
           ),
+        ),
+        onTap: () => openBigView(widget.element),
+  );
+
+  void openBigView(LearningElement element) => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => LearningBigView(element),
         ),
       );
 }
