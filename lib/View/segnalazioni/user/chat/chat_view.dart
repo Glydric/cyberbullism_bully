@@ -79,8 +79,8 @@ class _ChatViewState extends State<ChatView> {
                 future: messages,
                 builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasError
                     ? Column(
-                        children: [
-                          Icon(Icons.signal_wifi_bad),
+                        children: const [
+                           Icon(Icons.signal_wifi_bad),
                           Text("Errore di connessione"),
                         ],
                       )
