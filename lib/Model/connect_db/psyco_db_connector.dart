@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 import 'user_db_connector.dart';
 import 'package:http/http.dart';
 
@@ -113,6 +115,23 @@ class PsycoDbConnector extends UserDbConnector {
           otherEmail +
           "&testo=" +
           testo),
+    );
+    LoginException.thrower(response.body);
+  }
+
+  static void presaInCarica(
+      User user, Segnalazione segnalazione) async {
+    Response response = await post(
+      Uri.parse(url +
+          "PsycoPresaInCarica.php" +
+          "?email=" +
+          user.email +
+          "&password=" +
+          user.password +
+          "&otherEmail=" +
+          segnalazione.email +
+          "&data=" +
+          DateFormat('yyyy-MM-dd hh:mm:ss').format(segnalazione.data)),
     );
     LoginException.thrower(response.body);
   }
