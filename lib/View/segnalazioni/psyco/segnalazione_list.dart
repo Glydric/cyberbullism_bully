@@ -38,12 +38,12 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
   ListView buildList(List<Segnalazione> list) => ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, int _index) => GestureDetector(
-          onTap: () => openChat(list[_index].email),
+          onTap: () => openChat(list[_index]),
           child: SegnalazioneCard(list[_index]),
         ),
       );
 
-  void openChat(String email) async {
+  void openChat(Segnalazione segnalazione) async {
     final result = await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -62,15 +62,15 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
         ],
       ),
     );
-    
+
     if (result) {
       //TODO presa in carico
 
       //TODO! PROBLEMA se lo psicologo non invia il messaggio la segnalazione si perde
       //TODO! PROBLEMA impossibile vedere la segnalzione dopo aver iniziato la conversazione
       //TODO POSSIBILE SOLUZIONE la segnalazione diventa un messaggio (oppure è sempre un messaggio) finchè uno psicologo non inizia la chat, allora diventa il primo messaggio dell'utente
-      
-      toChat(email);
+      PsycoDbConnector.presaInCarica(widget.user, segnalazione);
+      toChat(segnalazione.email);
     }
   }
 
