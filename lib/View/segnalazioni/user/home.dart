@@ -47,9 +47,11 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
   Widget build(BuildContext context) => Scaffold(
         body: FutureBuilder(
           future: chats,
-          builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasData
-              ? ListaChat(widget.user, snapshot.requireData)
-              : const Center(child: CircularProgressIndicator.adaptive()),
+          builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasError
+              ? const Text("Errore di connessione")
+              : snapshot.hasData
+                  ? ListaChat(widget.user, snapshot.requireData)
+                  : const Center(child: CircularProgressIndicator.adaptive()),
         ),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add), onPressed: addSegnalazione),

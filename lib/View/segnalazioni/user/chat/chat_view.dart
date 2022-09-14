@@ -62,7 +62,10 @@ class _ChatViewState extends State<ChatView> {
 
   @override
   void initState() {
-    timer = Timer.periodic(const Duration(seconds: 1), (_) => updateChat());
+    timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => updateChat(),
+    );
     super.initState();
   }
 
@@ -74,17 +77,24 @@ class _ChatViewState extends State<ChatView> {
             Expanded(
               child: FutureBuilder(
                 future: messages,
-                builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasData
-                    ? ListView.builder(
-                        reverse: true,
-                        itemCount: snapshot.requireData.messages.length,
-                        itemBuilder: (_, int _index) => MessageCard(
-                          snapshot.requireData.messages[_index],
-                          showDate: showDate(snapshot.requireData, _index),
-                          isLast: _index == 0,
-                        ),
+                builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasError
+                    ? Column(
+                        children: [
+                          Icon(Icons.signal_wifi_bad),
+                          Text("Errore di connessione"),
+                        ],
                       )
-                    : Container(),
+                    : snapshot.hasData
+                        ? ListView.builder(
+                            reverse: true,
+                            itemCount: snapshot.requireData.messages.length,
+                            itemBuilder: (_, int _index) => MessageCard(
+                              snapshot.requireData.messages[_index],
+                              showDate: showDate(snapshot.requireData, _index),
+                              isLast: _index == 0,
+                            ),
+                          )
+                        : Container(),
               ),
             ),
             Padding(

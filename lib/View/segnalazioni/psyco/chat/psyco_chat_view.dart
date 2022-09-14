@@ -61,7 +61,10 @@ class PsycoChatViewState extends State<PsycoChatView> {
 
   @override
   void initState() {
-    timer = Timer.periodic(const Duration(seconds: 1), (_) => updateChat());
+    timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => updateChat(),
+    );
     super.initState();
   }
 
@@ -73,17 +76,19 @@ class PsycoChatViewState extends State<PsycoChatView> {
             Expanded(
               child: FutureBuilder(
                 future: messages,
-                builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasData
-                    ? ListView.builder(
-                        reverse: true,
-                        itemCount: snapshot.requireData.messages.length,
-                        itemBuilder: (_, int _index) => MessageCard(
-                          snapshot.requireData.messages[_index],
-                          showDate: showDate(snapshot.requireData, _index),
-                          isLast: _index == 0,
-                        ),
-                      )
-                    : Container(),
+                builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasError
+                    ? const Text("Errore di connessione")
+                    : snapshot.hasData
+                        ? ListView.builder(
+                            reverse: true,
+                            itemCount: snapshot.requireData.messages.length,
+                            itemBuilder: (_, int _index) => MessageCard(
+                              snapshot.requireData.messages[_index],
+                              showDate: showDate(snapshot.requireData, _index),
+                              isLast: _index == 0,
+                            ),
+                          )
+                        : Container(),
               ),
             ),
             Padding(
