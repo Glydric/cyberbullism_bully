@@ -2,15 +2,17 @@ import 'dart:convert';
 
 import 'package:cyberbullism_bully/Model/learning/learning_element.dart';
 import 'package:flutter/services.dart';
-import 'package:path/path.dart' as p;
-
-const assetsPath = "assets/learning_resources";
-get assets async => jsonDecode(await rootBundle.loadString('AssetManifest.json'));
 
 class GetLearnings {
-  static Future<List<LearningElement>> get elements => assets.key;
+  static Future<List<LearningElement>> get learnings async => json
+      .decode(await rootBundle.loadString('AssetManifest.json'))
+      .keys
+      .where((String key) => key.contains("learning_resources"))
+      // .map(print)
+      .map(element)
+      .map((e) async => await e)
+      .toList();
 
-  static Future<LearningElement> element(String fileName) => rootBundle
-      .loadString(p.join(assetsPath, fileName))
-      .then(LearningElement.new);
+  static Future<LearningElement> element(String filePath) =>
+      rootBundle.loadString(filePath).then(LearningElement.new);
 }
