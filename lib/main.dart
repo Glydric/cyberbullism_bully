@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         theme: ThemeData(
-          useMaterial3: true,
+          // useMaterial3: true,
           textTheme: Theme.of(context).textTheme.copyWith(
                 labelSmall: Theme.of(context)
                     .textTheme
