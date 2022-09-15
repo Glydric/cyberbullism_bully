@@ -18,12 +18,10 @@ class _LearningBigViewState extends State<LearningBigView> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FloatingActionButton(
-              heroTag: incrementFont,
+            IconButton(
               onPressed: incrementFont,
-              child: const Icon(Icons.add),
-              elevation: 0,
-              mini: true,
+              icon: const Icon(Icons.add),
+              color: Colors.white,
             ),
             const Divider(
               height: 5,
@@ -31,12 +29,11 @@ class _LearningBigViewState extends State<LearningBigView> {
               indent: 6,
               endIndent: 6,
             ),
-            FloatingActionButton(
-              heroTag: decrementFont,
+            IconButton(
               onPressed: decrementFont,
-              child: const Icon(Icons.remove),
-              elevation: 0,
-              mini: true,
+              icon: const Icon(Icons.remove),
+              color: Colors.white,
+
             ),
           ],
         ),
