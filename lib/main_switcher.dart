@@ -15,18 +15,19 @@ class ScreenSwitcher extends StatefulWidget {
 
 class _ScreenSwitcherState extends State<ScreenSwitcher> {
   int _index = 0;
+
   final Map<Widget, BottomNavigationBarItem> map = {
     const LearningPage(): const BottomNavigationBarItem(
-      label: "Learning (in work)",
+      label: "Learning",
       icon: Icon(Icons.description),
     ),
     const SegnalazioniPage(): const BottomNavigationBarItem(
-      label: "Chat (in work)",
+      label: "Chat",
       icon: Icon(Icons.chat),
     ),
     const HomePage(): const BottomNavigationBarItem(
       label: "User",
-      icon: Icon(Icons.account_circle_outlined),
+      icon: Icon(Icons.account_circle),
     )
   };
 
@@ -42,13 +43,10 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
         builder: (_, AsyncSnapshot snapshot) => Scaffold(
           body: getPages[_index],
           bottomNavigationBar: BottomNavigationBar(
-            elevation: 1,
-            type: BottomNavigationBarType.fixed,
-            currentIndex: _index,
             onTap: _updateIndex,
+            currentIndex: _index,
             items: getItems,
           ),
         ),
       );
-
 }
