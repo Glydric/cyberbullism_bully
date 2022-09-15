@@ -43,28 +43,29 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(title: getTitle(user)),
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 64),
+            padding: const EdgeInsets.all(32).copyWith(top: 64),
             child: Column(
-              children: [
-              Text(
-                user.nome + " " + user.cognome,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 20),
-              ),
-              Text(
-                user.email,
-                textAlign: TextAlign.center,
-              ),
-              const Spacer(),
-              ElevatedButton(
-                onPressed: () => showMyBottomSheet(ChangePassword(user)),
-                child: const Text("Cambia Password"),
-              ),
-              ElevatedButton(
-                onPressed: logoutAlertDialog,
-                child: const Text("Logout"),
-              ),
-            ]),
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    user.nome + " " + user.cognome,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    user.email,
+                    textAlign: TextAlign.center,
+                  ),
+                  const Spacer(),
+                  ElevatedButton(
+                    onPressed: () => showMyBottomSheet(ChangePassword(user)),
+                    child: const Text("Cambia Password"),
+                  ),
+                  ElevatedButton(
+                    onPressed: logoutAlertDialog,
+                    child: const Text("Logout"),
+                  ),
+                ]),
           ),
         ),
       );
