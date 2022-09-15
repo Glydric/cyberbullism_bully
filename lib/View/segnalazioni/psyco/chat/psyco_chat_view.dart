@@ -63,7 +63,7 @@ class PsycoChatViewState extends State<PsycoChatView> {
   @override
   void initState() {
     timer = Timer.periodic(
-      const Duration(seconds: 1),
+      const Duration(milliseconds: 100),
       (_) => updateChat(),
     );
     super.initState();
