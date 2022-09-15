@@ -9,30 +9,21 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  get textButtonTheme => TextButtonThemeData(
+        style: TextButton.styleFrom(foregroundColor: Colors.grey),
+      );
+
   @override
   Widget build(BuildContext context) => MaterialApp(
         theme: ThemeData(
           useMaterial3: true,
-          bottomNavigationBarTheme:
-              BottomNavigationBarTheme.of(context).copyWith(
-            backgroundColor: Colors.blue,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white70,
-            elevation: 0,
-            showUnselectedLabels: false,
-            selectedLabelStyle: const TextStyle(fontSize: 16),
-            selectedIconTheme: const IconThemeData(size: 32),
-            unselectedIconTheme: const IconThemeData(size: 30),
-          ),
           textTheme: Theme.of(context).textTheme.copyWith(
                 labelSmall: Theme.of(context)
                     .textTheme
                     .labelSmall!
                     .copyWith(letterSpacing: 0),
               ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(foregroundColor: Colors.grey),
-          ),
+          textButtonTheme: textButtonTheme,
         ),
         home: const ScreenSwitcher(),
       );
