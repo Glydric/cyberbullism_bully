@@ -16,16 +16,16 @@ class ScreenSwitcher extends StatefulWidget {
 class _ScreenSwitcherState extends State<ScreenSwitcher> {
   int _index = 0;
 
-  final Map<Widget, BottomNavigationBarItem> map = {
-    const LearningPage(): const BottomNavigationBarItem(
+  final Map<Widget, NavigationDestination> map = {
+    const LearningPage(): const NavigationDestination(
       label: "Learning",
       icon: Icon(Icons.description),
     ),
-    const SegnalazioniPage(): const BottomNavigationBarItem(
+    const SegnalazioniPage(): const NavigationDestination(
       label: "Chat",
       icon: Icon(Icons.chat),
     ),
-    const HomePage(): const BottomNavigationBarItem(
+    const HomePage(): const NavigationDestination(
       label: "User",
       icon: Icon(Icons.account_circle),
     )
@@ -33,7 +33,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
 
   List<Widget> get getPages => map.keys.toList();
 
-  List<BottomNavigationBarItem> get getItems => map.values.toList();
+  List<NavigationDestination> get getItems => map.values.toList();
 
   _updateIndex(int value) => setState(() => _index = value);
 
@@ -42,10 +42,11 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
         future: UserSavingManager.getUser(),
         builder: (_, AsyncSnapshot snapshot) => Scaffold(
           body: getPages[_index],
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: _updateIndex,
-            currentIndex: _index,
-            items: getItems,
+          bottomNavigationBar: NavigationBar(
+            
+            onDestinationSelected: _updateIndex,
+            selectedIndex: _index,
+            destinations: getItems,
           ),
         ),
       );
