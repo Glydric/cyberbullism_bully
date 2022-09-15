@@ -24,7 +24,6 @@ class LearningCardState extends State<LearningCard> {
                 widget.element.title,
                 textAlign: TextAlign.center,
               ),
-              subtitle: Text(widget.element.text),
             ),
           ),
         ),
