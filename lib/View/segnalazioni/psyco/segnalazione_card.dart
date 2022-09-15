@@ -21,7 +21,10 @@ class _SegnalazioneCardState extends State<SegnalazioneCard> {
       case 2:
         return Colors.red;
       default:
-        throw Exception("Gravità non corretta");
+        throw Exception(
+          "Errore nella visualizzazione della gravità \n gravità = " +
+              widget.segnalazione.gravita.toString(),
+        );
     }
   }
 
