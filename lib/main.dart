@@ -10,9 +10,10 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context) =>
+     MaterialApp(
       theme: ThemeData(
+        useMaterial3: true,
         bottomNavigationBarTheme: BottomNavigationBarTheme.of(context).copyWith(
           backgroundColor: Colors.blue,
           selectedItemColor: Colors.white,
@@ -36,4 +37,4 @@ class MyApp extends StatelessWidget {
       home: const ScreenSwitcher(),
     );
   }
-}
+l
