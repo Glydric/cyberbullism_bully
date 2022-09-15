@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'main_switcher.dart';
 
-/// Questa classe è la classe principale che avvia tutta l'app flutter
-void main() async {
-  runApp(const MyApp());
-}
+void main() async => runApp(const MainApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+/// Questa classe è la classe principale che avvia tutta l'app flutter
+class MainApp extends StatelessWidget {
+  const MainApp({Key? key}) : super(key: key);
 
   get textButtonTheme => TextButtonThemeData(
         style: TextButton.styleFrom(foregroundColor: Colors.grey),
