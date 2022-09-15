@@ -43,20 +43,23 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(title: getTitle(user)),
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(children: [
-              const Spacer(flex: 2),
+            padding: const EdgeInsets.symmetric(vertical: 64),
+            child: Column(
+              children: [
               Text(
                 user.nome + " " + user.cognome,
+                textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 20),
               ),
-              Text(user.email),
-              const Spacer(flex: 6),
+              Text(
+                user.email,
+                textAlign: TextAlign.center,
+              ),
+              const Spacer(),
               ElevatedButton(
                 onPressed: () => showMyBottomSheet(ChangePassword(user)),
                 child: const Text("Cambia Password"),
               ),
-              const Spacer(),
               ElevatedButton(
                 onPressed: logoutAlertDialog,
                 child: const Text("Logout"),
