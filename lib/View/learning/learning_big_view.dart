@@ -50,7 +50,7 @@ class _LearningBigViewState extends State<LearningBigView> {
           elevation: 10,
           child: zoomFabs,
         ),
-        appBar: AppBar(title: Text(widget.element.title)),
+        appBar: AppBar(),
         body: ListView(
           padding: const EdgeInsets.all(8),
           children: [
