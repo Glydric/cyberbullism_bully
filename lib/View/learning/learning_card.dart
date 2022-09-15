@@ -17,15 +17,15 @@ class LearningCardState extends State<LearningCard> {
         child: Card(
           clipBehavior: Clip.antiAlias,
           elevation: 4,
-          child: ListTile(
-            title: Padding(
-              padding: const EdgeInsets.only(top: 4),
-              child: Text(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: ListTile(
+              title: Text(
                 widget.element.title,
                 textAlign: TextAlign.center,
               ),
+              subtitle: Text(widget.element.text),
             ),
-            subtitle: Text(widget.element.text),
           ),
         ),
         onTap: () => openBigView(widget.element),
