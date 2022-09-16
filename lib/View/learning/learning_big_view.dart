@@ -33,7 +33,6 @@ class _LearningBigViewState extends State<LearningBigView> {
               onPressed: decrementFont,
               icon: const Icon(Icons.remove),
               color: Colors.white,
-
             ),
           ],
         ),
@@ -59,8 +58,7 @@ class _LearningBigViewState extends State<LearningBigView> {
             Text(
               widget.element.text,
               style: getStyleFrom(Theme.of(context).textTheme.bodyMedium),
-              // Theme.of(context).textTheme.bo
-            ),
+            )
           ],
         ),
       );
