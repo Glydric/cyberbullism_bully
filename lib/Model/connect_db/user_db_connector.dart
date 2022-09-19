@@ -71,13 +71,13 @@ class UserDbConnector {
 
   /// Consente di aggiungere una segnalazione al database passando un utente
   /// Richiama addSegnalazione prendendo l'email dall'utente passato
-  static addSegnalazioneFromUser(User user, String testo) async {
-    addSegnalazione(user.email, user.password, testo);
+  static addSegnalazioneFromUser(User user, String testo, int gravita) async {
+    addSegnalazione(user.email, user.password, testo, gravita);
   }
 
   /// Consente di aggiungere una segnalazione al database passando direttamente l'email
   static addSegnalazione(
-      String userEmail, String password, String testo) async {
+      String userEmail, String password, String testo, int gravita) async {
     Response response = await post(
       Uri.parse(
         url +
@@ -89,7 +89,10 @@ class UserDbConnector {
             "&testo=" +
             testo +
             "&gravita=" +
-            getGravitaFrom(testo).toString(),
+            gravita.toString()
+
+
+            // TODO getGravitaFrom(testo).toString(),
       ),
     );
     LoginException.thrower(response.body);
