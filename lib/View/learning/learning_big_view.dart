@@ -40,15 +40,7 @@ class _LearningBigViewState extends State<LearningBigView> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        floatingActionButton: Material(
-          color: Theme.of(context).primaryColor,
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
-          elevation: 10,
-          child: zoomFabs,
-        ),
-        appBar: AppBar(
-          title: Text(widget.element.title),
-        ),
+        appBar: AppBar(title: Text(widget.element.title)),
         body: ListView(
           // used for allow scrolling
           padding: const EdgeInsets.all(8),
@@ -59,6 +51,12 @@ class _LearningBigViewState extends State<LearningBigView> {
               duration: const Duration(milliseconds: 100),
             )
           ],
+        ),
+        floatingActionButton: Material(
+          color: Theme.of(context).primaryColor,
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          elevation: 10,
+          child: zoomFabs,
         ),
       );
 
