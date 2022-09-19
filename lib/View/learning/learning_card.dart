@@ -18,9 +18,9 @@ class LearningCardState extends State<LearningCard> {
           clipBehavior: Clip.antiAlias,
           elevation: 4,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: ListTile(
-              title: Text(
+            padding: const EdgeInsets.all(4),
+            child: Center(
+              child: Text(
                 widget.element.title,
                 textAlign: TextAlign.center,
               ),
