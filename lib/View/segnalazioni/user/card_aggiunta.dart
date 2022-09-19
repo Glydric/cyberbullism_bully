@@ -1,7 +1,7 @@
 import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Model/connect_db/login_exception.dart';
+import '/Model/connect_db/login_exception.dart';
 import '/Model/user.dart';
 
 class CardAggiunta extends StatefulWidget {
@@ -16,6 +16,29 @@ class CardAggiunta extends StatefulWidget {
 class _CardAggiuntaState extends State<CardAggiunta> {
   final TextEditingController _textController = TextEditingController();
   String? _errorText;
+
+  final tipiDiGravita = List.of(const <String>[
+    "Piccolo Problema",
+    "Gravità alta",
+    "Pericolo!",
+  ]);
+
+  late String _dropdownElement;
+
+  List<DropdownMenuItem<String>> get getDropdownElements => tipiDiGravita
+      .map(
+        (e) => DropdownMenuItem(
+          child: Text(e),
+          value: e,
+        ),
+      )
+      .toList();
+
+  @override
+  void initState() {
+    _dropdownElement = tipiDiGravita.elementAt(0);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -47,10 +70,21 @@ class _CardAggiuntaState extends State<CardAggiunta> {
                   ),
                 ),
                 Row(
+                  children: [
+                    const Text("Tipo di segnalazione "),
+                    DropdownButton(
+                      value: _dropdownElement,
+                      items: getDropdownElements,
+                      onChanged: (String? value) =>
+                          setState(() => _dropdownElement = value!),
+                    ),
+                  ],
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     MaterialButton(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.pop(context, false),
                       child: const Text("Annulla"),
                     ),
                     MaterialButton(
@@ -68,7 +102,10 @@ class _CardAggiuntaState extends State<CardAggiunta> {
   void send() async {
     try {
       await UserDbConnector.addSegnalazioneFromUser(
-          widget.user, _textController.text);
+        widget.user,
+        _textController.text,
+        tipiDiGravita.indexOf(_dropdownElement)
+      );
       Navigator.pop(context, true);
     } on LoginException catch (e) {
       _errorText = e.toString();
