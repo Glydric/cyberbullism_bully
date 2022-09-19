@@ -10,6 +10,8 @@ import '/Model/chat/chat.dart';
 
 import 'message_card.dart';
 
+int get _maximumTextLength => 500;
+
 /// La schermata che consente di portare avanti una chat con un utente
 class ChatView extends StatefulWidget {
   final User user;
@@ -24,8 +26,6 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   final TextEditingController _textController = TextEditingController();
   late final Timer timer;
-
-  int get _maximumTextLength => 500;
 
   Future<Chat> get messages =>
       UserDbConnector.getMessagesOf(widget.user, widget.otherEmail)

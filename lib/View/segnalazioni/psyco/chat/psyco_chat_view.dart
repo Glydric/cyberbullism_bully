@@ -9,6 +9,8 @@ import '/View/connection_error_ui.dart';
 import '../../user/chat/message_card.dart';
 import '/Model/chat/chat.dart';
 
+int get _maximumTextLength => 500;
+
 /// La schermata che consente di portare avanti una chat con un utente
 class PsycoChatView extends StatefulWidget {
   final User user;
@@ -24,7 +26,6 @@ class PsycoChatViewState extends State<PsycoChatView> {
   final TextEditingController _textController = TextEditingController();
   late final Timer timer;
 
-  int get _maximumTextLength => 500;
 
   Future<Chat> get messages =>
       PsycoDbConnector.getMessagesOf(widget.user, widget.otherEmail)
