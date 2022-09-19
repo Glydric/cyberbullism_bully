@@ -20,7 +20,7 @@ class _LearningBigViewState extends State<LearningBigView> {
           children: [
             IconButton(
               onPressed: incrementFont,
-              icon: const Icon(Icons.add),
+              icon: const Icon(Icons.zoom_in),
               color: Colors.white,
             ),
             const Divider(
@@ -31,7 +31,7 @@ class _LearningBigViewState extends State<LearningBigView> {
             ),
             IconButton(
               onPressed: decrementFont,
-              icon: const Icon(Icons.remove),
+              icon: const Icon(Icons.zoom_out),
               color: Colors.white,
             ),
           ],
@@ -46,18 +46,17 @@ class _LearningBigViewState extends State<LearningBigView> {
           elevation: 10,
           child: zoomFabs,
         ),
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(widget.element.title),
+        ),
         body: ListView(
+          // used for allow scrolling
           padding: const EdgeInsets.all(8),
           children: [
-            Text(
-              widget.element.title,
-              style: Theme.of(context).textTheme.headline5,
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              widget.element.text,
+            AnimatedDefaultTextStyle(
+              child: Text(widget.element.text),
               style: getStyleFrom(Theme.of(context).textTheme.bodyMedium),
+              duration: const Duration(milliseconds: 100),
             )
           ],
         ),
