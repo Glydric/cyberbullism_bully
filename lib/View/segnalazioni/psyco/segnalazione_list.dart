@@ -69,7 +69,15 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
       try {
         PsycoDbConnector.presaInCarica(widget.user, segnalazione);
       } on LoginException catch (e) {
-        print(e.toString());
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text(
+              "Impossibile collegare il messaggio al proprio utente " +
+                  e.toString(),
+            ),
+          ),
+        );
       }
       toChat(segnalazione.email);
     }
