@@ -1,3 +1,4 @@
+import 'package:cyberbullism_bully/View/connection_error_ui.dart';
 import 'package:cyberbullism_bully/View/segnalazioni/psyco/chat/psyco_chat_view.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
               future: fillCards,
               builder: (_, AsyncSnapshot<List<Segnalazione>> snapshot) =>
                   snapshot.hasError
-                      ? Text(snapshot.error.toString())
+                      ? const ConnectionErrorUI()
                       : snapshot.hasData
                           ? buildList(snapshot.requireData)
                           : const CircularProgressIndicator.adaptive()),
