@@ -1,3 +1,4 @@
+import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
 import 'package:cyberbullism_bully/View/connection_error_ui.dart';
 import 'package:cyberbullism_bully/View/segnalazioni/psyco/chat/psyco_chat_view.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,11 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
     );
 
     if (result) {
-      PsycoDbConnector.presaInCarica(widget.user, segnalazione);
+      try {
+        PsycoDbConnector.presaInCarica(widget.user, segnalazione);
+      } on LoginException catch (e) {
+        print(e.toString());
+      }
       toChat(segnalazione.email);
     }
   }

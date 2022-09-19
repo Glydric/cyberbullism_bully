@@ -119,8 +119,7 @@ class PsycoDbConnector extends UserDbConnector {
     LoginException.thrower(response.body);
   }
 
-  static void presaInCarica(
-      User user, Segnalazione segnalazione) async {
+  static void presaInCarica(User user, Segnalazione segnalazione) async {
     Response response = await post(
       Uri.parse(url +
           "PsycoPresaInCarica.php" +
@@ -131,7 +130,7 @@ class PsycoDbConnector extends UserDbConnector {
           "&otherEmail=" +
           segnalazione.email +
           "&data=" +
-          DateFormat('yyyy-MM-dd hh:mm:ss').format(segnalazione.data)),
+          DateFormat('yyyy-MM-dd HH:mm:ss').format(segnalazione.data)),
     );
     LoginException.thrower(response.body);
   }
