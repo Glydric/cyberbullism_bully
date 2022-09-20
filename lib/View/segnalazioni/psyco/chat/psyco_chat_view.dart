@@ -26,7 +26,6 @@ class PsycoChatViewState extends State<PsycoChatView> {
   final TextEditingController _textController = TextEditingController();
   late final Timer timer;
 
-
   Future<Chat> get messages =>
       PsycoDbConnector.getMessagesOf(widget.user, widget.otherEmail)
           .then(Chat.fromList);
