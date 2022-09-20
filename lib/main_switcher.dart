@@ -48,9 +48,9 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
                 icon: Icon(Icons.account_circle),
               ),
             },
-            snapshot.hasError || !snapshot.hasData
-                ? {}
-                : getNavBasedOn(snapshot.requireData),
+            !snapshot.hasError && snapshot.hasData
+                ? getNavBasedOn(snapshot.requireData)
+                : {},
           ),
         ),
       );
@@ -75,21 +75,19 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   }
 
   Map<Widget, NavigationDestination> getNavBasedOn(User user) =>
-      user.runtimeType.toString() == "Psyco"
-          ? {
-              const SegnalazioniPage(): const NavigationDestination(
-                label: "Chat",
-                icon: Icon(Icons.chat),
-              ),
-              ListaSegnalazioni(user): const NavigationDestination(
-                label: "Segnalazioni",
-                icon: Icon(Icons.list),
-              ),
-            }
-          : {
-              const SegnalazioniPage(): const NavigationDestination(
-                label: "Chat",
-                icon: Icon(Icons.chat),
-              ),
-            };
+      MapsUtils.concatenateMapsIf(
+        user.runtimeType.toString() == "Psyco",
+        {
+          const SegnalazioniPage(): const NavigationDestination(
+            label: "Chat",
+            icon: Icon(Icons.chat),
+          ),
+        },
+        {
+          ListaSegnalazioni(user): const NavigationDestination(
+            label: "Segnalazioni",
+            icon: Icon(Icons.list),
+          ),
+        },
+      );
 }
