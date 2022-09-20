@@ -54,8 +54,8 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
                   : const Center(child: CircularProgressIndicator.adaptive()),
         ),
         floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.add),
-          label: const Text("Segnalazione"),
+          icon: const Icon(Icons.send),
+          label: const Text("Invia Segnalazione"),
           onPressed: addSegnalazione,
         ),
       );
