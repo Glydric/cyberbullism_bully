@@ -16,13 +16,14 @@ class _LearningGridState extends State<LearningGrid> {
   @override
   Widget build(BuildContext context) => GridView.builder(
         padding: const EdgeInsets.all(8),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
+        itemCount: widget.list.length,
+        itemBuilder: (_, int index) => learnings.elementAt(index),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 300,
+          childAspectRatio: 16 / 9,
           mainAxisSpacing: 10,
           crossAxisSpacing: 5,
         ),
-        itemCount: widget.list.length,
-        itemBuilder: (_, int index) => learnings.elementAt(index),
       );
 
   Iterable<LearningCard> get learnings => widget.list.map(LearningCard.new);
