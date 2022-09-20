@@ -46,10 +46,6 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () => toPage(ListaSegnalazioni(widget.user)),
-        ),
         body: Center(
           child: FutureBuilder(
             future: chats,
