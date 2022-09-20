@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
 import 'package:cyberbullism_bully/View/connection_error_ui.dart';
 import 'package:cyberbullism_bully/View/segnalazioni/psyco/chat/psyco_chat_view.dart';
@@ -20,8 +22,26 @@ class ListaSegnalazioni extends StatefulWidget {
 }
 
 class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
+  late final Timer timer;
+
   Future<List<Segnalazione>> get fillCards =>
       PsycoDbConnector.getSegnalazioni(widget.user);
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    timer = Timer.periodic(
+      const Duration(milliseconds: 100),
+      (_) => updateSegnalazioni(),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: const Text("Lista Segnalazioni")),
@@ -45,7 +65,7 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
         ),
       );
 
-  void openChat(Segnalazione segnalazione) async {
+  openChat(Segnalazione segnalazione) async {
     final result = await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -88,4 +108,8 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
           builder: (_) => PsycoChatView(widget.user, email),
         ),
       );
+
+  updateSegnalazioni() => setState(() {
+        fillCards;
+      });
 }
