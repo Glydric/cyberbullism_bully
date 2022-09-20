@@ -22,15 +22,6 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   int _index = 0;
   late Timer timer;
 
-  Scaffold buildScaffold(Map<Widget, NavigationDestination> map) => Scaffold(
-        body: map.keys.elementAt(_index),
-        bottomNavigationBar: NavigationBar(
-          onDestinationSelected: _updateIndex,
-          selectedIndex: _index,
-          destinations: map.values.toList(),
-        ),
-      );
-
   @override
   void dispose() {
     timer.cancel();
@@ -64,6 +55,15 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
               : getNavBasedOn(snapshot.requireData)));
 
   _updateIndex(int value) => setState(() => _index = value);
+
+  Scaffold buildScaffold(Map<Widget, NavigationDestination> map) => Scaffold(
+        body: map.keys.elementAt(_index),
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: _updateIndex,
+          selectedIndex: _index,
+          destinations: map.values.toList(),
+        ),
+      );
 
   Map<Widget, NavigationDestination> getNavBasedOn(User user) =>
       user.runtimeType.toString() == "Psyco"
