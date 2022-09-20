@@ -16,7 +16,7 @@ class ScreenSwitcher extends StatefulWidget {
 class _ScreenSwitcherState extends State<ScreenSwitcher> {
   int _index = 0;
 
-  final Map<Widget, NavigationDestination> map = {
+  final Map<Widget, NavigationDestination> navigatorMap = {
     const LearningPage(): const NavigationDestination(
       label: "Learning",
       icon: Icon(Icons.description),
@@ -31,11 +31,15 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
     )
   };
 
-  List<Widget> get getPages => map.keys.toList();
+  List<Widget> get getPages => navigatorMap.keys.toList();
 
-  List<NavigationDestination> get getItems => map.values.toList();
+  List<NavigationDestination> get getItems => navigatorMap.values.toList();
 
-  _updateIndex(int value) => setState(() => _index = value);
+  @override
+  void initState() {
+    checkPsy();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => FutureBuilder(
@@ -43,11 +47,17 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
         builder: (_, AsyncSnapshot snapshot) => Scaffold(
           body: getPages[_index],
           bottomNavigationBar: NavigationBar(
-            // TODO inserire un'altra tab
+            // TODO inserire un'altra tab solo se psicologo
             onDestinationSelected: _updateIndex,
             selectedIndex: _index,
             destinations: getItems,
           ),
         ),
       );
+  _updateIndex(int value) => setState(() => _index = value);
+
+  void checkPsy() async {
+    
+  }
+
 }
