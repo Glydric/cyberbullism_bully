@@ -41,16 +41,14 @@ class _LearningBigViewState extends State<LearningBigView> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: Text(widget.element.title)),
-        body: ListView(
+        body: SingleChildScrollView(
           // used for allow scrolling
           padding: const EdgeInsets.all(8),
-          children: [
-            AnimatedDefaultTextStyle(
+          child: AnimatedDefaultTextStyle(
               child: Text(widget.element.text),
               style: getStyleFrom(Theme.of(context).textTheme.bodyMedium),
               duration: const Duration(milliseconds: 100),
-            )
-          ],
+          ),
         ),
         floatingActionButton: Material(
           color: Theme.of(context).primaryColor,
