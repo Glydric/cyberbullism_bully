@@ -35,7 +35,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   void initState() {
     timer = Timer.periodic(
       const Duration(milliseconds: 100),
-      (_) => setNav(),
+      (_) => updateNav(),
     );
     super.initState();
   }
@@ -55,8 +55,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
 
   _updateIndex(int value) => setState(() => _index = value);
 
-
-  setNav() async {
+  updateNav() async {
     try {
       final user = await UserSavingManager.getUser();
       navigatorMap = user.runtimeType.toString() == "Psyco"
