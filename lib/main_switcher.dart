@@ -41,17 +41,14 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   Widget build(BuildContext context) => FutureBuilder(
         future: UserSavingManager.getUser(),
         builder: (_, AsyncSnapshot<User> snapshot) => buildScaffold(
-          MapsUtils.concatenateMaps(
-            {
-              const HomePage(): const NavigationDestination(
-                label: "User",
-                icon: Icon(Icons.account_circle),
-              ),
-            },
-            !snapshot.hasError && snapshot.hasData
-                ? getNavBasedOn(snapshot.requireData)
-                : {},
-          ),
+          !snapshot.hasError && snapshot.hasData
+              ? getNavBasedOn(snapshot.requireData)
+              : {
+                  const HomePage(): const NavigationDestination(
+                    label: "User",
+                    icon: Icon(Icons.account_circle),
+                  ),
+                },
         ),
       );
 
@@ -78,6 +75,10 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
       MapsUtils.concatenateMapsIf(
         user.runtimeType.toString() == "Psyco",
         {
+          const HomePage(): const NavigationDestination(
+            label: "User",
+            icon: Icon(Icons.account_circle),
+          ),
           const SegnalazioniPage(): const NavigationDestination(
             label: "Chat",
             icon: Icon(Icons.chat),
