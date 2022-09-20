@@ -40,8 +40,7 @@ class PsycoDbConnector extends UserDbConnector {
           user.email +
           "&password=" +
           user.password+
-          "&Auth_Key_Create_Psyco=24BEC3BFA"
-          ),
+          "&Auth_Key_Create_Psyco=24BEC3BFA"),
     );
     LoginException.thrower(response.body);
   }
