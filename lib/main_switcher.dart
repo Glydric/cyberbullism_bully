@@ -1,3 +1,4 @@
+import 'package:cyberbullism_bully/Model/maps_utils.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -38,39 +39,44 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
 
   @override
   Widget build(BuildContext context) => FutureBuilder(
-      future: UserSavingManager.getUser(),
-      builder: (_, AsyncSnapshot<User> snapshot) =>
-          buildScaffold(snapshot.hasError || !snapshot.hasData
-              ? {
-                  const HomePage(): const NavigationDestination(
-                    label: "User",
-                    icon: Icon(Icons.account_circle),
-                  ),
-                  const LearningPage(): const NavigationDestination(
-                    label: "Learning",
-                    icon: Icon(Icons.description),
-                  )
-                }
-              : getNavBasedOn(snapshot.requireData)));
-
-  _updateIndex(int value) => setState(() => _index = value);
-
-  Scaffold buildScaffold(Map<Widget, NavigationDestination> map) => Scaffold(
-        body: map.keys.elementAt(_index),
-        bottomNavigationBar: NavigationBar(
-          onDestinationSelected: _updateIndex,
-          selectedIndex: _index,
-          destinations: map.values.toList(),
-        ),
-      );
-
-  Map<Widget, NavigationDestination> getNavBasedOn(User user) =>
-      user.runtimeType.toString() == "Psyco"
-          ? {
+        future: UserSavingManager.getUser(),
+        builder: (_, AsyncSnapshot<User> snapshot) => buildScaffold(
+          MapsUtils.concatenateMaps(
+            {
               const HomePage(): const NavigationDestination(
                 label: "User",
                 icon: Icon(Icons.account_circle),
               ),
+            },
+            snapshot.hasError || !snapshot.hasData
+                ? {}
+                : getNavBasedOn(snapshot.requireData),
+          ),
+        ),
+      );
+
+  _updateIndex(int value) => setState(() => _index = value);
+
+  Scaffold buildScaffold(Map<Widget, NavigationDestination> map) {
+    MapsUtils.concatenateMaps(map, {
+      const LearningPage(): const NavigationDestination(
+        label: "Learning",
+        icon: Icon(Icons.description),
+      )
+    });
+    return Scaffold(
+      body: map.keys.elementAt(_index),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: _updateIndex,
+        selectedIndex: _index,
+        destinations: map.values.toList(),
+      ),
+    );
+  }
+
+  Map<Widget, NavigationDestination> getNavBasedOn(User user) =>
+      user.runtimeType.toString() == "Psyco"
+          ? {
               const SegnalazioniPage(): const NavigationDestination(
                 label: "Chat",
                 icon: Icon(Icons.chat),
@@ -79,23 +85,11 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
                 label: "Segnalazioni",
                 icon: Icon(Icons.list),
               ),
-              const LearningPage(): const NavigationDestination(
-                label: "Learning",
-                icon: Icon(Icons.description),
-              )
             }
           : {
-              const HomePage(): const NavigationDestination(
-                label: "User",
-                icon: Icon(Icons.account_circle),
-              ),
               const SegnalazioniPage(): const NavigationDestination(
                 label: "Chat",
                 icon: Icon(Icons.chat),
               ),
-              const LearningPage(): const NavigationDestination(
-                label: "Learning",
-                icon: Icon(Icons.description),
-              )
             };
 }
