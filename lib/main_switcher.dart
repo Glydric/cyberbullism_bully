@@ -22,6 +22,15 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   int _index = 0;
   late Timer timer;
 
+  Scaffold buildScaffold(Map<Widget, NavigationDestination> map) => Scaffold(
+        body: map.keys.elementAt(_index),
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: _updateIndex,
+          selectedIndex: _index,
+          destinations: map.values.toList(),
+        ),
+      );
+
   @override
   void dispose() {
     timer.cancel();
@@ -40,28 +49,19 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   @override
   Widget build(BuildContext context) => FutureBuilder(
       future: UserSavingManager.getUser(),
-      builder: (_, AsyncSnapshot<User> snapshot) {
-        final navigator = snapshot.hasError || !snapshot.hasData
-            ? {
-                const HomePage(): const NavigationDestination(
-                  label: "User",
-                  icon: Icon(Icons.account_circle),
-                ),
-                const LearningPage(): const NavigationDestination(
-                  label: "Learning",
-                  icon: Icon(Icons.description),
-                ),
-              }
-            : getNavBasedOn(snapshot.requireData);
-        return Scaffold(
-          body: navigator.keys.elementAt(_index),
-          bottomNavigationBar: NavigationBar(
-            onDestinationSelected: _updateIndex,
-            selectedIndex: _index,
-            destinations: navigator.values.toList(),
-          ),
-        );
-      });
+      builder: (_, AsyncSnapshot<User> snapshot) =>
+          buildScaffold(snapshot.hasError || !snapshot.hasData
+              ? {
+                  const HomePage(): const NavigationDestination(
+                    label: "User",
+                    icon: Icon(Icons.account_circle),
+                  ),
+                  const LearningPage(): const NavigationDestination(
+                    label: "Learning",
+                    icon: Icon(Icons.description),
+                  ),
+                }
+              : getNavBasedOn(snapshot.requireData)));
 
   _updateIndex(int value) => setState(() => _index = value);
 
