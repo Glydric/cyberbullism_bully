@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:cyberbullism_bully/Model/user_save_manager.dart';
-import 'package:cyberbullism_bully/View/segnalazioni/psyco/lista_segnalazioni.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
 
 // importo pagine flutter
 import 'package:cyberbullism_bully/View/segnalazioni/switcher.dart';
 import 'package:cyberbullism_bully/View/profile/home_page.dart';
 import 'package:cyberbullism_bully/View/learning/learning.dart';
-
-import 'Model/user.dart';
+import 'package:cyberbullism_bully/View/segnalazioni/psyco/lista_segnalazioni.dart';
 
 class ScreenSwitcher extends StatefulWidget {
   const ScreenSwitcher({Key? key}) : super(key: key);
@@ -50,7 +49,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
                   const LearningPage(): const NavigationDestination(
                     label: "Learning",
                     icon: Icon(Icons.description),
-                  ),
+                  )
                 }
               : getNavBasedOn(snapshot.requireData)));
 
@@ -83,7 +82,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
               const LearningPage(): const NavigationDestination(
                 label: "Learning",
                 icon: Icon(Icons.description),
-              ),
+              )
             }
           : {
               const HomePage(): const NavigationDestination(
@@ -97,6 +96,6 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
               const LearningPage(): const NavigationDestination(
                 label: "Learning",
                 icon: Icon(Icons.description),
-              ),
+              )
             };
 }
