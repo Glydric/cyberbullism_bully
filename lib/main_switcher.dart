@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:cyberbullism_bully/Model/user_save_manager.dart';
-import 'package:cyberbullism_bully/View/segnalazioni/psyco/lista_segnalazione.dart';
+import 'package:cyberbullism_bully/View/segnalazioni/psyco/lista_segnalazioni.dart';
 
 // importo pagine flutter
 import 'package:cyberbullism_bully/View/segnalazioni/switcher.dart';
