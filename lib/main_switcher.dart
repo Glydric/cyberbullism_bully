@@ -43,7 +43,7 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
         builder: (_, AsyncSnapshot snapshot) => Scaffold(
           body: getPages[_index],
           bottomNavigationBar: NavigationBar(
-            
+            // TODO inserire un'altra tab
             onDestinationSelected: _updateIndex,
             selectedIndex: _index,
             destinations: getItems,

@@ -54,7 +54,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
                   ? ListaChat(widget.user, snapshot.requireData)
                   : const Center(child: CircularProgressIndicator.adaptive()),
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton(//TODO text segnala
           child: const Icon(Icons.add),
           onPressed: addSegnalazione,
         ),
