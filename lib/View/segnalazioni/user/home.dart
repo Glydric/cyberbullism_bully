@@ -1,14 +1,13 @@
+import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/Model/chat/chat.dart';
 
-import '/View/connection_error_ui.dart';
-import '/Model/connect_db/user_db_connector.dart';
-import '/Model/user.dart';
-import '/Model/chat/chat.dart';
-
-import 'chat/chat_list.dart';
-import 'card_aggiunta.dart';
+import 'package:cyberbullism_bully/View/connection_error_ui.dart';
+import 'package:cyberbullism_bully/View/chat/user/chat_list.dart';
+import 'package:cyberbullism_bully/View/segnalazioni/user/card_aggiunta.dart';
 
 class UserSegnalazione extends StatefulWidget {
   final User user;
@@ -54,8 +53,9 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
                   ? ListaChat(widget.user, snapshot.requireData)
                   : const Center(child: CircularProgressIndicator.adaptive()),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: const Icon(Icons.send),
+          label: const Text("Invia Segnalazione"),
           onPressed: addSegnalazione,
         ),
       );

@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import '/Model/chat/chat.dart';
 import '/Model/connect_db/psyco_db_connector.dart';
 import '/Model/user.dart';
-import 'chat/psyco_chat_list.dart';
-import 'segnalazione_list.dart';
+import '/View/chat/psyco/psyco_chat_list.dart';
 
 class PsycoSegnalazioni extends StatefulWidget {
   final User user;
@@ -46,10 +45,6 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () => toPage(ListaSegnalazioni(widget.user)),
-        ),
         body: Center(
           child: FutureBuilder(
             future: chats,

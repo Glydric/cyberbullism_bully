@@ -5,17 +5,17 @@ import 'psyco/psyco.dart';
 import 'user.dart';
 
 class UserSavingManager {
-  static const key = "user";
+  static const userKey = "user";
 
   static void saveUser(User user) async {
-    final prefs = await SharedPreferences.getInstance();
+    final pref = await SharedPreferences.getInstance();
 
-    prefs.setString(key, jsonEncode(user.toJson()));
+    pref.setString(userKey, jsonEncode(user.toJson()));
   }
 
   static Future<User> getUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? userString = prefs.getString(key);
+    final pref = await SharedPreferences.getInstance();
+    final String? userString = pref.getString(userKey);
 
     if (userString == null) throw Exception("User not found");
 
@@ -27,8 +27,8 @@ class UserSavingManager {
   }
 
   static void removeUser() async {
-    final prefs = await SharedPreferences.getInstance();
+    final pref = await SharedPreferences.getInstance();
 
-    prefs.remove(key);
+    pref.remove(userKey);
   }
 }

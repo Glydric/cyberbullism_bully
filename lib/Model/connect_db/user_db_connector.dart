@@ -90,8 +90,6 @@ class UserDbConnector {
             testo +
             "&gravita=" +
             gravita.toString()
-
-
             // TODO getGravitaFrom(testo).toString(),
       ),
     );
