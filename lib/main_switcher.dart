@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cyberbullism_bully/Model/user_save_manager.dart';
 import 'package:cyberbullism_bully/View/segnalazioni/psyco/lista_segnalazione.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:cyberbullism_bully/View/segnalazioni/switcher.dart';
 import 'package:cyberbullism_bully/View/profile/home_page.dart';
 import 'package:cyberbullism_bully/View/learning/learning.dart';
-import 'package:http/http.dart';
 
 class ScreenSwitcher extends StatefulWidget {
   const ScreenSwitcher({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class ScreenSwitcher extends StatefulWidget {
 
 class _ScreenSwitcherState extends State<ScreenSwitcher> {
   int _index = 0;
-
+  late Timer timer;
   late Map<Widget, NavigationDestination> navigatorMap;
 
   List<Widget> get getPages => navigatorMap.keys.toList();
@@ -25,8 +26,17 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
   List<NavigationDestination> get getItems => navigatorMap.values.toList();
 
   @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   void initState() {
-    checkPsy();
+    timer = Timer.periodic(
+      const Duration(milliseconds: 100),
+      (_) => setNav(),
+    );
     super.initState();
   }
 
@@ -36,56 +46,65 @@ class _ScreenSwitcherState extends State<ScreenSwitcher> {
         builder: (_, AsyncSnapshot snapshot) => Scaffold(
           body: getPages[_index],
           bottomNavigationBar: NavigationBar(
-            // TODO inserire un'altra tab solo se psicologo
             onDestinationSelected: _updateIndex,
             selectedIndex: _index,
             destinations: getItems,
           ),
         ),
       );
-  _updateIndex(int value) {
-    checkPsy();
-    setState(() => _index = value);
-  }
 
-  checkPsy() async {
+  _updateIndex(int value) => setState(() => _index = value);
+
+
+  setNav() async {
     try {
       final user = await UserSavingManager.getUser();
-      if (user.runtimeType.toString() == "Psyco") {
-        navigatorMap = {
-          const LearningPage(): const NavigationDestination(
-            label: "Learning",
-            icon: Icon(Icons.description),
-          ),
-          const SegnalazioniPage(): const NavigationDestination(
-            label: "Chat",
-            icon: Icon(Icons.chat),
-          ),
-          ListaSegnalazioni(user): const NavigationDestination(
-              label: "Segnalazioni", icon: Icon(Icons.list)),
-          const HomePage(): const NavigationDestination(
-            label: "User",
-            icon: Icon(Icons.account_circle),
-          ),
-        };
-      } else {
-        throw Exception();
-      }
+      navigatorMap = user.runtimeType.toString() == "Psyco"
+          ? {
+              const HomePage(): const NavigationDestination(
+                label: "User",
+                icon: Icon(Icons.account_circle),
+              ),
+              const SegnalazioniPage(): const NavigationDestination(
+                label: "Chat",
+                icon: Icon(Icons.chat),
+              ),
+              ListaSegnalazioni(user): const NavigationDestination(
+                label: "Segnalazioni",
+                icon: Icon(Icons.list),
+              ),
+              const LearningPage(): const NavigationDestination(
+                label: "Learning",
+                icon: Icon(Icons.description),
+              ),
+            }
+          : {
+              const HomePage(): const NavigationDestination(
+                label: "User",
+                icon: Icon(Icons.account_circle),
+              ),
+              const SegnalazioniPage(): const NavigationDestination(
+                label: "Chat",
+                icon: Icon(Icons.chat),
+              ),
+              const LearningPage(): const NavigationDestination(
+                label: "Learning",
+                icon: Icon(Icons.description),
+              ),
+            };
     } catch (e) {
       navigatorMap = {
+        const HomePage(): const NavigationDestination(
+          label: "User",
+          icon: Icon(Icons.account_circle),
+        ),
         const LearningPage(): const NavigationDestination(
           label: "Learning",
           icon: Icon(Icons.description),
         ),
-        const SegnalazioniPage(): const NavigationDestination(
-          label: "Chat",
-          icon: Icon(Icons.chat),
-        ),
-        const HomePage(): const NavigationDestination(
-          label: "User",
-          icon: Icon(Icons.account_circle),
-        )
       };
+    } finally {
+      setState(() => navigatorMap);
     }
   }
 }
