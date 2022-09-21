@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/Model/chat/message.dart';
+import 'package:cyberbullism_bully/Model/chat/message.dart';
 
 /// La singola card di una chat
 class ChatCard extends StatelessWidget {

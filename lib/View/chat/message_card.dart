@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/Model/chat/message.dart';
+import 'package:cyberbullism_bully/Model/chat/message.dart';
 
 class MessageCard extends StatelessWidget {
   final Message message;
