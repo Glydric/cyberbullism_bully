@@ -15,6 +15,24 @@ class MessageCard extends StatelessWidget {
 
   Color get cardColor => const Color.fromARGB(255, 233, 233, 233);
 
+  Color? get gravityColor {
+    switch (message.gravita) {
+      case 0:
+        return Colors.green;
+      case 1:
+        return Colors.yellow;
+      case 2:
+        return Colors.red;
+      case null:
+        return null;
+      default:
+        throw Exception(
+          "Errore nella visualizzazione della gravità \n gravità = " +
+              message.gravita.toString(),
+        );
+    }
+  }
+
   Alignment get messageAlignment =>
       message.sender ? Alignment.centerLeft : Alignment.centerRight;
 
@@ -42,7 +60,7 @@ class MessageCard extends StatelessWidget {
                   .textTheme
                   .bodySmall!
                   .copyWith(color: Colors.black),
-              label: Text( message.yearMonthDate),
+              label: Text(message.yearMonthDate),
             ),
           ),
         ),
@@ -61,11 +79,13 @@ class MessageCard extends StatelessWidget {
                   ),
                 ),
                 Card(
+                  //TODO showing gravity if message is also a segnalazione
+                  shadowColor: gravityColor,
                   margin: marginAlignments,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)),
-                  color: cardColor,
                   elevation: 4,
+                  color: cardColor,
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
