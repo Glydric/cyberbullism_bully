@@ -10,7 +10,6 @@ class ChatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        //TODO showing gravity if message is also a segnalazione
         padding: const EdgeInsets.all(4),
         child: Card(
           elevation: 8,
