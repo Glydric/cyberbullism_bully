@@ -21,6 +21,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
     "Piccolo Problema",
     "Gravità alta",
     "Pericolo!",
+    "Non definita",
   ]);
 
   late String _dropdownElement;
@@ -36,7 +37,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
 
   @override
   void initState() {
-    _dropdownElement = tipiDiGravita.elementAt(0);
+    _dropdownElement = tipiDiGravita.elementAt(3);
     super.initState();
   }
 
