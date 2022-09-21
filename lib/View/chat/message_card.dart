@@ -79,7 +79,6 @@ class MessageCard extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  //TODO showing gravity if message is also a segnalazione
                   shadowColor: gravityColor,
                   margin: marginAlignments,
                   shape: RoundedRectangleBorder(
