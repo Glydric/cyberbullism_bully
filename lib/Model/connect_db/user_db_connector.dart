@@ -71,7 +71,11 @@ class UserDbConnector {
 
   /// Consente di aggiungere una segnalazione al database passando direttamente l'email
   static addSegnalazione(
-      String userEmail, String password, String testo, int gravita) async {
+    String userEmail,
+    String password,
+    String testo,
+    int gravita,
+  ) async {
     Response response = await post(
       Uri.parse(
         url +
