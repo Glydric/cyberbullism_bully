@@ -89,7 +89,7 @@ class PsycoChatViewState extends State<PsycoChatView> {
                               isLast: _index == 0,
                             ),
                           )
-                        : Container(),
+                        : const CircularProgressIndicator.adaptive(),
               ),
             ),
             Padding(

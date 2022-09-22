@@ -90,7 +90,7 @@ class _ChatViewState extends State<ChatView> {
                               isLast: _index == 0,
                             ),
                           )
-                        : Container(),
+                        : const CircularProgressIndicator.adaptive(),
               ),
             ),
             Padding(
