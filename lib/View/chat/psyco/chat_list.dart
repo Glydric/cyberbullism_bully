@@ -4,7 +4,7 @@ import '../chat_card.dart';
 import '/Model/user.dart';
 import '/Model/chat/chat.dart';
 
-import 'psyco_chat_view.dart';
+import 'chat_view.dart';
 
 class PsycoChatList extends StatefulWidget {
   final List<Chat> chats;

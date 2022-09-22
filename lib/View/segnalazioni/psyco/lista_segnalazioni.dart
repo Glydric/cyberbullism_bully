@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
 import 'package:cyberbullism_bully/View/connection_error_ui.dart';
-import 'package:cyberbullism_bully/View/chat/psyco/psyco_chat_view.dart';
+import 'package:cyberbullism_bully/View/chat/psyco/chat_view.dart';
 import 'package:flutter/material.dart';
 
 import '/Model/connect_db/psyco_db_connector.dart';
