@@ -1,12 +1,12 @@
 import 'package:intl/intl.dart';
 
 class Segnalazione {
-  String email;
-  String nome;
-  String cognome;
-  String testo;
-  int gravita;
-  DateTime data;
+  final String email;
+  final String nome;
+  final String cognome;
+  final String testo;
+  final int gravita;
+  final DateTime data;
 
   Segnalazione(
       this.testo, this.data, this.gravita, this.email, this.cognome, this.nome);
