@@ -2,16 +2,16 @@ import 'package:intl/intl.dart';
 
 class Message {
   final String otherEmail;
-  final String text;
+  final String testo;
   final bool sender;
   final DateTime data;
   int? gravita;
 
-  Message(this.otherEmail, this.text, this.data, this.sender, this.gravita);
+  Message(this.otherEmail, this.testo, this.data, this.sender, this.gravita);
 
   Message.fromJson(Map<String, dynamic> json)
       : otherEmail = json["otherEmail"],
-        text = json["testo"],
+        testo = json["testo"],
         data = DateTime.parse(json["data"]),
         sender = json["sender"] == "1",
         gravita = json["gravita"] == null ? null : int.parse(json["gravita"]);

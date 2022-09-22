@@ -88,7 +88,7 @@ class MessageCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      message.text,
+                      message.testo,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
