@@ -19,7 +19,7 @@ class ChatCard extends StatelessWidget {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
                 Text(
-                  showingMessage.otherEmail,
+                  showingMessage.nomeCognome,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
