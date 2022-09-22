@@ -69,14 +69,12 @@ class RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-
                   SwitchListTile.adaptive(
                     //il metodo adaptive fa cambiare lo switch in base alla piattaforma
                     title: const Text("Registrazione da psicologo"),
                     onChanged: (value) => setState(() => _isPsy = value),
                     value: _isPsy,
                   ),
-
                   const Spacer(),
                   ElevatedButton(
                     onPressed: registrazione,
@@ -112,7 +110,13 @@ class RegisterPageState extends State<RegisterPage> {
       _errorName = "";
     } on LoginException catch (e) {
       _errorName = e.toString();
-    } finally {
+    } on Exception catch (e) {
+      _errorName = "Errore generico";
+      if (e.runtimeType.toString() == "_ClientSocketException") {
+        _errorName = "Errore di rete";
+      }
+    } 
+    finally {
       setState(() => _errorName);
     }
   }
