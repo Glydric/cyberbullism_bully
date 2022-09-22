@@ -9,7 +9,15 @@ class Message {
   final bool sender;
   int? gravita;
 
-  Message(this.otherEmail, this.nome, this.cognome, this.testo, this.data, this.sender, this.gravita);
+  Message(
+    this.otherEmail,
+    this.nome,
+    this.cognome,
+    this.testo,
+    this.data,
+    this.sender,
+    this.gravita,
+  );
 
   Message.fromJson(Map<String, dynamic> json)
       : otherEmail = json["otherEmail"],
@@ -19,6 +27,8 @@ class Message {
         data = DateTime.parse(json["data"]),
         sender = json["sender"] == "1",
         gravita = json["gravita"] == null ? null : int.parse(json["gravita"]);
+
+  String get nomeCognome => nome + " " + cognome;
 
   String get hourMinutes => DateFormat.Hm().format(data);
 
