@@ -50,7 +50,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
           builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasError
               ? const ConnectionErrorUI()
               : snapshot.hasData
-                  ? ListaChat(widget.user, snapshot.requireData)
+                  ? ChatList(widget.user, snapshot.requireData)
                   : const Center(child: CircularProgressIndicator.adaptive()),
         ),
         floatingActionButton: FloatingActionButton.extended(
