@@ -53,7 +53,7 @@ class ChatViewState extends State<ChatView> {
   }
 
   void send() {
-    if (RegExp(r"[\w]").hasMatch(textController.text)) {
+    if (RegExp(r"[\S]").hasMatch(textController.text)) {
       sendMessage();
       updateChat();
     }
