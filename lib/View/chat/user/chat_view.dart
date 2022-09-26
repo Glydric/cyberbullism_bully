@@ -44,16 +44,20 @@ class ChatViewState extends State<ChatView> {
         messages;
       });
 
+  void sendMessage() {
+    UserDbConnector.sendMessage(
+      widget.user,
+      widget.otherEmail,
+      textController.text,
+    );
+  }
+
   void send() {
-    if (textController.text == "") {
-      UserDbConnector.sendMessage(
-        widget.user,
-        widget.otherEmail,
-        textController.text,
-      );
-      textController.clear();
+    if (RegExp(r"[\w]").hasMatch(textController.text)) {
+      sendMessage();
       updateChat();
     }
+    textController.clear();
   }
 
   @override
