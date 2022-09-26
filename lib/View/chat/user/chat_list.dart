@@ -6,22 +6,19 @@ import 'package:cyberbullism_bully/Model/chat/chat.dart';
 import 'package:cyberbullism_bully/View/chat/chat_card.dart';
 import 'chat_view.dart';
 
-class ListaChat extends StatefulWidget {
+class ChatList extends StatefulWidget {
   final List<Chat> chats;
   final User user;
 
-  const ListaChat(this.user, this.chats, {Key? key}) : super(key: key);
+  const ChatList(this.user, this.chats, {Key? key}) : super(key: key);
 
   @override
-  State<ListaChat> createState() => _ListaChatState();
+  State<ChatList> createState() => _ChatListState();
 }
 
-class _ListaChatState extends State<ListaChat> {
-  
-
+class _ChatListState extends State<ChatList> {
   @override
-  Widget build(BuildContext context) =>
-   ListView.builder(
+  Widget build(BuildContext context) => ListView.builder(
         itemCount: widget.chats.length,
         itemBuilder: (_, int _index) => GestureDetector(
           onTap: () => toChatPage(widget.chats[_index].otherEmail),
