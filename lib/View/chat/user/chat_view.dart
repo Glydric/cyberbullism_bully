@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '/View/connection_error_ui.dart';
-import '/Model/user.dart';
-import '/Model/connect_db/user_db_connector.dart';
-import '/Model/chat/chat.dart';
+import 'package:cyberbullism_bully/View/connection_error_ui.dart';
+import 'package:cyberbullism_bully/View/chat/message_card.dart';
 
-import '../message_card.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
+import 'package:cyberbullism_bully/Model/chat/chat.dart';
 
 int get _maximumTextLength => 500;
 
@@ -20,23 +20,23 @@ class ChatView extends StatefulWidget {
   const ChatView(this.user, this.otherEmail, {Key? key}) : super(key: key);
 
   @override
-  State<ChatView> createState() => _ChatViewState();
+  State<ChatView> createState() => ChatViewState();
 }
 
-class _ChatViewState extends State<ChatView> {
-  final TextEditingController _textController = TextEditingController();
+class ChatViewState extends State<ChatView> {
+  final TextEditingController textController = TextEditingController();
   late final Timer timer;
 
   Future<Chat> get messages =>
       UserDbConnector.getMessagesOf(widget.user, widget.otherEmail)
           .then(Chat.fromList);
 
-  get errorText => _textController.text.length == _maximumTextLength
+  get errorText => textController.text.length == _maximumTextLength
       ? "Impossibile inserire altri caratteri"
       : null;
 
   ///Fornisce il valore da inserire nel campo maxLength cosi da mostrare il massimo all'occorrenza
-  get seeMaxLength => _textController.text.length > _maximumTextLength - 50
+  get seeMaxLength => textController.text.length > _maximumTextLength - 50
       ? _maximumTextLength
       : null;
 
@@ -45,19 +45,21 @@ class _ChatViewState extends State<ChatView> {
       });
 
   void send() {
-    UserDbConnector.sendMessage(
-      widget.user,
-      widget.otherEmail,
-      _textController.text,
-    );
-    _textController.clear();
-    updateChat();
+    if (textController.text == "") {
+      UserDbConnector.sendMessage(
+        widget.user,
+        widget.otherEmail,
+        textController.text,
+      );
+      textController.clear();
+      updateChat();
+    }
   }
 
   @override
   void dispose() {
     timer.cancel();
-    _textController.dispose();
+    textController.dispose();
     super.dispose();
   }
 
@@ -102,7 +104,7 @@ class _ChatViewState extends State<ChatView> {
                   LengthLimitingTextInputFormatter(_maximumTextLength)
                 ],
                 textAlignVertical: TextAlignVertical.center,
-                controller: _textController,
+                controller: textController,
                 decoration: InputDecoration(
                   hintText: "Inserire il messaggio",
                   helperText:
