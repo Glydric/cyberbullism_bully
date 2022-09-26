@@ -7,7 +7,7 @@ class Message {
   final String testo;
   final DateTime data;
   final bool sender;
-  int? gravita;
+  final int? gravita;
 
   Message(
     this.otherEmail,
