@@ -5,20 +5,13 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:cyberbullism_bully/main.dart';
 
 void main() {
-  test('User Crypt test',(() {
-    const password = "password";
-    User user = User("name", "surname", "name.surname@mail.it", password);
-
-    expect(password == user.password, false);
-  }));
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Test Widget Example (Not Working)', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MainApp());
 
