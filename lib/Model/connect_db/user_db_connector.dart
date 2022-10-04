@@ -2,11 +2,19 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
-import '../chat/message.dart';
-import '/Model/user.dart';
-import '/Model/connect_db/login_exception.dart';
+import 'package:cyberbullism_bully/Model/chat/message.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
 
 const url = "http://leonardomigliorelli.altervista.org/";
+
+const String fileUserCreate = "UserCreate.php";
+const String fileUserGet = "UserGet.php";
+const String fileUserChange = "UserChangePassword.php";
+const String fileSegnalazioneCreate = "UserCreateSegnalazione.php";
+const String fileLastMessageGet = "UserGetLastMessages.php";
+const String fileMessagesGet = "UserGetMessages.php";
+const String fileSendMessage = "UserSendMessage.php";
 
 class UserDbConnector {
   /// consente di creare l'utente sul database
@@ -14,7 +22,7 @@ class UserDbConnector {
     Response response = await post(
       Uri.parse(
         url +
-            "UserCreate.php" +
+            fileUserCreate +
             "?nome=" +
             user.nome +
             "&cognome=" +
@@ -32,7 +40,7 @@ class UserDbConnector {
   static Future<User> getUser(String email, String password) async {
     Response response = await post(
       Uri.parse(url +
-          "UserGet.php" +
+          fileUserGet +
           "?email=" +
           email +
           "&password=" +
@@ -51,7 +59,7 @@ class UserDbConnector {
     Response response = await post(
       Uri.parse(
         url +
-            "UserChangePassword.php" +
+            fileUserChange +
             "?email=" +
             user.email +
             "&password=" +
@@ -77,18 +85,16 @@ class UserDbConnector {
     int gravita,
   ) async {
     Response response = await post(
-      Uri.parse(
-        url +
-            "UserCreateSegnalazione.php" +
-            "?email=" +
-            userEmail +
-            "&password=" +
-            password +
-            "&testo=" +
-            testo +
-            "&gravita=" +
-            gravita.toString()
-      ),
+      Uri.parse(url +
+          fileSegnalazioneCreate +
+          "?email=" +
+          userEmail +
+          "&password=" +
+          password +
+          "&testo=" +
+          testo +
+          "&gravita=" +
+          gravita.toString()),
     );
     LoginException.thrower(response.body);
   }
@@ -96,7 +102,7 @@ class UserDbConnector {
   static Future<List<Message>> getLastMessages(User user) async {
     Response response = await post(
       Uri.parse(url +
-          "UserGetLastMessages.php" +
+          fileLastMessageGet +
           "?email=" +
           user.email +
           "&password=" +
@@ -111,7 +117,7 @@ class UserDbConnector {
       User user, String otherEmail) async {
     Response response = await post(
       Uri.parse(url +
-          "UserGetMessages.php" +
+          fileMessagesGet +
           "?email=" +
           user.email +
           "&password=" +
@@ -127,7 +133,7 @@ class UserDbConnector {
   static void sendMessage(User user, String otherEmail, String testo) async {
     Response response = await post(
       Uri.parse(url +
-          "UserSendMessage.php" +
+          fileSendMessage +
           "?email=" +
           user.email +
           "&password=" +

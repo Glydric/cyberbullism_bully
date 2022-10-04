@@ -1,16 +1,25 @@
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
-
-import 'user_db_connector.dart';
 import 'package:http/http.dart';
 
-import '../chat/message.dart';
-import '../psyco/albo_getter.dart';
-import '../psyco/psyco.dart';
-import '../segnalazione.dart';
-import '../user.dart';
-import 'login_exception.dart';
+import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
+import 'package:cyberbullism_bully/Model/chat/message.dart';
+import 'package:cyberbullism_bully/Model/psyco/albo_getter.dart';
+import 'package:cyberbullism_bully/Model/psyco/psyco.dart';
+import 'package:cyberbullism_bully/Model/segnalazione.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
+
+//TODO TEST CHANGE
+const String fileUserCreate = "PsycoCreate.php";
+const String fileUserGet = "PsycoGet.php";
+const String fileLastMessageGet = "PsycoGetLastMessages.php";
+const String fileMessagesGet = "PsycoGetMessages.php";
+const String fileSendMessage = "PsycoSendMessage.php";
+const String fileSegnalazioniGet = "PsycoGetSegnalazioni.php";
+const String fileUserChange = "PsycoChangePassword.php";
+const String filePresaInCarica = "PsycoPresaInCarica.php";
 
 class PsycoDbConnector extends UserDbConnector {
   static psyChecks(User psy) async {
@@ -31,7 +40,7 @@ class PsycoDbConnector extends UserDbConnector {
     await psyChecks(user);
     Response response = await post(
       Uri.parse(url +
-          "PsycoCreate.php" +
+          fileUserCreate +
           "?nome=" +
           user.nome +
           "&cognome=" +
@@ -39,7 +48,7 @@ class PsycoDbConnector extends UserDbConnector {
           "&email=" +
           user.email +
           "&password=" +
-          user.password+
+          user.password +
           "&Auth_Key_Create_Psyco=24BEC3BFA"),
     );
     LoginException.thrower(response.body);
@@ -48,7 +57,7 @@ class PsycoDbConnector extends UserDbConnector {
   static Future<Psyco> getUser(String email, String password) async {
     Response response = await post(Uri.parse(
       url +
-          "PsycoGet.php" +
+          fileUserGet +
           "?email=" +
           email +
           "&password=" +
@@ -62,7 +71,7 @@ class PsycoDbConnector extends UserDbConnector {
   static Future<List<Segnalazione>> getSegnalazioni(User user) async {
     Response response = await post(Uri.parse(
       url +
-          "PsycoGetSegnalazioni.php" +
+          fileSegnalazioniGet +
           "?email=" +
           user.email +
           "&password=" +
@@ -76,7 +85,7 @@ class PsycoDbConnector extends UserDbConnector {
   static Future<List<Message>> getLastMessages(User user) async {
     Response response = await post(
       Uri.parse(url +
-          "PsycoGetLastMessages.php" +
+          fileLastMessageGet +
           "?email=" +
           user.email +
           "&password=" +
@@ -91,7 +100,7 @@ class PsycoDbConnector extends UserDbConnector {
       User user, String otherEmail) async {
     Response response = await post(
       Uri.parse(url +
-          "PsycoGetMessages.php" +
+          fileMessagesGet +
           "?email=" +
           user.email +
           "&password=" +
@@ -107,7 +116,7 @@ class PsycoDbConnector extends UserDbConnector {
   static void sendMessage(User user, String otherEmail, String testo) async {
     Response response = await post(
       Uri.parse(url +
-          "PsycoSendMessage.php" +
+          fileSendMessage +
           "?email=" +
           user.email +
           "&password=" +
@@ -123,7 +132,7 @@ class PsycoDbConnector extends UserDbConnector {
   static void presaInCarica(User user, Segnalazione segnalazione) async {
     Response response = await post(
       Uri.parse(url +
-          "PsycoPresaInCarica.php" +
+          filePresaInCarica +
           "?email=" +
           user.email +
           "&password=" +
