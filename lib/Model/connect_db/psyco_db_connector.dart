@@ -11,8 +11,6 @@ import 'package:cyberbullism_bully/Model/segnalazione.dart';
 import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
 
-//TODO TEST CHANGE
-const String fileUserCreate = "PsycoCreate.php";
 const String fileUserGet = "PsycoGet.php";
 const String fileLastMessageGet = "PsycoGetLastMessages.php";
 const String fileMessagesGet = "PsycoGetMessages.php";
