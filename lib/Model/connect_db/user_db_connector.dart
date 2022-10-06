@@ -8,13 +8,7 @@ import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
 
 const url = "http://leonardomigliorelli.altervista.org/";
 
-const String fileUserCreate = "UserCreate.php";
-const String fileUserGet = "UserGet.php";
-const String fileUserChange = "UserChangePassword.php";
-const String fileSegnalazioneCreate = "UserCreateSegnalazione.php";
-const String fileLastMessageGet = "UserGetLastMessages.php";
-const String fileMessagesGet = "UserGetMessages.php";
-const String fileSendMessage = "UserSendMessage.php";
+const String userFile = "User";
 
 class UserDbConnector {
   /// consente di creare l'utente sul database
@@ -22,7 +16,8 @@ class UserDbConnector {
     Response response = await post(
       Uri.parse(
         url +
-            fileUserCreate +
+            userFile +
+            "Create.php" +
             "?nome=" +
             user.nome +
             "&cognome=" +
@@ -40,7 +35,8 @@ class UserDbConnector {
   static Future<User> getUser(String email, String password) async {
     Response response = await post(
       Uri.parse(url +
-          fileUserGet +
+          userFile +
+          "Get.php" +
           "?email=" +
           email +
           "&password=" +
@@ -59,7 +55,8 @@ class UserDbConnector {
     Response response = await post(
       Uri.parse(
         url +
-            fileUserChange +
+            userFile +
+            "ChangePassword.php" +
             "?email=" +
             user.email +
             "&password=" +
@@ -86,7 +83,8 @@ class UserDbConnector {
   ) async {
     Response response = await post(
       Uri.parse(url +
-          fileSegnalazioneCreate +
+          userFile +
+          "CreateSegnalazione.php" +
           "?email=" +
           userEmail +
           "&password=" +
@@ -102,7 +100,8 @@ class UserDbConnector {
   static Future<List<Message>> getLastMessages(User user) async {
     Response response = await post(
       Uri.parse(url +
-          fileLastMessageGet +
+          userFile +
+          "GetLastMessages.php" +
           "?email=" +
           user.email +
           "&password=" +
@@ -117,7 +116,8 @@ class UserDbConnector {
       User user, String otherEmail) async {
     Response response = await post(
       Uri.parse(url +
-          fileMessagesGet +
+          userFile +
+          "GetMessages.php" +
           "?email=" +
           user.email +
           "&password=" +
@@ -133,7 +133,8 @@ class UserDbConnector {
   static void sendMessage(User user, String otherEmail, String testo) async {
     Response response = await post(
       Uri.parse(url +
-          fileSendMessage +
+          userFile +
+          "SendMessage.php" +
           "?email=" +
           user.email +
           "&password=" +
