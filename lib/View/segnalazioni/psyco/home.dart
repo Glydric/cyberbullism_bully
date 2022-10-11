@@ -20,12 +20,14 @@ class PsycoSegnalazioni extends StatefulWidget {
 class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
   late final Timer timer;
 
-  ///ottiene la lista degli ultimi messaggi
-  get chats => PsycoDbConnector.getLastMessages(widget.user)
-      .then((messages) => messages.map(Chat.singleMessage).toList());
+  /// la lista degli ultimi messaggi
+  late Future<List<Chat>> chats;
 
   void updateChat() => setState(() {
-        chats;
+        try {
+          chats = PsycoDbConnector.getLastMessages(widget.user)
+              .then((messages) => messages.map(Chat.singleMessage).toList());
+        } catch (_) {}
       });
 
   @override

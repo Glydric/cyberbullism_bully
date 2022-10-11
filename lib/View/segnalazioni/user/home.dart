@@ -20,12 +20,14 @@ class UserSegnalazione extends StatefulWidget {
 class _UserSegnalazioneState extends State<UserSegnalazione> {
   late final Timer timer;
 
-  ///ottiene la lista degli ultimi messaggi
+  /// la lista degli ultimi messaggi
   late Future<List<Chat>> chats;
 
   void updateChat() => setState(() {
-        chats = UserDbConnector.getLastMessages(widget.user)
-            .then((messages) => messages.map(Chat.singleMessage).toList());
+        try {
+          chats = UserDbConnector.getLastMessages(widget.user)
+              .then((messages) => messages.map(Chat.singleMessage).toList());
+        } catch (_) {}
       });
 
   @override
