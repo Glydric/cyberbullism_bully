@@ -16,7 +16,6 @@ class CardAggiunta extends StatefulWidget {
 class _CardAggiuntaState extends State<CardAggiunta> {
   final TextEditingController _textController = TextEditingController();
   String? _errorText;
-  bool canSend = false;
 
   final tipiDiGravita = List.of(const <String>[
     "Piccolo Problema",
@@ -39,6 +38,12 @@ class _CardAggiuntaState extends State<CardAggiunta> {
   @override
   void initState() {
     _dropdownElement = tipiDiGravita.elementAt(3);
+    // remove first space every time
+    _textController.addListener(
+      () => RegExp(r"[\S]").hasMatch(_textController.text)
+          ? null
+          : _textController.text="",
+    );
     super.initState();
   }
 
@@ -60,7 +65,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-                  onChanged: (value) => setState(() => canSend = value.isNotEmpty),
+                  onChanged: (_) => setState(() {}),
                   maxLength: 5000,
                   minLines: 4,
                   maxLines: 10,
@@ -91,7 +96,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
                       child: const Text("Annulla"),
                     ),
                     MaterialButton(
-                      onPressed: canSend ? send : null,
+                      onPressed: _textController.text.isNotEmpty ? send : null,
                       child: const Text("Invia"),
                     )
                   ],
