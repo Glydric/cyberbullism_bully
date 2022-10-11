@@ -101,15 +101,11 @@ class _CardAggiuntaState extends State<CardAggiunta> {
       );
 
   void send() async {
-    try {
-      await UserDbConnector.addSegnalazioneFromUser(
-        widget.user,
-        _textController.text,
-        tipiDiGravita.indexOf(_dropdownElement)
-      );
-      Navigator.pop(context, true);
-    } on LoginException catch (e) {
-      _errorText = e.toString();
-    }
+    final result = await UserDbConnector.addSegnalazioneFromUser(
+      widget.user,
+      _textController.text,
+      tipiDiGravita.indexOf(_dropdownElement),
+    );
+    Navigator.pop(context, result);
   }
 }

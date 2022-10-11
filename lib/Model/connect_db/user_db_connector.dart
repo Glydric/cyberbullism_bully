@@ -77,11 +77,15 @@ class UserDbConnector {
       "testo": testo,
       "gravita": gravita.toString(),
     };
-    Response response = await post(
-      Uri.parse(url + userFile + "CreateSegnalazione.php"),
-      body: body,
-    );
-    LoginException.thrower(response.body);
+    try {
+      await post(
+        Uri.parse(url + userFile + "CreateSegnalazione.php"),
+        body: body,
+      );
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   static Future<List<Message>> getLastMessages(User user) async {
