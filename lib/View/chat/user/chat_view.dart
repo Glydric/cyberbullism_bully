@@ -85,7 +85,7 @@ class ChatViewState extends State<ChatView> {
               child: FutureBuilder(
                 future: messages,
                 builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasError
-                    ? const ConnectionErrorUI()
+                    ? const Center(child: ConnectionErrorUI())
                     : snapshot.hasData
                         ? ListView.builder(
                             reverse: true,

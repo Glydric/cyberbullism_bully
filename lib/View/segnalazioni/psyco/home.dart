@@ -50,7 +50,7 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
             future: chats,
             builder: (_, AsyncSnapshot<List<Chat>> snapshot) =>
                 snapshot.hasError
-                    ? const ConnectionErrorUI()
+                    ? const Center(child: ConnectionErrorUI())
                     : snapshot.hasData
                         ? PsycoChatList(widget.user, snapshot.requireData)
                         : const CircularProgressIndicator.adaptive(),

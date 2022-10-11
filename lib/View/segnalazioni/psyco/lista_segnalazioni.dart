@@ -50,7 +50,7 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
               future: fillCards,
               builder: (_, AsyncSnapshot<List<Segnalazione>> snapshot) =>
                   snapshot.hasError
-                      ? const ConnectionErrorUI()
+                      ? const Center(child: ConnectionErrorUI())
                       : snapshot.hasData
                           ? buildList(snapshot.requireData)
                           : const CircularProgressIndicator.adaptive()),

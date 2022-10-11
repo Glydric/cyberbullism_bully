@@ -49,7 +49,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
         body: FutureBuilder(
           future: chats,
           builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasError
-              ? const ConnectionErrorUI()
+              ? const Center(child: ConnectionErrorUI())
               : snapshot.hasData
                   ? ChatList(widget.user, snapshot.requireData)
                   : const Center(child: CircularProgressIndicator.adaptive()),
@@ -64,15 +64,16 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
   void addSegnalazione() => showDialog(
         context: context,
         builder: (_) => CardAggiunta(widget.user),
-      ).then((value) {
-        if (value == null) return null;
-        return showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            content: value
-                ? const Text("Segnalazione inserita ")
-                : const Flexible(child: ConnectionErrorUI()),
-          ),
-        );
-      });
+      ).then(
+        (value) => value == null
+            ? null
+            : showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  content: value
+                      ? const Text("Segnalazione inserita ")
+                      : const ConnectionErrorUI(),
+                ),
+              ),
+      );
 }
