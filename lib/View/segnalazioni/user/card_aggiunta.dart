@@ -16,6 +16,7 @@ class CardAggiunta extends StatefulWidget {
 class _CardAggiuntaState extends State<CardAggiunta> {
   final TextEditingController _textController = TextEditingController();
   String? _errorText;
+  bool canSend = false;
 
   final tipiDiGravita = List.of(const <String>[
     "Piccolo Problema",
@@ -59,6 +60,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
+                  onChanged: (value) => setState(() => canSend = value.isNotEmpty),
                   maxLength: 5000,
                   minLines: 4,
                   maxLines: 10,
@@ -85,11 +87,11 @@ class _CardAggiuntaState extends State<CardAggiunta> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     MaterialButton(
-                      onPressed: () => Navigator.pop(context, false),
+                      onPressed: () => Navigator.pop(context),
                       child: const Text("Annulla"),
                     ),
                     MaterialButton(
-                      onPressed: send,
+                      onPressed: canSend ? send : null,
                       child: const Text("Invia"),
                     )
                   ],
