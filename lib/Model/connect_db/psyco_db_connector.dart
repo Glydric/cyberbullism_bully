@@ -30,64 +30,57 @@ class PsycoDbConnector extends UserDbConnector {
 
   static addUser(User user) async {
     await psyChecks(user);
+    final body = {
+      "nome": user.nome,
+      "cognome": user.cognome,
+      "email": user.email,
+      "password": user.password,
+      "Auth_Key_Create_Psyco": "24BEC3BFA"
+    };
     Response response = await post(
-      Uri.parse(
-        url +
-            userFile +
-            "Create.php" +
-            "?nome=" +
-            user.nome +
-            "&cognome=" +
-            user.cognome +
-            "&email=" +
-            user.email +
-            "&password=" +
-            user.password +
-            "&Auth_Key_Create_Psyco=24BEC3BFA",
-      ),
+      Uri.parse(url + userFile + "Create.php"),
+      body: body,
     );
     LoginException.thrower(response.body);
   }
 
   static Future<Psyco> getUser(String email, String password) async {
-    Response response = await post(Uri.parse(
-      url +
-          userFile +
-          "Get.php" +
-          "?email=" +
-          email +
-          "&password=" +
-          User.crypt(password),
-    ));
+    final body = {
+      "email": email,
+      "password": User.crypt(password),
+    };
+    Response response = await post(
+      Uri.parse(url + userFile + "Get.php"),
+      body: body,
+    );
     LoginException.thrower(response.body);
     final json = jsonDecode(response.body);
     return Psyco.fromJson(json);
   }
 
   static Future<List<Segnalazione>> getSegnalazioni(User user) async {
-    Response response = await post(Uri.parse(
-      url +
-          userFile +
-          "GetSegnalazioni.php" +
-          "?email=" +
-          user.email +
-          "&password=" +
-          user.password,
-    ));
+    final body = {
+      "email": user.email,
+      "password": user.password,
+    };
+    Response response = await post(
+      Uri.parse(url + userFile + "GetSegnalazioni.php"),
+      body: body,
+    );
     LoginException.thrower(response.body);
     final List<dynamic> jsonList = jsonDecode(response.body);
     return jsonList.map((s) => Segnalazione.fromJson(s)).toList();
   }
 
   static Future<List<Message>> getLastMessages(User user) async {
+    final body = {
+      "email": user.email,
+      "password": user.password,
+    };
+
     Response response = await post(
-      Uri.parse(url +
-          userFile +
-          "GetLastMessages.php" +
-          "?email=" +
-          user.email +
-          "&password=" +
-          user.password),
+      Uri.parse(url + userFile + "GetLastMessages.php"),
+      body: body,
     );
     LoginException.thrower(response.body);
     final List<dynamic> jsonList = jsonDecode(response.body);
@@ -96,16 +89,14 @@ class PsycoDbConnector extends UserDbConnector {
 
   static Future<List<Message>> getMessagesOf(
       User user, String otherEmail) async {
+    final body = {
+      "email": user.email,
+      "password": user.password,
+      "otherEmail": otherEmail,
+    };
     Response response = await post(
-      Uri.parse(url +
-          userFile +
-          "GetMessages.php" +
-          "?email=" +
-          user.email +
-          "&password=" +
-          user.password +
-          "&otherEmail=" +
-          otherEmail),
+      Uri.parse(url + userFile + "GetMessages.php"),
+      body: body,
     );
     LoginException.thrower(response.body);
     final List<dynamic> jsonList = jsonDecode(response.body);
@@ -113,35 +104,29 @@ class PsycoDbConnector extends UserDbConnector {
   }
 
   static void sendMessage(User user, String otherEmail, String testo) async {
+    final body = {
+      "email": user.email,
+      "password": user.password,
+      "otherEmail": otherEmail,
+      "testo": testo,
+    };
     Response response = await post(
-      Uri.parse(url +
-          userFile +
-          "SendMessage.php" +
-          "?email=" +
-          user.email +
-          "&password=" +
-          user.password +
-          "&otherEmail=" +
-          otherEmail +
-          "&testo=" +
-          testo),
+      Uri.parse(url + userFile + "SendMessage.php"),
+      body: body,
     );
     LoginException.thrower(response.body);
   }
 
   static void presaInCarica(User user, Segnalazione segnalazione) async {
+    final body = {
+      "email": user.email,
+      "password": user.password,
+      "otherEmail": segnalazione.email,
+      "data": DateFormat('yyyy-MM-dd HH:mm:ss').format(segnalazione.data),
+    };
     Response response = await post(
-      Uri.parse(url +
-          userFile +
-          "PresaInCarica.php" +
-          "?email=" +
-          user.email +
-          "&password=" +
-          user.password +
-          "&otherEmail=" +
-          segnalazione.email +
-          "&data=" +
-          DateFormat('yyyy-MM-dd HH:mm:ss').format(segnalazione.data)),
+      Uri.parse(url + userFile + "PresaInCarica.php"),
+      body: body,
     );
     LoginException.thrower(response.body);
   }
