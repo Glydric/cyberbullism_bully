@@ -60,12 +60,16 @@ class UserDbConnector {
 
   /// Consente di aggiungere una segnalazione al database passando un utente
   /// Richiama addSegnalazione prendendo l'email dall'utente passato
-  static addSegnalazioneFromUser(User user, String testo, int gravita) async {
-    addSegnalazione(user.email, user.password, testo, gravita);
+  static Future<bool> addSegnalazioneFromUser(
+    User user,
+    String testo,
+    int gravita,
+  ) async {
+    return addSegnalazione(user.email, user.password, testo, gravita);
   }
 
   /// Consente di aggiungere una segnalazione al database passando direttamente l'email
-  static addSegnalazione(
+  static Future<bool> addSegnalazione(
     String userEmail,
     String password,
     String testo,
