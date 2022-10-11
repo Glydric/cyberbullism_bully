@@ -123,7 +123,7 @@ class ChatViewState extends State<ChatView> {
                     splashRadius: 20,
                     color: Theme.of(context).primaryColor,
                     icon: const Icon(Icons.send),
-                    onPressed: send,
+                    onPressed: textController.text.isNotEmpty ? send : null,
                   ),
                 ),
                 maxLines: 4,
