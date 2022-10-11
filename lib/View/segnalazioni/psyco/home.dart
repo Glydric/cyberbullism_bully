@@ -38,6 +38,7 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
 
   @override
   void initState() {
+    updateChat();
     timer = Timer.periodic(
       const Duration(milliseconds: 100),
       (_) => updateChat(),
