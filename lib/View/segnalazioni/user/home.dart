@@ -21,11 +21,11 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
   late final Timer timer;
 
   ///ottiene la lista degli ultimi messaggi
-  get chats => UserDbConnector.getLastMessages(widget.user)
-      .then((messages) => messages.map(Chat.singleMessage).toList());
+  late Future<List<Chat>> chats;
 
   void updateChat() => setState(() {
-        chats;
+        chats = UserDbConnector.getLastMessages(widget.user)
+            .then((messages) => messages.map(Chat.singleMessage).toList());
       });
 
   @override
@@ -36,6 +36,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
 
   @override
   void initState() {
+    updateChat();
     timer = Timer.periodic(
       const Duration(milliseconds: 100),
       (_) => updateChat(),
@@ -63,12 +64,15 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
   void addSegnalazione() => showDialog(
         context: context,
         builder: (_) => CardAggiunta(widget.user),
-      ).then(
-        (value) => value
-            ? showDialog(
-                context: context,
-                builder: (_) =>
-                    const AlertDialog(content: Text("Segnalazione inserita ")))
-            : null,
-      );
+      ).then((value) {
+        if (value == null) return null;
+        return showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            content: value
+                ? const Text("Segnalazione inserita ")
+                : const Flexible(child: ConnectionErrorUI()),
+          ),
+        );
+      });
 }
