@@ -1,3 +1,4 @@
+import 'package:cyberbullism_bully/Model/connect_db/web_socket/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -24,11 +25,18 @@ void main() {
 
     expectLater(learnings.isNotEmpty, true);
   });
-  // test("User Save Manager Test", () async {
-  //   User user = User("name", "surname", "name.surname@mail.it", "password");
+  test("User Websocket test", () async {
+    final user = User("l", "1", "l@1.it", "it");
 
-  //   UserSavingManager.saveUser(user);
+    final ws = UserWS(user, "p@1.it");
+    print(ws.messages);
+    expectLater(await ws.channel.stream.isEmpty, false);
+  });
+  /* test("User Save Manager Test", () async {
+    User user = User("name", "surname", "name.surname@mail.it", "password");
 
-  //   expectLater(UserSavingManager.getUser(), user);
-  // });
+    UserSavingManager.saveUser(user);
+
+    expectLater(UserSavingManager.getUser(), user);
+  }); */
 }
