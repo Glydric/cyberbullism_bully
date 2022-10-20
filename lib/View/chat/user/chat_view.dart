@@ -30,10 +30,10 @@ class ChatViewState extends State<ChatView> {
   late final Timer timer;
   late final UserWS ws;
 
-  Future<Chat> get messages =>
-      // ws.messages
-      UserDbConnector.getMessagesOf(widget.user, widget.otherEmail)
-          .then(Chat.fromList);
+  // Future<Chat> get messages =>
+  //     // ws.messages
+  //     UserDbConnector.getMessagesOf(widget.user, widget.otherEmail)
+  //         .then(Chat.fromList);
 
   get errorText => textController.text.length == _maximumTextLength
       ? "Impossibile inserire altri caratteri"
@@ -45,7 +45,7 @@ class ChatViewState extends State<ChatView> {
       : null;
 
   void updateChat() => setState(() {
-        messages;
+        // messages;
         ws.update();
       });
 
@@ -62,6 +62,7 @@ class ChatViewState extends State<ChatView> {
       sendMessage();
       updateChat();
     }
+    // TODO use stream
     textController.clear();
   }
 
@@ -88,33 +89,13 @@ class ChatViewState extends State<ChatView> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: Text(widget.otherEmail)),
         body: Column(children: [
-          // Expanded(
-          //   child: FutureBuilder(
-          //     future: messages,
-          //     builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasError
-          //         ? const Center(child: ConnectionErrorUI())
-          //         : snapshot.hasData
-          //             ? ListView.builder(
-          //                 reverse: true,
-          //                 itemCount: snapshot.requireData.messages.length,
-          //                 itemBuilder: (_, int _index) => MessageCard(
-          //                   snapshot.requireData.messages[_index],
-          //                   showDate: showDate(snapshot.requireData, _index),
-          //                   isLast: _index == 0,
-          //                 ),
-          //               )
-          //             : const CircularProgressIndicator.adaptive(),
-          //   ),
-          // ),
           Expanded(
             child: StreamBuilder(
               stream: ws.stream,
               builder: (context, snapshot) => snapshot.hasError
                   ? Text(snapshot.toString())
                   : snapshot.hasData
-                      ?
-                      // Text('${snapshot.data}')
-                      listChatBuilder(snapshot.data)
+                      ? listChatBuilder(snapshot.data)
                       : const CircularProgressIndicator.adaptive(),
             ),
           ),
@@ -158,6 +139,7 @@ class ChatViewState extends State<ChatView> {
           chat.messages[_index + 1].yearMonthDate;
 
   listChatBuilder(body) {
+    if (body == "setted") return Container();
     final chat = Chat.fromJsonString(body);
 
     return ListView.builder(
