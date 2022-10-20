@@ -25,13 +25,16 @@ void main() {
 
     expectLater(learnings.isNotEmpty, true);
   });
-  test("User Websocket test", () async {
-    final user = User("l", "1", "l@1.it", "it");
+  /* test("User Websocket test", () async {
 
     final ws = UserWS(user, "p@1.it");
-    print(ws.messages);
-    expectLater(await ws.channel.stream.isEmpty, false);
-  });
+    final stream = ws.channel.stream;
+    final sink = ws.channel.sink;
+    stream.listen(onError: (event) => debugPrint(event));
+    sink.add("reload ");
+    // print(ws.messages);
+    // expectLater(await ws.channel.stream.isEmpty, false);
+  }); */
   /* test("User Save Manager Test", () async {
     User user = User("name", "surname", "name.surname@mail.it", "password");
 
