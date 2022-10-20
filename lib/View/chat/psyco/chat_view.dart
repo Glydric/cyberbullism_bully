@@ -1,7 +1,7 @@
-import 'package:cyberbullism_bully/Model/connect_db/web_socket/psyco.dart';
-import 'package:cyberbullism_bully/View/chat/user/chat_view.dart';
 import 'package:flutter/material.dart';
 
+import 'package:cyberbullism_bully/Model/connect_db/web_socket/psyco.dart';
+import 'package:cyberbullism_bully/View/chat/user/chat_view.dart';
 import 'package:cyberbullism_bully/Model/user.dart';
 
 /// La schermata che consente di portare avanti una chat con un utente
