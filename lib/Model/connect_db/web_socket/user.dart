@@ -7,22 +7,24 @@ import 'package:cyberbullism_bully/Model/user.dart';
 
 import 'package:cyberbullism_bully/Model/chat/message.dart';
 
-const url = '8080-glydric22-cyberbullismp-e1b2fmf3noc.ws-eu71.gitpod.io';
+const url = 'ws://8080-glydric22-cyberbullismp-e1b2fmf3noc.ws-eu71.gitpod.io';
 
 class UserWS {
   final User user;
   final String otherEmail;
-  final channel = WebSocketChannel.connect(
-    Uri.parse(url),
-  );
 
-  UserWS(this.user, this.otherEmail);
+  final channel;
+
+  UserWS(this.user, this.otherEmail)
+      : channel = WebSocketChannel.connect(
+          Uri.parse(url),
+        );
 
   Future<List<Message>> get messages async {
     final jsonValue = await channel.stream.last;
 
     LoginException.thrower(jsonValue);
-    
+
     final List<dynamic> jsonList = jsonDecode(jsonValue);
 
     return jsonList.map((json) => Message.fromJson(json)).toList();
