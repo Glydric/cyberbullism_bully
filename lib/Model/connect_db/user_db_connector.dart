@@ -106,7 +106,7 @@ class UserDbConnector {
     return jsonList.map((json) => Message.fromJson(json)).toList();
   }
 
-  static Future<List<Message>> getMessagesOf(
+  static Future<List<Message>> getMessagesOf( // TODO remove when websocket finished
       User user, String otherEmail) async {
     final body = {
       "email": user.email,
