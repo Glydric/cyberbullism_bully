@@ -47,6 +47,9 @@ class ChatViewState extends State<ChatView> {
     textController.clear();
   }
 
+  void setWebSocket()=>
+    ws = UserWS(widget.user, widget.otherEmail);
+
   @override
   void dispose() {
     timer.cancel();
@@ -57,7 +60,7 @@ class ChatViewState extends State<ChatView> {
 
   @override
   void initState() {
-    ws = UserWS(widget.user, widget.otherEmail);
+    setWebSocket();
     timer = Timer.periodic(
       const Duration(milliseconds: 100),
       (_) => updateChat(),
@@ -118,8 +121,7 @@ class ChatViewState extends State<ChatView> {
       chat.messages[_index].yearMonthDate !=
           chat.messages[_index + 1].yearMonthDate;
 
-  listChatBuilder(body) {
-    if (body == "setted" || body == "") return Container();
+  ListView listChatBuilder(body) {
     final chat = Chat.fromJsonString(body);
 
     return ListView.builder(
