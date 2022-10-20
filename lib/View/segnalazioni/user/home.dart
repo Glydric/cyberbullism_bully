@@ -40,7 +40,7 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
   void initState() {
     updateChat();
     timer = Timer.periodic(
-      const Duration(milliseconds: 100),
+      const Duration(seconds: 1),
       (_) => updateChat(),
     );
     super.initState();
