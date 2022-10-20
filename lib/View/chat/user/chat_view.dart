@@ -106,14 +106,17 @@ class ChatViewState extends State<ChatView> {
           //             : const CircularProgressIndicator.adaptive(),
           //   ),
           // ),
-          StreamBuilder(
-            stream: ws.stream,
-            builder: (context, snapshot) => snapshot.hasError
-                ? Text(snapshot.toString())
-                : snapshot.hasData
-                    ? Text('${snapshot.data}')
-                    // listChatBuilder(snapshot.data)
-                    : const CircularProgressIndicator.adaptive(),
+          Expanded(
+            child: StreamBuilder(
+              stream: ws.stream,
+              builder: (context, snapshot) => snapshot.hasError
+                  ? Text(snapshot.toString())
+                  : snapshot.hasData
+                      ?
+                      // Text('${snapshot.data}')
+                      listChatBuilder(snapshot.data)
+                      : const CircularProgressIndicator.adaptive(),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -155,9 +158,7 @@ class ChatViewState extends State<ChatView> {
           chat.messages[_index + 1].yearMonthDate;
 
   listChatBuilder(body) {
-    final List<dynamic> jsonList = jsonDecode(body);
-    final messages = jsonList.map((json) => Message.fromJson(json)).toList();
-    final chat = Chat.fromList(messages);
+    final chat = Chat.fromJsonString(body);
 
     return ListView.builder(
       reverse: true,
