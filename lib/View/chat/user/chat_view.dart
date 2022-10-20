@@ -30,11 +30,6 @@ class ChatViewState extends State<ChatView> {
   late final Timer timer;
   late final UserWS ws;
 
-  // Future<Chat> get messages =>
-  //     // ws.messages
-  //     UserDbConnector.getMessagesOf(widget.user, widget.otherEmail)
-  //         .then(Chat.fromList);
-
   get errorText => textController.text.length == _maximumTextLength
       ? "Impossibile inserire altri caratteri"
       : null;
@@ -44,25 +39,15 @@ class ChatViewState extends State<ChatView> {
       ? _maximumTextLength
       : null;
 
-  void updateChat() => setState(() {
-        // messages;
-        ws.update();
-      });
+  void updateChat() => setState(() => ws.update());
 
-  void sendMessage() {
-    UserDbConnector.sendMessage(
-      widget.user,
-      widget.otherEmail,
-      textController.text,
-    );
-  }
+  void sendMessage() => ws.sendMessage(textController.text);
 
   void send() {
     if (RegExp(r"[\S]").hasMatch(textController.text)) {
       sendMessage();
       updateChat();
     }
-    // TODO use stream
     textController.clear();
   }
 
@@ -81,7 +66,6 @@ class ChatViewState extends State<ChatView> {
       const Duration(milliseconds: 100),
       (_) => updateChat(),
     );
-
     super.initState();
   }
 
@@ -139,7 +123,7 @@ class ChatViewState extends State<ChatView> {
           chat.messages[_index + 1].yearMonthDate;
 
   listChatBuilder(body) {
-    if (body == "setted") return Container();
+    if (body == "setted" || body == "") return Container();
     final chat = Chat.fromJsonString(body);
 
     return ListView.builder(
