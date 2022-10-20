@@ -1,8 +1,7 @@
-import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
 import 'package:flutter/material.dart';
 
-import '/Model/connect_db/login_exception.dart';
-import '/Model/user.dart';
+import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
 
 class CardAggiunta extends StatefulWidget {
   final User user;

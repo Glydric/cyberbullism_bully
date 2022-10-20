@@ -18,7 +18,6 @@ class PsycoChatView extends ChatView {
 }
 
 class PsycoChatViewState extends ChatViewState {
-  @override
   Future<Chat> get messages =>
       PsycoDbConnector.getMessagesOf(widget.user, widget.otherEmail)
           .then(Chat.fromList);
