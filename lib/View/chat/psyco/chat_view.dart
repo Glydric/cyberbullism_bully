@@ -1,11 +1,8 @@
-import 'dart:async';
-
+import 'package:cyberbullism_bully/Model/connect_db/web_socket/psyco.dart';
 import 'package:cyberbullism_bully/View/chat/user/chat_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cyberbullism_bully/Model/user.dart';
-import 'package:cyberbullism_bully/Model/connect_db/psyco_db_connector.dart';
-import 'package:cyberbullism_bully/Model/chat/chat.dart';
 
 /// La schermata che consente di portare avanti una chat con un utente
 class PsycoChatView extends ChatView {
@@ -13,21 +10,10 @@ class PsycoChatView extends ChatView {
       : super(user, otherEmail, key: key);
 
   @override
-  // ignore: no_logic_in_create_state
   ChatViewState createState() => PsycoChatViewState();
 }
 
 class PsycoChatViewState extends ChatViewState {
-  Future<Chat> get messages =>
-      PsycoDbConnector.getMessagesOf(widget.user, widget.otherEmail)
-          .then(Chat.fromList);
-
   @override
-  void sendMessage() {
-    PsycoDbConnector.sendMessage(
-      widget.user,
-      widget.otherEmail,
-      textController.text,
-    );
-  }
+  void setWebSocket() => ws = PsycoWS(widget.user, widget.otherEmail);
 }
