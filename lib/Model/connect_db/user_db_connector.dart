@@ -6,7 +6,7 @@ import 'package:cyberbullism_bully/Model/chat/message.dart';
 import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
 
-const url = "http://15.160.141.119/";
+const url = "http://leonardomigliorelli.altervista.org/";
 
 const String userFile = "User";
 
