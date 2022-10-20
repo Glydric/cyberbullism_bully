@@ -71,49 +71,51 @@ class ChatViewState extends State<ChatView> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: Text(widget.otherEmail)),
-        body: Column(children: [
-          Expanded(
-            child: StreamBuilder(
-              stream: ws.stream,
-              builder: (context, snapshot) => snapshot.hasError
-                  ? Text(snapshot.toString())
-                  : snapshot.hasData
-                      ? listChatBuilder(snapshot.data)
-                      : const CircularProgressIndicator.adaptive(),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: TextField(
-              maxLength: seeMaxLength,
-              onChanged: (s) => setState(() => errorText),
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(_maximumTextLength)
-              ],
-              textAlignVertical: TextAlignVertical.center,
-              controller: textController,
-              decoration: InputDecoration(
-                hintText: "Inserire il messaggio",
-                helperText:
-                    "", // fornisce uno spazio in modo che all'aggiunta degli altri elementi il textfield non si alzi
-                errorText: errorText,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
-                border: const OutlineInputBorder(),
-                suffixIcon: IconButton(
-                  splashRadius: 20,
-                  color: Theme.of(context).primaryColor,
-                  icon: const Icon(Icons.send),
-                  onPressed: textController.text.isNotEmpty ? send : null,
-                ),
+        body: SafeArea(
+          child: Column(children: [
+            Expanded(
+              child: StreamBuilder(
+                stream: ws.stream,
+                builder: (context, snapshot) => snapshot.hasError
+                    ? Text(snapshot.toString())
+                    : snapshot.hasData
+                        ? listChatBuilder(snapshot.data)
+                        : const CircularProgressIndicator.adaptive(),
               ),
-              maxLines: 4,
-              minLines: 1,
             ),
-          ),
-        ]),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextField(
+                maxLength: seeMaxLength,
+                onChanged: (s) => setState(() => errorText),
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(_maximumTextLength)
+                ],
+                textAlignVertical: TextAlignVertical.center,
+                controller: textController,
+                decoration: InputDecoration(
+                  hintText: "Inserire il messaggio",
+                  helperText:
+                      "", // fornisce uno spazio in modo che all'aggiunta degli altri elementi il textfield non si alzi
+                  errorText: errorText,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    splashRadius: 20,
+                    color: Theme.of(context).primaryColor,
+                    icon: const Icon(Icons.send),
+                    onPressed: textController.text.isNotEmpty ? send : null,
+                  ),
+                ),
+                maxLines: 4,
+                minLines: 1,
+              ),
+            ),
+          ]),
+        ),
       );
 
   bool showDate(Chat chat, int _index) =>
