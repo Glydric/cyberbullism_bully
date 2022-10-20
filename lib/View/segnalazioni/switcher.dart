@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '/Model/user.dart';
-import '/Model/user_save_manager.dart';
-import 'psyco/home.dart';
-import 'user/home.dart';
+
+import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/Model/user_save_manager.dart';
+import 'package:cyberbullism_bully/View/segnalazioni/psyco/home.dart';
+import 'package:cyberbullism_bully/View/segnalazioni/user/home.dart';
 
 class SegnalazioniPage extends StatefulWidget {
   const SegnalazioniPage({Key? key}) : super(key: key);
