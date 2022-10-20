@@ -5,6 +5,7 @@ class ConnectionErrorUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
+        heightFactor: 0.2,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [

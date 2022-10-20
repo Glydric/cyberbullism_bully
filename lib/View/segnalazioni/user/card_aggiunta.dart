@@ -1,8 +1,7 @@
-import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
 import 'package:flutter/material.dart';
 
-import '/Model/connect_db/login_exception.dart';
-import '/Model/user.dart';
+import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
 
 class CardAggiunta extends StatefulWidget {
   final User user;
@@ -21,6 +20,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
     "Piccolo Problema",
     "Gravità alta",
     "Pericolo!",
+    "Non definita",
   ]);
 
   late String _dropdownElement;
@@ -36,7 +36,13 @@ class _CardAggiuntaState extends State<CardAggiunta> {
 
   @override
   void initState() {
-    _dropdownElement = tipiDiGravita.elementAt(0);
+    _dropdownElement = tipiDiGravita.elementAt(3);
+    // remove first space every time
+    _textController.addListener(
+      () => RegExp(r"[\S]").hasMatch(_textController.text)
+          ? null
+          : _textController.text="",
+    );
     super.initState();
   }
 
@@ -58,6 +64,7 @@ class _CardAggiuntaState extends State<CardAggiunta> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
+                  onChanged: (_) => setState(() {}),
                   maxLength: 5000,
                   minLines: 4,
                   maxLines: 10,
@@ -84,11 +91,11 @@ class _CardAggiuntaState extends State<CardAggiunta> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     MaterialButton(
-                      onPressed: () => Navigator.pop(context, false),
+                      onPressed: () => Navigator.pop(context),
                       child: const Text("Annulla"),
                     ),
                     MaterialButton(
-                      onPressed: send,
+                      onPressed: _textController.text.isNotEmpty ? send : null,
                       child: const Text("Invia"),
                     )
                   ],
@@ -100,15 +107,11 @@ class _CardAggiuntaState extends State<CardAggiunta> {
       );
 
   void send() async {
-    try {
-      await UserDbConnector.addSegnalazioneFromUser(
-        widget.user,
-        _textController.text,
-        tipiDiGravita.indexOf(_dropdownElement)
-      );
-      Navigator.pop(context, true);
-    } on LoginException catch (e) {
-      _errorText = e.toString();
-    }
+    final result = await UserDbConnector.addSegnalazioneFromUser(
+      widget.user,
+      _textController.text,
+      tipiDiGravita.indexOf(_dropdownElement),
+    );
+    Navigator.pop(context, result);
   }
 }

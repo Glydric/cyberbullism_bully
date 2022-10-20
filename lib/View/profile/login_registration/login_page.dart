@@ -20,10 +20,12 @@ class _LogInPageState extends State<LogInPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String _errorName = "";
+  bool _isLoading = false;
 
   ///Sign In Psyco
   void psycoSignIn() async {
     try {
+      setState(() => _isLoading = true);
       Psyco user = await PsycoDbConnector.getUser(
         _emailController.text,
         _passwordController.text,
@@ -35,7 +37,13 @@ class _LogInPageState extends State<LogInPage> {
       _errorName = "";
     } on LoginException catch (e) {
       _errorName = e.toString();
+    } on Exception catch (e) {
+      _errorName = "Errore generico";
+      if (e.runtimeType.toString() == "_ClientSocketException") {
+        _errorName = "Errore di rete";
+      }
     } finally {
+      setState(() => _isLoading = false);
       setState(() => _errorName);
     }
   }
@@ -43,6 +51,7 @@ class _LogInPageState extends State<LogInPage> {
   ///Sign In user
   void userSignIn() async {
     try {
+      setState(() => _isLoading = true);
       User user = await UserDbConnector.getUser(
         _emailController.text,
         _passwordController.text,
@@ -58,7 +67,13 @@ class _LogInPageState extends State<LogInPage> {
       } else {
         _errorName = e.toString();
       }
+    } on Exception catch (e) {
+      _errorName = "Errore generico";
+      if (e.runtimeType.toString() == "_ClientSocketException") {
+        _errorName = "Errore di rete";
+      }
     } finally {
+      setState(() => _isLoading = false);
       setState(() => _errorName);
     }
   }
@@ -88,13 +103,17 @@ class _LogInPageState extends State<LogInPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextFormField(
+                Visibility(
+                  visible: _isLoading,
+                  child: const CircularProgressIndicator.adaptive(),
+                ),
+                TextField(
                   decoration: const InputDecoration(label: Text("Email")),
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
                 ),
-                TextFormField(
+                TextField(
                   decoration: const InputDecoration(label: Text("Password")),
                   controller: _passwordController,
                   obscureText: true,

@@ -1,4 +1,4 @@
-import '../psyco/psyco.dart';
+import 'package:cyberbullism_bully/Model/psyco/psyco.dart';
 
 class LoginException implements Exception {
   final dynamic message;

@@ -4,7 +4,7 @@ import '../chat_card.dart';
 import '/Model/user.dart';
 import '/Model/chat/chat.dart';
 
-import 'psyco_chat_view.dart';
+import 'chat_view.dart';
 
 class PsycoChatList extends StatefulWidget {
   final List<Chat> chats;
@@ -17,6 +17,7 @@ class PsycoChatList extends StatefulWidget {
 }
 
 class _PsycoChatListState extends State<PsycoChatList> {
+  //Can't extend ChatListState because context not working anymore
   @override
   Widget build(BuildContext context) => ListView.builder(
         itemCount: widget.chats.length,
@@ -28,5 +29,5 @@ class _PsycoChatListState extends State<PsycoChatList> {
 
   toChatPage(String otherEmail) => Navigator.of(context).push(MaterialPageRoute(
         builder: (_) => PsycoChatView(widget.user, otherEmail),
-      ));
+      )); 
 }

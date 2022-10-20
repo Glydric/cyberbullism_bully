@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/Model/chat/message.dart';
+import 'package:cyberbullism_bully/Model/chat/message.dart';
 
 /// La singola card di una chat
 class ChatCard extends StatelessWidget {
@@ -19,14 +19,14 @@ class ChatCard extends StatelessWidget {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
                 Text(
-                  showingMessage.otherEmail,
+                  showingMessage.nomeCognome,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 Text(showingMessage.hourMinutes),
               ]),
               const Text(''),
-              Text((showingMessage.sender ? "" : "Tu: ") + showingMessage.text,
+              Text((showingMessage.sender ? "" : "Tu: ") + showingMessage.testo,
                   maxLines: 3, textAlign: TextAlign.left),
             ]),
           ),

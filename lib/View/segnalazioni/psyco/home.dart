@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '/Model/chat/chat.dart';
 import '/Model/connect_db/psyco_db_connector.dart';
 import '/Model/user.dart';
-import '/View/chat/psyco/psyco_chat_list.dart';
+import '../../chat/psyco/chat_list.dart';
 
 class PsycoSegnalazioni extends StatefulWidget {
   final User user;
@@ -20,12 +20,14 @@ class PsycoSegnalazioni extends StatefulWidget {
 class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
   late final Timer timer;
 
-  ///ottiene la lista degli ultimi messaggi
-  get chats => PsycoDbConnector.getLastMessages(widget.user)
-      .then((messages) => messages.map(Chat.singleMessage).toList());
+  /// la lista degli ultimi messaggi
+  late Future<List<Chat>> chats;
 
   void updateChat() => setState(() {
-        chats;
+        try {
+          chats = PsycoDbConnector.getLastMessages(widget.user)
+              .then((messages) => messages.map(Chat.singleMessage).toList());
+        } catch (_) {}
       });
 
   @override
@@ -36,6 +38,7 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
 
   @override
   void initState() {
+    updateChat();
     timer = Timer.periodic(
       const Duration(milliseconds: 100),
       (_) => updateChat(),
@@ -50,7 +53,7 @@ class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
             future: chats,
             builder: (_, AsyncSnapshot<List<Chat>> snapshot) =>
                 snapshot.hasError
-                    ? const ConnectionErrorUI()
+                    ? const Center(child: ConnectionErrorUI())
                     : snapshot.hasData
                         ? PsycoChatList(widget.user, snapshot.requireData)
                         : const CircularProgressIndicator.adaptive(),

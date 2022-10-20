@@ -20,12 +20,14 @@ class UserSegnalazione extends StatefulWidget {
 class _UserSegnalazioneState extends State<UserSegnalazione> {
   late final Timer timer;
 
-  ///ottiene la lista degli ultimi messaggi
-  get chats => UserDbConnector.getLastMessages(widget.user)
-      .then((messages) => messages.map(Chat.singleMessage).toList());
+  /// la lista degli ultimi messaggi
+  late Future<List<Chat>> chats;
 
   void updateChat() => setState(() {
-        chats;
+        try {
+          chats = UserDbConnector.getLastMessages(widget.user)
+              .then((messages) => messages.map(Chat.singleMessage).toList());
+        } catch (_) {}
       });
 
   @override
@@ -36,8 +38,9 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
 
   @override
   void initState() {
+    updateChat();
     timer = Timer.periodic(
-      const Duration(milliseconds: 100),
+      const Duration(seconds: 1),
       (_) => updateChat(),
     );
     super.initState();
@@ -48,9 +51,9 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
         body: FutureBuilder(
           future: chats,
           builder: (_, AsyncSnapshot<List<Chat>> snapshot) => snapshot.hasError
-              ? const ConnectionErrorUI()
+              ? const Center(child: ConnectionErrorUI())
               : snapshot.hasData
-                  ? ListaChat(widget.user, snapshot.requireData)
+                  ? ChatList(widget.user, snapshot.requireData)
                   : const Center(child: CircularProgressIndicator.adaptive()),
         ),
         floatingActionButton: FloatingActionButton.extended(
@@ -64,11 +67,15 @@ class _UserSegnalazioneState extends State<UserSegnalazione> {
         context: context,
         builder: (_) => CardAggiunta(widget.user),
       ).then(
-        (value) => value
-            ? showDialog(
+        (value) => value == null
+            ? null
+            : showDialog(
                 context: context,
-                builder: (_) =>
-                    const AlertDialog(content: Text("Segnalazione inserita ")))
-            : null,
+                builder: (_) => AlertDialog(
+                  content: value
+                      ? const Text("Segnalazione inserita ")
+                      : const ConnectionErrorUI(),
+                ),
+              ),
       );
 }

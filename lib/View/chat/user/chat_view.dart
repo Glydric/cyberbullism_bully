@@ -1,14 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '/View/connection_error_ui.dart';
-import '/Model/user.dart';
-import '/Model/connect_db/user_db_connector.dart';
-import '/Model/chat/chat.dart';
+import 'package:cyberbullism_bully/Model/connect_db/web_socket/user.dart';
+import 'package:cyberbullism_bully/View/chat/message_card.dart';
 
-import '../message_card.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/Model/chat/chat.dart';
 
 int get _maximumTextLength => 500;
 
@@ -20,49 +18,49 @@ class ChatView extends StatefulWidget {
   const ChatView(this.user, this.otherEmail, {Key? key}) : super(key: key);
 
   @override
-  State<ChatView> createState() => _ChatViewState();
+  State<ChatView> createState() => ChatViewState();
 }
 
-class _ChatViewState extends State<ChatView> {
-  final TextEditingController _textController = TextEditingController();
+class ChatViewState extends State<ChatView> {
+  final TextEditingController textController = TextEditingController();
   late final Timer timer;
+  late final UserWS ws;
 
-  Future<Chat> get messages =>
-      UserDbConnector.getMessagesOf(widget.user, widget.otherEmail)
-          .then(Chat.fromList);
-
-  get errorText => _textController.text.length == _maximumTextLength
+  get errorText => textController.text.length == _maximumTextLength
       ? "Impossibile inserire altri caratteri"
       : null;
 
   ///Fornisce il valore da inserire nel campo maxLength cosi da mostrare il massimo all'occorrenza
-  get seeMaxLength => _textController.text.length > _maximumTextLength - 50
+  get seeMaxLength => textController.text.length > _maximumTextLength - 50
       ? _maximumTextLength
       : null;
 
-  void updateChat() => setState(() {
-        messages;
-      });
+  void updateChat() => setState(ws.update);
+
+  void sendMessage() => ws.sendMessage(textController.text);
 
   void send() {
-    UserDbConnector.sendMessage(
-      widget.user,
-      widget.otherEmail,
-      _textController.text,
-    );
-    _textController.clear();
-    updateChat();
+    if (RegExp(r"[\S]").hasMatch(textController.text)) {
+      sendMessage();
+      updateChat();
+    }
+    textController.clear();
   }
+
+  void setWebSocket()=>
+    ws = UserWS(widget.user, widget.otherEmail);
 
   @override
   void dispose() {
     timer.cancel();
-    _textController.dispose();
+    textController.dispose();
+    ws.close();
     super.dispose();
   }
 
   @override
   void initState() {
+    setWebSocket();
     timer = Timer.periodic(
       const Duration(milliseconds: 100),
       (_) => updateChat(),
@@ -76,21 +74,13 @@ class _ChatViewState extends State<ChatView> {
         body: SafeArea(
           child: Column(children: [
             Expanded(
-              child: FutureBuilder(
-                future: messages,
-                builder: (_, AsyncSnapshot<Chat> snapshot) => snapshot.hasError
-                    ? const ConnectionErrorUI()
+              child: StreamBuilder(
+                stream: ws.stream,
+                builder: (context, snapshot) => snapshot.hasError
+                    ? Text(snapshot.toString())
                     : snapshot.hasData
-                        ? ListView.builder(
-                            reverse: true,
-                            itemCount: snapshot.requireData.messages.length,
-                            itemBuilder: (_, int _index) => MessageCard(
-                              snapshot.requireData.messages[_index],
-                              showDate: showDate(snapshot.requireData, _index),
-                              isLast: _index == 0,
-                            ),
-                          )
-                        : Container(),
+                        ? listChatBuilder(snapshot.data)
+                        : const CircularProgressIndicator.adaptive(),
               ),
             ),
             Padding(
@@ -102,7 +92,7 @@ class _ChatViewState extends State<ChatView> {
                   LengthLimitingTextInputFormatter(_maximumTextLength)
                 ],
                 textAlignVertical: TextAlignVertical.center,
-                controller: _textController,
+                controller: textController,
                 decoration: InputDecoration(
                   hintText: "Inserire il messaggio",
                   helperText:
@@ -117,7 +107,7 @@ class _ChatViewState extends State<ChatView> {
                     splashRadius: 20,
                     color: Theme.of(context).primaryColor,
                     icon: const Icon(Icons.send),
-                    onPressed: send,
+                    onPressed: textController.text.isNotEmpty ? send : null,
                   ),
                 ),
                 maxLines: 4,
@@ -132,4 +122,18 @@ class _ChatViewState extends State<ChatView> {
       _index + 1 == chat.messages.length ||
       chat.messages[_index].yearMonthDate !=
           chat.messages[_index + 1].yearMonthDate;
+
+  ListView listChatBuilder(body) {
+    final chat = Chat.fromJsonString(body);
+
+    return ListView.builder(
+      reverse: true,
+      itemCount: chat.messages.length,
+      itemBuilder: (_, int _index) => MessageCard(
+        chat.messages[_index],
+        showDate: showDate(chat, _index),
+        isLast: _index == 0,
+      ),
+    );
+  }
 }

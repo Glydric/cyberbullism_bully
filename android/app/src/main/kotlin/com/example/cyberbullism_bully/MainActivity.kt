@@ -1,4 +1,4 @@
-package com.unicam.studenti.cyberbullismbully
+package com.unicam.studenti.cyberhelp
 
 import io.flutter.embedding.android.FlutterActivity
 

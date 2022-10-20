@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/Model/user.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
 import '/Model/user_save_manager.dart';
 import 'login_registration/login_page.dart';
 import 'login_registration/change_password.dart';
@@ -13,13 +13,38 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  get aboutButton => [
+        IconButton(
+          onPressed: () => showAboutDialog(
+              context: context,
+              applicationIcon: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: 
+                Image.asset(
+                  "assets/Logo.png",
+                  scale: 16,
+                ),
+              ),
+              applicationName: "Cyber Help",
+              applicationVersion: "0.9",
+              children: [
+                const Text(
+                    "Unicam Project by\nLeonardo Migliorelli & Loris Minetti")
+              ]),
+          icon: const Icon(Icons.info),
+        )
+      ];
+
   @override
   Widget build(BuildContext context) => FutureBuilder(
         future: UserSavingManager.getUser(),
         builder: (BuildContext context, AsyncSnapshot<User> snapshot) =>
             snapshot.hasError
                 ? Scaffold(
-                    appBar: AppBar(title: const Text("Profilo")),
+                    appBar: AppBar(
+                      title: const Text("Profilo"),
+                      actions: aboutButton,
+                    ),
                     body: Center(
                       child: ElevatedButton(
                         onPressed: () => showMyBottomSheet(const LogInPage()),
@@ -30,7 +55,9 @@ class _HomePageState extends State<HomePage> {
                 : snapshot.hasData
                     ? getInfoScreen(snapshot.requireData)
                     : Scaffold(
-                        appBar: AppBar(),
+                        appBar: AppBar(
+                          actions: aboutButton,
+                        ),
                         body: const CircularProgressIndicator.adaptive(),
                       ),
       );
@@ -40,7 +67,10 @@ class _HomePageState extends State<HomePage> {
       : const Text("Utente");
 
   Widget getInfoScreen(User user) => Scaffold(
-        appBar: AppBar(title: getTitle(user)),
+        appBar: AppBar(
+          title: getTitle(user),
+          actions: aboutButton,
+        ),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(32).copyWith(top: 64),
