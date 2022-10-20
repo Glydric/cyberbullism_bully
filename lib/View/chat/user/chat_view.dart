@@ -39,7 +39,7 @@ class ChatViewState extends State<ChatView> {
       ? _maximumTextLength
       : null;
 
-  void updateChat() => setState(() => ws.update());
+  void updateChat() => setState(ws.update);
 
   void sendMessage() => ws.sendMessage(textController.text);
 
