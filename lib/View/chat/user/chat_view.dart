@@ -1,15 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:cyberbullism_bully/Model/chat/message.dart';
 import 'package:cyberbullism_bully/Model/connect_db/web_socket/user.dart';
 import 'package:cyberbullism_bully/View/chat/message_card.dart';
-import 'package:cyberbullism_bully/View/connection_error_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:cyberbullism_bully/Model/user.dart';
-import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
 import 'package:cyberbullism_bully/Model/chat/chat.dart';
 
 int get _maximumTextLength => 500;
