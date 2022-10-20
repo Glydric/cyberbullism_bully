@@ -13,12 +13,11 @@ class UserWS {
   final User user;
   final String otherEmail;
 
-  final channel;
+  final channel = WebSocketChannel.connect(
+    Uri.parse(url),
+  );
 
-  UserWS(this.user, this.otherEmail)
-      : channel = WebSocketChannel.connect(
-          Uri.parse(url),
-        );
+  UserWS(this.user, this.otherEmail);
 
   Future<List<Message>> get messages async {
     final jsonValue = await channel.stream.last;
