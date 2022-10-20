@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cyberbullism_bully/View/connection_error_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -77,7 +78,7 @@ class ChatViewState extends State<ChatView> {
               child: StreamBuilder(
                 stream: ws.stream,
                 builder: (context, snapshot) => snapshot.hasError
-                    ? Text(snapshot.toString())
+                    ? const ConnectionErrorUI()
                     : snapshot.hasData
                         ? listChatBuilder(snapshot.data)
                         : const CircularProgressIndicator.adaptive(),
