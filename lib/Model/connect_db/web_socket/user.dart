@@ -7,7 +7,7 @@ import 'package:cyberbullism_bully/Model/user.dart';
 
 import 'package:cyberbullism_bully/Model/chat/message.dart';
 
-const url = 'wss://echo.websocket.events';
+const url = '8080-glydric22-cyberbullismp-e1b2fmf3noc.ws-eu71.gitpod.io';
 
 class UserWS {
   final User user;
