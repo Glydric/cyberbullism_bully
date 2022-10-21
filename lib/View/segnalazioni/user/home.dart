@@ -14,10 +14,10 @@ class UserSegnalazione extends StatefulWidget {
   const UserSegnalazione(this.user, {Key? key}) : super(key: key);
 
   @override
-  State<UserSegnalazione> createState() => _UserSegnalazioneState();
+  State<UserSegnalazione> createState() => UserSegnalazioneState();
 }
 
-class _UserSegnalazioneState extends State<UserSegnalazione> {
+class UserSegnalazioneState extends State<UserSegnalazione> {
   late final Timer timer;
 
   /// la lista degli ultimi messaggi
