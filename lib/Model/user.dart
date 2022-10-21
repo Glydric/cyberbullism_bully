@@ -1,5 +1,6 @@
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
+import 'package:dbcrypt/dbcrypt.dart';
+
+const salt = r'$2b$10$9ic4zJ8DFwSdl83iq09Io.';
 
 class User {
   final String email;
@@ -7,11 +8,8 @@ class User {
   final String cognome;
   final String password;
 
-  static String crypt(String password) =>
-      sha256.convert(utf8.encode(password)).toString();
-
   User(this.nome, this.cognome, this.email, password)
-      : password = crypt(password);
+      : password = crypt(email, password);
 
   User.fromJson(Map<String, dynamic> json)
       : email = json["email"],
@@ -26,6 +24,14 @@ class User {
         'cognome': cognome,
         'password': password,
       };
+
+  static String _hash(String text) =>
+      // sha256.convert(utf8.encode(text)).toString();
+      DBCrypt().hashpw(text, salt);
+
+  // using bcrypt like hashing method
+  static String crypt(String email, String password) =>
+      _hash(_hash(email) + salt + _hash(password));
 
   @override
   String toString() =>

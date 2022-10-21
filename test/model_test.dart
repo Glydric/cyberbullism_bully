@@ -1,3 +1,4 @@
+import 'package:dbcrypt/dbcrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -18,14 +19,13 @@ void main() {
     expectLater(learnings.isNotEmpty, true);
   });
   test("User Crypt test", () async {
-    const password = "l@1.it";
+    const password = "it";
+    const email = "l@1.it";
 
-    User user = User("l", "1", "l@1.it", "it");
+    User user = User("l", "1", email, password);
 
-    debugPrint(user.password);
-
-    expect(user.password == User.crypt("l@1.it", "it"), true);
-    expect(password == user.password, false);
+    expect(User.crypt(email, password), user.password);
+    // expect(User.crypt("l@1.it",password) == user.password, false);
   });
   /* test("User Websocket test", () async {
 

@@ -47,7 +47,7 @@ class PsycoDbConnector extends UserDbConnector {
   static Future<Psyco> getUser(String email, String password) async {
     final body = {
       "email": email,
-      "password": User.crypt(password),
+      "password": User.crypt(email,password),
     };
     Response response = await post(
       Uri.parse(url + userFile + "Get.php"),
