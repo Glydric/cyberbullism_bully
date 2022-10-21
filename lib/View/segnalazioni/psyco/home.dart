@@ -1,50 +1,28 @@
-import 'dart:async';
-
-import '/View/connection_error_ui.dart';
 import 'package:flutter/material.dart';
 
-import '/Model/chat/chat.dart';
-import '/Model/connect_db/psyco_db_connector.dart';
-import '/Model/user.dart';
-import '../../chat/psyco/chat_list.dart';
+import 'package:cyberbullism_bully/View/segnalazioni/user/home.dart';
+import 'package:cyberbullism_bully/View/connection_error_ui.dart';
+import 'package:cyberbullism_bully/View/chat/psyco/chat_list.dart';
 
-class PsycoSegnalazioni extends StatefulWidget {
-  final User user;
+import 'package:cyberbullism_bully/Model/chat/chat.dart';
+import 'package:cyberbullism_bully/Model/connect_db/psyco_db_connector.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
 
-  const PsycoSegnalazioni(this.user, {Key? key}) : super(key: key);
+class PsycoSegnalazioni extends UserSegnalazione {
+  const PsycoSegnalazioni(User user, {Key? key}) : super(user, key: key);
 
   @override
-  State<StatefulWidget> createState() => _PsycoSegnalazioniState();
+  State<UserSegnalazione> createState() => _PsycoSegnalazioniState();
 }
 
-class _PsycoSegnalazioniState extends State<PsycoSegnalazioni> {
-  late final Timer timer;
-
-  /// la lista degli ultimi messaggi
-  late Future<List<Chat>> chats;
-
+class _PsycoSegnalazioniState extends UserSegnalazioneState {
+  @override
   void updateChat() => setState(() {
         try {
           chats = PsycoDbConnector.getLastMessages(widget.user)
               .then((messages) => messages.map(Chat.singleMessage).toList());
         } catch (_) {}
       });
-
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    updateChat();
-    timer = Timer.periodic(
-      const Duration(milliseconds: 100),
-      (_) => updateChat(),
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
