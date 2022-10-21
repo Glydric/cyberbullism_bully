@@ -12,17 +12,20 @@ void main() {
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.setMockInitialValues({});
   });
-
-  test('User Crypt test', () {
-    const password = "password";
-    User user = User("name", "surname", "name.surname@mail.it", password);
-
-    expect(password == user.password, false);
-  });
   test("Get Learnings from asset folder", () async {
     List learnings = await GetLearnings.learnings;
 
     expectLater(learnings.isNotEmpty, true);
+  });
+  test("User Crypt test", () async {
+    const password = "l@1.it";
+
+    User user = User("l", "1", "l@1.it", "it");
+
+    debugPrint(user.password);
+
+    expect(user.password == User.crypt("l@1.it", "it"), true);
+    expect(password == user.password, false);
   });
   /* test("User Websocket test", () async {
 
