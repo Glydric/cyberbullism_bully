@@ -6,11 +6,11 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:cyberbullism_bully/Model/user.dart';
 
 const url =
-    'ws://8080-glydric22-cyberbullismp-e1b2fmf3noc.ws-eu71.gitpod.io/user';
+    'ws://8080-glydric22-cyberbullismp-j4e9msdl2wv.ws-eu72.gitpod.io/';
 
 class UserWS {
   final channel = WebSocketChannel.connect(
-    Uri.parse(url),
+    Uri.parse(url + 'user'),
   );
 
   UserWS(User user, String otherEmail) {
