@@ -30,7 +30,7 @@ class UserDbConnector {
   static Future<User> getUser(String email, String password) async {
     final body = {
       "email": email,
-      "password": User.crypt(password),
+      "password": User.crypt(email, password),
     };
     Response response = await post(
       Uri.parse(url + userFile + "Get.php"),
@@ -42,13 +42,14 @@ class UserDbConnector {
   }
 
   /// consente di modificare la password del'utente passando la nuova
-  static modifyPassword(User user, String password, String newPassword) async {
+  static modifyPassword(User user, String insertedPassword, String newPassword) async {
     final body = {
       "email": user.email,
       "password": user.password,
-      "newPassword": User.crypt(newPassword),
+      "newPassword": User.crypt(user.email, newPassword),
     };
-    if (user.password != User.crypt(password)) {
+    // se la password attuale è diversa da quella fornita (e criptata)
+    if (user.password != User.crypt(user.email, insertedPassword)) {
       throw LoginException('wrong-password');
     }
     Response response = await post(
@@ -106,8 +107,10 @@ class UserDbConnector {
     return jsonList.map((json) => Message.fromJson(json)).toList();
   }
 
-  static Future<List<Message>> getMessagesOf( // TODO remove when websocket finished
-      User user, String otherEmail) async {
+  static Future<List<Message>> getMessagesOf(
+      // TODO remove when websocket finished
+      User user,
+      String otherEmail) async {
     final body = {
       "email": user.email,
       "password": user.password,
