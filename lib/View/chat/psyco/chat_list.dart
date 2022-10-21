@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../chat_card.dart';
-import '/Model/user.dart';
-import '/Model/chat/chat.dart';
+import 'package:cyberbullism_bully/View/chat/chat_card.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/Model/chat/chat.dart';
 
 import 'chat_view.dart';
 
