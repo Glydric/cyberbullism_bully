@@ -7,33 +7,24 @@
 
 
 
+import 'package:cyberbullism_bully/main.dart';
+import 'package:flutter_test/flutter_test.dart';
+
 void main() {
-  // testWidgets('Test Widget Example (Not Working)', (WidgetTester tester) async {
-  //   // Build our app and trigger a frame.
-  //   await tester.pumpWidget(const MainApp());
+  testWidgets('Widget Example (Not Working)', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    // await tester.pumpWidget(const MainApp());
 
-  //   // Verify that our counter starts at 0.
-  //   expect(find.text('0'), findsOneWidget);
-  //   expect(find.text('1'), findsNothing);
+    // // Verify that our counter starts at 0.
+    // expect(find.text('0'), findsOneWidget);
+    // expect(find.text('1'), findsNothing);
 
-  //   // Tap the '+' icon and trigger a frame.
-  //   await tester.tap(find.byIcon(Icons.add));
-  //   await tester.pump();
+    // // Tap the '+' icon and trigger a frame.
+    // await tester.tap(find.byIcon(Icons.add));
+    // await tester.pump();
 
-  //   // Verify that our counter has incremented.
-  //   expect(find.text('0'), findsNothing);
-  //   expect(find.text('1'), findsOneWidget);
-  // });
-  // testWidgets('Stream', (WidgetTester tester) async {
-  //   final ws = UserWS(
-  //     User("l", "1", "l@1.it", "it"),
-  //     "p@1.it",
-  //   );
-  //   // Build our app and trigger a frame.
-  //   await tester.pumpWidget(StreamBuilder(
-  //     stream: ws.channel.stream,
-  //     builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
-  //         Text(snapshot.hasData ? '${snapshot.data}' : ''),
-  //   ));
-  // });
+    // // Verify that our counter has incremented.
+    // expect(find.text('0'), findsNothing);
+    // expect(find.text('1'), findsOneWidget);
+  });
 }

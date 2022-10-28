@@ -1,4 +1,3 @@
-import 'package:dbcrypt/dbcrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -23,6 +22,7 @@ void main() {
     const email = "l@1.it";
 
     User user = User("l", "1", email, password);
+    debugPrint(user.password);
 
     expect(User.crypt(email, password), user.password);
     // expect(User.crypt("l@1.it",password) == user.password, false);
