@@ -25,7 +25,7 @@ class Message {
         nome = json["nome"],
         cognome = json["cognome"],
         data = DateTime.parse(json["data"]),
-        sender = json["sender"] == "1",
+        sender = json["send_by_user"] == "1",
         gravita = json["gravita"] == null ? null : int.parse(json["gravita"]);
 
   String get nomeCognome => nome + " " + cognome;
