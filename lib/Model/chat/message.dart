@@ -6,7 +6,7 @@ class Message {
   final String cognome;
   final String testo;
   final DateTime data;
-  final bool sender;
+  final bool sendByUser;
   final int? gravita;
 
   Message(
@@ -15,7 +15,7 @@ class Message {
     this.cognome,
     this.testo,
     this.data,
-    this.sender,
+    this.sendByUser,
     this.gravita,
   );
 
@@ -25,7 +25,7 @@ class Message {
         nome = json["nome"],
         cognome = json["cognome"],
         data = DateTime.parse(json["data"]),
-        sender = json["send_by_user"] == "1",
+        sendByUser = json["send_by_user"] == "1",
         gravita = json["gravita"] == null ? null : int.parse(json["gravita"]);
 
   String get nomeCognome => nome + " " + cognome;

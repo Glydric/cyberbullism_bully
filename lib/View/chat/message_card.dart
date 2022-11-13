@@ -34,14 +34,14 @@ class MessageCard extends StatelessWidget {
   }
 
   Alignment get messageAlignment =>
-      message.sender ? Alignment.centerLeft : Alignment.centerRight;
+      message.sendByUser ? Alignment.centerLeft : Alignment.centerRight;
 
   CrossAxisAlignment get crossTextAlignment =>
-      message.sender ? CrossAxisAlignment.start : CrossAxisAlignment.end;
+      message.sendByUser ? CrossAxisAlignment.start : CrossAxisAlignment.end;
 
   EdgeInsets get marginAlignments => EdgeInsets.only(
-        left: message.sender ? 0 : 50,
-        right: message.sender ? 50 : 0,
+        left: message.sendByUser ? 0 : 50,
+        right: message.sendByUser ? 50 : 0,
       );
 
   EdgeInsets get lastPadding =>
