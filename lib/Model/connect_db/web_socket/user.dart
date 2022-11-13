@@ -10,7 +10,7 @@ const url =
 
 class UserWS {
   final channel = WebSocketChannel.connect(
-    Uri.parse(url + 'user'),
+    Uri.parse(url + 'User'),
   );
 
   UserWS(User user, String otherEmail) {

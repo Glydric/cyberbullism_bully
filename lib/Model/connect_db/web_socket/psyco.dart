@@ -7,7 +7,7 @@ class PsycoWS extends UserWS {
   @override
   // ignore: overridden_fields
   final channel = WebSocketChannel.connect(
-    Uri.parse(url + 'psyco'),
+    Uri.parse(url + 'Psyco'),
   );
 
   PsycoWS(User user, String otherEmail) : super(user, otherEmail);
