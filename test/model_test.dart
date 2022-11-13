@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:cyberbullism_bully/Model/learning/get_learnings.dart';
 import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/Model/chat/message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -17,6 +18,39 @@ void main() {
 
     expectLater(learnings.isNotEmpty, true);
   });
+  test("Message json parsing correct", () async {
+    const jsons = [
+      {
+        "otherEmail": "p@1.it",
+        "testo": "hello",
+        "nome": "p",
+        "cognome": "1",
+        "data": "2022-11-13 22:11:56",
+        "send_by_user": "0",
+        "gravita": null
+      },
+      {
+        "otherEmail": "l@1.it",
+        "testo": "ora va bene",
+        "nome": "l",
+        "cognome": "1",
+        "data": "2022-11-13 22:09:40",
+        "send_by_user": "1",
+        "gravita": '0'
+      },
+    ];
+    for (var json in jsons) {
+      var m = Message.fromJson(json);
+
+      expect(m.otherEmail, json["otherEmail"]);
+      expect(m.testo, json["testo"]);
+      expect(m.nome, json["nome"]);
+      expect(m.cognome, json["cognome"]);
+      expect(m.data.toString().split('.')[0], json["data"]);
+      expect(m.sendByUser, json["send_by_user"] == '1');
+      expect(m.gravita, json["gravita"] == null ? null : int.parse(json["gravita"]!));
+    }
+  });
   test("User Crypt test", () async {
     const password = "it";
     const email = "l@1.it";
@@ -25,7 +59,6 @@ void main() {
     debugPrint(user.password);
 
     expect(User.crypt(email, password), user.password);
-    // expect(User.crypt("l@1.it",password) == user.password, false);
   });
   /* test("User Websocket test", () async {
 
