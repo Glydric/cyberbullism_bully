@@ -36,7 +36,7 @@ class _ListaSegnalazioniState extends State<ListaSegnalazioni> {
   @override
   void initState() {
     timer = Timer.periodic(
-      const Duration(milliseconds: 100),
+      const Duration(milliseconds: 500),
       (_) => updateSegnalazioni(),
     );
     super.initState();

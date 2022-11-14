@@ -63,7 +63,7 @@ class ChatViewState extends State<ChatView> {
   void initState() {
     setWebSocket();
     timer = Timer.periodic(
-      const Duration(milliseconds: 100),
+      const Duration(milliseconds: 500),
       (_) => updateChat(),
     );
     super.initState();
