@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:cyberbullism_bully/View/connection_error_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +23,6 @@ class ChatView extends StatefulWidget {
 
 class ChatViewState extends State<ChatView> {
   final TextEditingController textController = TextEditingController();
-  late final Timer timer;
   late final UserWS ws;
 
   get errorText => textController.text.length == _maximumTextLength
@@ -36,24 +34,19 @@ class ChatViewState extends State<ChatView> {
       ? _maximumTextLength
       : null;
 
-  void updateChat() => setState(ws.update);
-
   void sendMessage() => ws.sendMessage(textController.text);
 
   void send() {
     if (RegExp(r"[\S]").hasMatch(textController.text)) {
       sendMessage();
-      updateChat();
     }
     textController.clear();
   }
 
-  void setWebSocket()=>
-    ws = UserWS(widget.user, widget.otherEmail);
+  void setWebSocket() => ws = UserWS(widget.user, widget.otherEmail);
 
   @override
   void dispose() {
-    timer.cancel();
     textController.dispose();
     ws.close();
     super.dispose();
@@ -62,10 +55,6 @@ class ChatViewState extends State<ChatView> {
   @override
   void initState() {
     setWebSocket();
-    timer = Timer.periodic(
-      const Duration(milliseconds: 500),
-      (_) => updateChat(),
-    );
     super.initState();
   }
 

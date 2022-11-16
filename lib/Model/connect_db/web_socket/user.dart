@@ -5,9 +5,9 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'package:cyberbullism_bully/Model/user.dart';
 
-const url =
-    'ws://8080-glydric22-cyberbullismp-j4e9msdl2wv.ws-eu72.gitpod.io/';
+const url = 'ws://8080-glydric22-cyberbullismb-fnwbx9kyp7k.ws-eu75.gitpod.io/';
 
+//TODO update url on necessity
 class UserWS {
   final channel = WebSocketChannel.connect(
     Uri.parse(url + 'User'),
@@ -20,12 +20,9 @@ class UserWS {
           'password': user.password,
           'otherEmail': otherEmail,
         }));
-    update();
   }
 
   Stream<dynamic> get stream => channel.stream;
-
-  void update() => channel.sink.add("reload");
 
   void sendMessage(String message) => channel.sink.add("send " + message);
 
