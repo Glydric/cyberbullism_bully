@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'message.dart';
+import 'package:cyberbullism_bully/Model/chat/message.dart';
 
 /// Una lista di messaggi con lo stesso psicologo
 class Chat {

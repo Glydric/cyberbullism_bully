@@ -3,8 +3,9 @@ import 'dart:collection';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
-import '../connect_db/login_exception.dart';
-import 'psyco.dart';
+
+import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
+import 'package:cyberbullism_bully/Model/psyco/psyco.dart';
 
 const String alboUrl = "https://areariservata.psy.it";
 

@@ -5,10 +5,10 @@ import 'package:cyberbullism_bully/View/connection_error_ui.dart';
 import 'package:cyberbullism_bully/View/chat/psyco/chat_view.dart';
 import 'package:flutter/material.dart';
 
-import '/Model/connect_db/psyco_db_connector.dart';
-import '/Model/segnalazione.dart';
-import '/Model/user.dart';
-import 'segnalazione_card.dart';
+import 'package:cyberbullism_bully/Model/connect_db/psyco_db_connector.dart';
+import 'package:cyberbullism_bully/Model/segnalazione.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/View/segnalazioni/psyco/segnalazione_card.dart';
 
 /// lista anche relativamente lunga e che
 /// riserva lo stesso spazio per ogni Container (segnalazione)

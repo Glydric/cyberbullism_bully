@@ -1,4 +1,4 @@
-import '../user.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
 
 class Psyco extends User {
   final String isValid;

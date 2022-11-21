@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:cyberbullism_bully/Model/user.dart';
-import '/Model/user_save_manager.dart';
-import 'login_registration/login_page.dart';
-import 'login_registration/change_password.dart';
+import 'package:cyberbullism_bully/Model/user_save_manager.dart';
+import 'package:cyberbullism_bully/View/profile/login_registration/login_page.dart';
+import 'package:cyberbullism_bully/View/profile/login_registration/change_password.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

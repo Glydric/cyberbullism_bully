@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '/Model/segnalazione.dart';
+
+import 'package:cyberbullism_bully/Model/segnalazione.dart';
 
 class SegnalazioneCard extends StatefulWidget {
   final Segnalazione segnalazione;

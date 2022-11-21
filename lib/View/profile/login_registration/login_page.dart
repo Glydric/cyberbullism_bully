@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '/Model/psyco/psyco.dart';
-import '/Model/connect_db/psyco_db_connector.dart';
-import '/Model/connect_db/user_db_connector.dart';
-import '/Model/connect_db/login_exception.dart';
-import '/Model/user.dart';
-import '/Model/user_save_manager.dart';
+import 'package:cyberbullism_bully/Model/psyco/psyco.dart';
+import 'package:cyberbullism_bully/Model/connect_db/psyco_db_connector.dart';
+import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
+import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
+import 'package:cyberbullism_bully/Model/user_save_manager.dart';
 
 import 'register_page.dart';
 

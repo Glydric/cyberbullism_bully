@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main_switcher.dart';
+import 'package:cyberbullism_bully/main_switcher.dart';
 
 void main() async => runApp(const MainApp());
 

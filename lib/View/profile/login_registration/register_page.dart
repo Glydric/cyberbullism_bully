@@ -1,9 +1,9 @@
 import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:flutter/material.dart';
 
-import '/Model/connect_db/psyco_db_connector.dart';
-import '/Model/connect_db/login_exception.dart';
-import '/Model/connect_db/user_db_connector.dart';
+import 'package:cyberbullism_bully/Model/connect_db/psyco_db_connector.dart';
+import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
+import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);

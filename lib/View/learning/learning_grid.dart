@@ -1,7 +1,7 @@
 import 'package:cyberbullism_bully/View/learning/learning_card.dart';
 import 'package:flutter/material.dart';
 
-import '/Model/learning/learning_element.dart';
+import 'package:cyberbullism_bully/Model/learning/learning_element.dart';
 
 class LearningGrid extends StatefulWidget {
   final List<LearningElement> list;

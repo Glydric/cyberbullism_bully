@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '/Model/user_save_manager.dart';
-import '/Model/connect_db/login_exception.dart';
-import '/Model/connect_db/user_db_connector.dart';
-import '/Model/user.dart';
+import 'package:cyberbullism_bully/Model/user_save_manager.dart';
+import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
+import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
 
 class ChangePassword extends StatefulWidget {
   final User user;

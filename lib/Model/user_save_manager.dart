@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'psyco/psyco.dart';
-import 'user.dart';
+import 'package:cyberbullism_bully/Model/user.dart';
 
 class UserSavingManager {
   static const userKey = "user";
