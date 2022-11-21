@@ -7,7 +7,7 @@ import 'package:cyberbullism_bully/Model/user.dart';
 
 const url = 'ws://8080-glydric22-cyberbullismb-fnwbx9kyp7k.ws-eu75.gitpod.io/';
 
-//TODO update url on necessity
+//* update url on necessity
 class UserWS {
   final channel = WebSocketChannel.connect(
     Uri.parse(url + 'User'),

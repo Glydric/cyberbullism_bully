@@ -19,7 +19,7 @@ class PsycoDbConnector extends UserDbConnector {
       await AlboGetter.getFuturePsyco(
         psy.nome,
         psy.cognome,
-        "", //TODO implementare l'ordine
+        "", //TODO? implementare l'ordine ?
         psy.password,
       ),
       psy.email,
