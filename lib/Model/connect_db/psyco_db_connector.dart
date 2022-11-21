@@ -47,7 +47,7 @@ class PsycoDbConnector extends UserDbConnector {
   static Future<Psyco> getUser(String email, String password) async {
     final body = {
       "email": email,
-      "password": User.crypt(email,password),
+      "password": User.crypt(email, password),
     };
     Response response = await post(
       Uri.parse(url + userFile + "Get.php"),
@@ -85,36 +85,6 @@ class PsycoDbConnector extends UserDbConnector {
     LoginException.thrower(response.body);
     final List<dynamic> jsonList = jsonDecode(response.body);
     return jsonList.map((json) => Message.fromJson(json)).toList();
-  }
-
-  static Future<List<Message>> getMessagesOf(
-      User user, String otherEmail) async {
-    final body = {
-      "email": user.email,
-      "password": user.password,
-      "otherEmail": otherEmail,
-    };
-    Response response = await post(
-      Uri.parse(url + userFile + "GetMessages.php"),
-      body: body,
-    );
-    LoginException.thrower(response.body);
-    final List<dynamic> jsonList = jsonDecode(response.body);
-    return jsonList.map((json) => Message.fromJson(json)).toList();
-  }
-
-  static void sendMessage(User user, String otherEmail, String testo) async {
-    final body = {
-      "email": user.email,
-      "password": user.password,
-      "otherEmail": otherEmail,
-      "testo": testo,
-    };
-    Response response = await post(
-      Uri.parse(url + userFile + "SendMessage.php"),
-      body: body,
-    );
-    LoginException.thrower(response.body);
   }
 
   static void presaInCarica(User user, Segnalazione segnalazione) async {

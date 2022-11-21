@@ -42,7 +42,8 @@ class UserDbConnector {
   }
 
   /// consente di modificare la password del'utente passando la nuova
-  static modifyPassword(User user, String insertedPassword, String newPassword) async {
+  static modifyPassword(
+      User user, String insertedPassword, String newPassword) async {
     final body = {
       "email": user.email,
       "password": user.password,
@@ -105,37 +106,5 @@ class UserDbConnector {
     LoginException.thrower(response.body);
     final List<dynamic> jsonList = jsonDecode(response.body);
     return jsonList.map((json) => Message.fromJson(json)).toList();
-  }
-
-  static Future<List<Message>> getMessagesOf(
-      // TODO remove when websocket finished
-      User user,
-      String otherEmail) async {
-    final body = {
-      "email": user.email,
-      "password": user.password,
-      "otherEmail": otherEmail
-    };
-    Response response = await post(
-      Uri.parse(url + userFile + "GetMessages.php"),
-      body: body,
-    );
-    LoginException.thrower(response.body);
-    final List<dynamic> jsonList = jsonDecode(response.body);
-    return jsonList.map((json) => Message.fromJson(json)).toList();
-  }
-
-  static void sendMessage(User user, String otherEmail, String testo) async {
-    final body = {
-      "email": user.email,
-      "password": user.password,
-      "otherEmail": otherEmail,
-      "testo": testo
-    };
-    Response response = await post(
-      Uri.parse(url + userFile + "SendMessage.php"),
-      body: body,
-    );
-    LoginException.thrower(response.body);
   }
 }
