@@ -1,9 +1,9 @@
 # Cyber Help
+Unicam Flutter app against cyberbullism
 
-Unicam Flutter app against cyberbullism</br>
-![Logo](https://github.com/Glydric22/cyberbullism_bully/blob/master/assets/Logo.png?raw=true)
+<img align="right" width="190" height="190" src="https://github.com/Glydric22/cyberbullism_bully/blob/master/assets/Logo.png?raw=true">
+
 ## Contesto
-
 CyberHelp è un’applicazione mobile con l’intento di essere di aiuto a ragazzi vittme di cyber-bullismo, sia in una forma di “incubazione” sia in forma grave.
 
 L'utente target dell'applicazione infatti saranno ragazzi di scuole medie e superiori, poiché questi ricadono nella fascia d'età più "fertile" per questo tipo di fenomeno. Essi avranno la possibilità duque di "chattare" gratuitamente con veri e propri psicologi qualificati; ogni psicologo può avere una o più conversazioni con multipli utenti. Dunque ci saranno due macro-tipi di utenti:
