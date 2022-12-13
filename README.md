@@ -36,6 +36,6 @@ Studenti
 </br>
 ~ Leonardo Migliorelli ([Glydric22](https://github.com/Glydric22)) **MAT. 113920**
 </br>
-~ Loris E. Minetti ([LorisMinetti](https://github.com/LorisMinetti)) **MAT. 113920**  
+~ Loris E. Minetti ([LorisMinetti](https://github.com/LorisMinetti)) **MAT. 115346**  
 
 
