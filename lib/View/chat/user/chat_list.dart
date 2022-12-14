@@ -27,7 +27,7 @@ class ChatListState extends State<ChatList> {
       );
 
   toChatPage(String otherEmail) => Navigator.of(context).push(MaterialPageRoute(
-        builder: navigate(otherEmail),
+        builder: (_) => navigate(otherEmail),
       ));
 
   navigate(String otherEmail) => ChatView(widget.user, otherEmail);
