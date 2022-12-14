@@ -13,10 +13,10 @@ class ChatList extends StatefulWidget {
   const ChatList(this.user, this.chats, {Key? key}) : super(key: key);
 
   @override
-  State<ChatList> createState() => _ChatListState();
+  State<ChatList> createState() => ChatListState();
 }
 
-class _ChatListState extends State<ChatList> {
+class ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) => ListView.builder(
         itemCount: widget.chats.length,
@@ -27,6 +27,8 @@ class _ChatListState extends State<ChatList> {
       );
 
   toChatPage(String otherEmail) => Navigator.of(context).push(MaterialPageRoute(
-        builder: (_) => ChatView(widget.user, otherEmail),
+        builder: navigate(otherEmail),
       ));
+
+  navigate(String otherEmail) => ChatView(widget.user, otherEmail);
 }
