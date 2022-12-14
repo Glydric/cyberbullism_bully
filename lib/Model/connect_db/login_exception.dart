@@ -26,9 +26,9 @@ class LoginException implements Exception {
         return "Password Sbagliata";
       case "pec-invalid":
         return "Pec psicologo non valida";
-      case "psy-invalid":
+      case "psyco-invalid":
         return "Psicologo sospeso dalla carica";
-      case "psy-not-found":
+      case "psyco-not-found":
         return "Psicologo non iscritto all'albo";
       case "user-not-found":
         return "Utente o password errata";
@@ -46,17 +46,18 @@ class LoginException implements Exception {
     }
   }
 
+  //TODO check if needed after transition to backend of psyco albo getter
   ///passando una stringa solleva eccezioni tipiche degli psicologi se essa è presente
   static void psyThrower(Psyco psy, String email, String nome, String cognome) {
     if (email != psy.email) {
       throw LoginException("pec-invalid");
     }
     if (psy.isValid != "true") {
-      throw LoginException("psy-invalid");
+      throw LoginException("psyco-invalid");
     }
     if (nome.toLowerCase() != psy.nome.toLowerCase() ||
         cognome.toLowerCase() != psy.cognome.toLowerCase()) {
-      throw LoginException("psy-not-found");
+      throw LoginException("psyco-not-found");
     }
   }
 }
