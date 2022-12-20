@@ -1,46 +1,25 @@
-
 class LoginException implements Exception {
   final dynamic message;
-  static final List<String> errorCodes = [
-    "user-not-found",
-    "invalid-email",
-    "email-already-in-use",
-    "empty-password",
-    "wrong-password"
-        "too-many-requests",
-  ];
+  static final Map<String, String> errorCodes = {
+    "user-not-found": "Utente o password errata",
+    "invalid-email": "Inserire un'email corretta",
+    "email-already-in-use": "Account già esistente",
+    "empty-password": "Inserire una password",
+    "wrong-password": "Password Sbagliata",
+    "weak-password": "La password non è sicura",
+    "pec-invalid": "Pec psicologo non valida",
+    "psyco-invalid": "Psicologo non iscritto all'albo",
+    "too-many-requests": "Troppi tentativi, provare più tardi",
+  };
 
   LoginException(this.message);
 
   @override
-  toString() {
-    switch (message) {
-      case "invalid-email":
-        return "Inserire un'email corretta";
-      case "email-already-in-use":
-        return "Account già esistente";
-      case "weak-password":
-        return "La password non è sicura";
-      case 'wrong-password':
-        return "Password Sbagliata";
-      case "pec-invalid":
-        return "Pec psicologo non valida";
-      case "psyco-invalid":
-        return "Psicologo sospeso dalla carica";
-      case "psyco-not-found":
-        return "Psicologo non iscritto all'albo";
-      case "user-not-found":
-        return "Utente o password errata";
-      case "too-many-requests":
-        return "Troppi tentativi, provare più tardi";
-      default:
-        return 'Errore Sconosciuto';
-    }
-  }
+  toString() => errorCodes[message] ?? "Errore Sconosciuto" + message;
 
   ///passando una stringa solleva l'eccezione se essa è presente
   static void thrower(String textCode) {
-    if (errorCodes.contains(textCode)) {
+    if (errorCodes.containsKey(textCode)) {
       throw LoginException(textCode);
     }
   }
