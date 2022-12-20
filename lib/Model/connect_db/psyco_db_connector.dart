@@ -5,8 +5,7 @@ import 'package:http/http.dart';
 
 import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
 import 'package:cyberbullism_bully/Model/chat/message.dart';
-import 'package:cyberbullism_bully/Model/psyco/albo_getter.dart';
-import 'package:cyberbullism_bully/Model/psyco/psyco.dart';
+import 'package:cyberbullism_bully/Model/psyco.dart';
 import 'package:cyberbullism_bully/Model/segnalazione.dart';
 import 'package:cyberbullism_bully/Model/user.dart';
 import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
@@ -14,28 +13,12 @@ import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';
 const String userFile = "Psyco";
 
 class PsycoDbConnector extends UserDbConnector {
-  static psyChecks(User psy) async {
-    LoginException.psyThrower(
-      await AlboGetter.getFuturePsyco(
-        psy.nome,
-        psy.cognome,
-        "", //TODO? implementare l'ordine ?
-        psy.password,
-      ),
-      psy.email,
-      psy.nome,
-      psy.cognome,
-    );
-  }
-
   static addUser(User user) async {
-    await psyChecks(user);
     final body = {
       "nome": user.nome,
       "cognome": user.cognome,
       "email": user.email,
       "password": user.password,
-      "Auth_Key_Create_Psyco": "24BEC3BFA"
     };
     Response response = await post(
       Uri.parse(url + userFile + "Create.php"),

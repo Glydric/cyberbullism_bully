@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:cyberbullism_bully/Model/psyco/psyco.dart';
+import 'package:cyberbullism_bully/Model/psyco.dart';
 import 'package:cyberbullism_bully/Model/connect_db/psyco_db_connector.dart';
 import 'package:cyberbullism_bully/Model/connect_db/user_db_connector.dart';
 import 'package:cyberbullism_bully/Model/connect_db/login_exception.dart';

@@ -1,4 +1,3 @@
-import 'package:cyberbullism_bully/Model/psyco/psyco.dart';
 
 class LoginException implements Exception {
   final dynamic message;
@@ -43,21 +42,6 @@ class LoginException implements Exception {
   static void thrower(String textCode) {
     if (errorCodes.contains(textCode)) {
       throw LoginException(textCode);
-    }
-  }
-
-  //TODO check if needed after transition to backend of psyco albo getter
-  ///passando una stringa solleva eccezioni tipiche degli psicologi se essa è presente
-  static void psyThrower(Psyco psy, String email, String nome, String cognome) {
-    if (email != psy.email) {
-      throw LoginException("pec-invalid");
-    }
-    if (psy.isValid != "true") {
-      throw LoginException("psyco-invalid");
-    }
-    if (nome.toLowerCase() != psy.nome.toLowerCase() ||
-        cognome.toLowerCase() != psy.cognome.toLowerCase()) {
-      throw LoginException("psyco-not-found");
     }
   }
 }

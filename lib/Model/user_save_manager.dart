@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'psyco/psyco.dart';
+import 'psyco.dart';
 import 'package:cyberbullism_bully/Model/user.dart';
 
 class UserSavingManager {
