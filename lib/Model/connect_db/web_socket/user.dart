@@ -5,7 +5,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'package:cyberbullism_bully/Model/user.dart';
 
-const url = 'ws://8080-glydric22-cyberbullismb-fnwbx9kyp7k.ws-eu75.gitpod.io/';
+const url = 'ws://8080-glydric22-cyberbullismb-zws4lqicytd.ws-eu79.gitpod.io/';
 
 //* update url on necessity
 class UserWS {
