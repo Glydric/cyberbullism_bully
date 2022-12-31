@@ -37,7 +37,8 @@ class _ChangePasswordState extends State<ChangePassword> {
       ));
       Navigator.pop(context);
     } on LoginException catch (e) {
-      _errorName = e.toString();
+      _errorName =
+          e.message == "user-not-found" ? "Password errata" : e.toString();
     } finally {
       setState(() => _errorName);
     }
