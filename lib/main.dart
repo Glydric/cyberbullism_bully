@@ -23,6 +23,7 @@ class MainApp extends StatelessWidget {
               ),
           textButtonTheme: textButtonTheme,
         ),
+        darkTheme: ThemeData.dark(),
         home: const ScreenSwitcher(),
       );
 }
